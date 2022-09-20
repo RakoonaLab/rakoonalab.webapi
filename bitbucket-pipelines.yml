@@ -1,0 +1,60 @@
+#  Template .NET Core build
+
+#  This template allows you to validate your .NET Core package.
+#  The workflow allows running tests and code linting on the default branch.
+
+image: atlassian/default-image:2
+# image: mcr.microsoft.com/dotnet/sdk:6.0
+
+pipelines:
+#  default:
+#    - parallel:
+#        - step:
+#            name: Build and Test
+#            caches:
+#              - dotnetcore
+#            script:
+#              - REPORTS_PATH=./test-reports/build_${BITBUCKET_BUILD_NUMBER}
+#              - dotnet restore
+#              - dotnet build --no-restore --configuration Release
+#              - dotnet test --no-build --configuration Release --test-adapter-path:. --logger:"junit;LogFilePath=$REPORTS_PATH/junit.xml"
+#        - step:
+#            name: Lint the code
+#            caches:
+#              - dotnetcore
+#            script:
+#              - export SOLUTION_NAME=rakoona.webapiapplication
+#              - export REPORTS_PATH=linter-reports
+#              - dotnet new tool-manifest
+#              - dotnet tool install JetBrains.ReSharper.GlobalTools
+#              - dotnet tool restore
+#              - dotnet jb inspectcode ${SOLUTION_NAME}.sln --output="${REPORTS_PATH}/jb-${BITBUCKET_BUILD_NUMBER}.xml"
+#            artifacts:
+#              - linter-reports/**
+  branches:
+    develop:
+    - step:
+        name: build and publish docker image
+        services:
+          - docker
+        caches:
+          - docker
+        script:
+          - docker build -t aspnetapp rakoona.webapiapplication
+          - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+          - docker tag aspnetapp registry.heroku.com/$HEROKU_BE_DV_APP_NAME/web
+          - docker push registry.heroku.com/$HEROKU_BE_DV_APP_NAME/web
+          - docker inspect registry.heroku.com/$HEROKU_BE_DV_APP_NAME/web --format={{.Id}} > WEB_DOCKER_IMAGE_ID
+        artifacts:
+          - WEB_DOCKER_IMAGE_ID
+    - step:
+        name: deploy to Heroku
+        deployment: staging
+        script:
+          - export WEB_DOCKER_IMAGE_ID=$(cat WEB_DOCKER_IMAGE_ID)
+          - curl -n -X PATCH -d '{"updates":[{"type":"web", "docker_image":"'"$WEB_DOCKER_IMAGE_ID"'"}]}' https://api.heroku.com/apps/$HEROKU_BE_DV_APP_NAME/formation -H "Content-Type:application/json" -H "Accept:application/vnd.heroku+json; version=3.docker-releases" -H "Authorization:Bearer $HEROKU_API_KEY"
+          - echo "Done..."
+    
+
+options:
+  docker: true
