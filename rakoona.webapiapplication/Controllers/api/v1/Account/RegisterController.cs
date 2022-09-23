@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol;
 using rakoona.webapiapplication.Entities.Dtos.Request;
 using rakoona.webapiapplication.Entities.Dtos.Response;
 using rakoona.webapiapplication.Entities.Models.Seguridad;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Authenticate
 {
@@ -18,10 +20,11 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Authenticate
             _userManager = userManager;
         }
 
+        [SwaggerOperation(Tags = new[] { "Account" })]
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] RegisterRequest model)
         {
-            var userExists = await _userManager.FindByNameAsync(model.Username);
+            var userExists = await _userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
@@ -29,12 +32,15 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Authenticate
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
+                UserName = model.Email
             };
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded) 
+                return StatusCode(StatusCodes.Status400BadRequest, new Response { Status = "Error", Message = result.Errors.Select(x=> x.Description).ToJson() });
+            
+                
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 
