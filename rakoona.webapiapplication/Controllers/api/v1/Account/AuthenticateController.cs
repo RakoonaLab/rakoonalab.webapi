@@ -6,6 +6,7 @@ using rakoona.webapiapplication.Configuration.Services;
 using rakoona.webapiapplication.Entities.Dtos.Request;
 using rakoona.webapiapplication.Entities.Dtos.Response;
 using rakoona.webapiapplication.Entities.Models.Seguridad;
+using Swashbuckle.AspNetCore.Annotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -35,9 +36,10 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Authenticate
 
         [HttpPost]
         [Route("register-admin")]
+        [SwaggerOperation(Tags = new[] { "Account" })]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterRequest model)
         {
-            var userExists = await _userManager.FindByNameAsync(model.Username);
+            var userExists = await _userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
@@ -45,7 +47,6 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Authenticate
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
@@ -71,6 +72,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Authenticate
         [HttpGet]
         [Route("get-token")]
         [Authorize]
+        [SwaggerOperation(Tags = new[] { "Account" })]
         public async Task<IActionResult> GetToken()
         {
             var accessToken = _httpContextAccessor.HttpContext.Request.Headers["Authorization"];
