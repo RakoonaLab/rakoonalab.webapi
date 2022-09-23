@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Text.Encodings.Web;
 using System.Text;
 using rakoona.webapiapplication.Entities.Dtos.Request;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Account
 {
@@ -30,6 +31,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Account
             _emailSender = emailSender;
         }
 
+        [SwaggerOperation(Tags = new[] { "Account" })]
         [HttpPost]
         public async Task<IActionResult> OnPostAsync([FromQuery] string email)
         {
