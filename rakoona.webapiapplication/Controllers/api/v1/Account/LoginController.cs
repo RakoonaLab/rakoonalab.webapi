@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using rakoona.webapiapplication.Entities.Dtos.Request;
 using rakoona.webapiapplication.Entities.Dtos.Response;
 using rakoona.webapiapplication.Entities.Models.Seguridad;
+using Swashbuckle.AspNetCore.Annotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -29,6 +30,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Account
             _logger = logger;
         }
 
+        [SwaggerOperation(Tags = new[] { "Account" })]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] AuthenticateRequest model)
         {
