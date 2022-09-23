@@ -30,8 +30,6 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
             _context = context;
         }
 
-        // POST: api/Clinicas
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [SwaggerOperation(Tags = new[] { "Clinicas" })]
         public async Task<ActionResult<ClinicaResponse>> PostClinica([FromBody] CreateClinicaRequest request)
