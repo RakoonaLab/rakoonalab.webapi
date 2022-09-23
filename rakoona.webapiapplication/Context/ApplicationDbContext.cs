@@ -19,26 +19,26 @@ namespace rakoona.webapiapplication.Context
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.Entity<IdentityRole>(entity =>
             {
-                
             });
             builder.Entity<IdentityUserLogin<string>>(entity =>
             {
-                
             });
             builder.Entity<IdentityUserRole<string>>(entity =>
             {
-                
+
             });
             builder.Entity<IdentityUserToken<string>>(entity =>
             {
-                
+
             });
+
             builder.ApplyConfiguration(new UserMap());
             builder.ApplyConfiguration(new ConsultaMap());
             builder.ApplyConfiguration(new PacienteMap());
