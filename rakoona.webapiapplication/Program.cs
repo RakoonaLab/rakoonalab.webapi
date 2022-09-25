@@ -97,15 +97,37 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddCors();
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy(
+//        name: "AllowOrigin",
+//        builder =>
+//        {
+//            builder.AllowAnyOrigin()
+//                    .AllowAnyMethod()
+//                    .AllowAnyHeader();
+//        });
+//});
+
+builder.Services.AddCors(options => options.AddPolicy("AllowOrigin", builder =>
+{
+    builder
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .WithOrigins("http://localhost:4200")
+    .AllowCredentials();
+}));
+
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 var app = builder.Build();
 
-app.UseCors(x => x
-        .AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader());
+app.UseCors("AllowOrigin");
+
+//app.UseCors(x => x
+//        .AllowAnyOrigin()
+//        .AllowAnyMethod()
+//        .AllowAnyHeader());
 
 app.UseSwagger();
 app.UseSwaggerUI();
