@@ -9,15 +9,13 @@ using rakoona.webapiapplication.Entities.Models.Seguridad;
 using rakoona.webapiapplication.Configuration.Helpers;
 using rakoona.webapiapplication.Configuration.Extensions;
 using rakoona.webapiapplication.Configuration.Services;
+using rakoona.webapi.Configuration;
 
-var builder = WebApplication.CreateBuilder(args);   
+var builder = WebApplication.CreateBuilder(args);
 
 ConfigurationManager configuration = builder.Configuration;
 
-
-
-var connectionString = builder.Configuration.GetConnectionString("SqlConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+Database.ConfigConnectionString(ref builder);
 
 
 // For Identity
@@ -123,11 +121,6 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSet
 var app = builder.Build();
 
 app.UseCors("AllowOrigin");
-
-//app.UseCors(x => x
-//        .AllowAnyOrigin()
-//        .AllowAnyMethod()
-//        .AllowAnyHeader());
 
 app.UseSwagger();
 app.UseSwaggerUI();
