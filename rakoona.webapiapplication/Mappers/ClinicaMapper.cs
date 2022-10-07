@@ -6,14 +6,16 @@ namespace rakoona.webapiapplication.Mappers
 {
     public static class ClinicaMapper
     {
-        public static Clinica MapFromRequest(this CreateClinicaRequest request)
+        public static Clinica CreateFromRequest(this CreateClinicaRequest request, string userId)
         {
             Clinica clinica = new Clinica
             {
+                ExternalId = Guid.NewGuid().ToString(),
                 Nombre = request.Nombre,
                 Direccion = request.Direccion,
                 Telefono = request.Telefono,
-                FechaDeCreacion = request.FechaDeCreacion,
+                FechaDeCreacion = DateTime.Now,
+                UserRef = userId
             };
             return clinica;
         }
@@ -22,7 +24,7 @@ namespace rakoona.webapiapplication.Mappers
         {
             ClinicaResponse response = new ClinicaResponse
             {
-                Id= entity.ExternalId,
+                Id = entity.ExternalId,
                 Nombre = entity.Nombre,
                 Direccion = entity.Direccion,
                 Telefono = entity.Telefono,
