@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using rakoona.webapi.Configuration.Models;
 
 namespace rakoona.webapiapplication.Configuration.Extensions
 {
