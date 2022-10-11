@@ -6,10 +6,10 @@ using rakoona.webapiapplication.Context;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using rakoona.webapiapplication.Entities.Models.Seguridad;
-using rakoona.webapiapplication.Configuration.Helpers;
 using rakoona.webapiapplication.Configuration.Extensions;
 using rakoona.webapiapplication.Configuration.Services;
 using rakoona.webapi.Configuration;
+using rakoona.webapi.Configuration.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
