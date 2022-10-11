@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using rakoona.webapi.Configuration.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
