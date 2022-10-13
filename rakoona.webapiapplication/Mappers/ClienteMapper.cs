@@ -6,9 +6,9 @@ namespace rakoona.webapiapplication.Mappers
 {
     public static class ClienteMapper
     {
-        public static PersonaBase CreateFromRequest(this CreateClienteRequest request, string userId)
+        public static Cliente CreateFromRequest(this CreateClienteRequest request, string userId)
         {
-            PersonaBase Cliente = new PersonaBase
+            Cliente Cliente = new Cliente
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = DateTime.Now
