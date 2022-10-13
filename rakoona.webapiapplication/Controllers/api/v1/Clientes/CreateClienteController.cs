@@ -4,6 +4,7 @@ using rakoona.webapiapplication.Configuration.Services;
 using rakoona.webapiapplication.Context;
 using rakoona.webapiapplication.Entities.Dtos.Request;
 using rakoona.webapiapplication.Entities.Dtos.Response;
+using rakoona.webapiapplication.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.api.v1.Clientes
@@ -30,12 +31,12 @@ namespace rakoona.webapi.Controllers.api.v1.Clientes
             if (_context.Clientes == null)
                 return Problem("Entity set 'ApplicationDbContext.Clientes'  is null.");
 
-            var clinica = request.CreateFromRequest(_userInfo.UserId);
+            var cliente = request.CreateFromRequest(_userInfo.UserId);
 
-            _context.Clientes.Add(clinica);
+            _context.Clientes.Add(cliente);
             await _context.SaveChangesAsync();
 
-            var response = clinica.MapToResponse();
+            var response = cliente.MapToResponse();
             return StatusCode(StatusCodes.Status201Created, response);
         }
 
