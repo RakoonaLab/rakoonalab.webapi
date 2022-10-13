@@ -1,9 +1,17 @@
-﻿namespace rakoona.webapiapplication.Entities.Dtos.Request
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+
+namespace rakoona.webapiapplication.Entities.Dtos.Request
 {
     public class CreateClinicaRequest
     {
-        public string Nombre { get; set; }
-        public string Direccion { get; set; }
-        public string Telefono { get; set; }
+        [JsonProperty("nombre", Required = Required.Always)]
+        public string? Nombre { get; set; }
+
+        [JsonProperty("direccion", Required = Required.Always)]
+        public string? Direccion { get; set; }
+
+        [JsonProperty("telefono", Required = Required.Always)]
+        public string? Telefono { get; set; }
     }
 }
