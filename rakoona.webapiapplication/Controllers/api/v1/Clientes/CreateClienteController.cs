@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.api.v1.Clientes
 {
-    [Route("api/clinicas")]
+    [Route("api/clientes")]
     [Authorize]
     [ApiController]
     public class CreateClienteController : ControllerBase
