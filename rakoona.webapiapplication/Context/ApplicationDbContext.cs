@@ -53,7 +53,7 @@ namespace rakoona.webapiapplication.Context
         public DbSet<Mascota> Mascotas { get; set; }
         public DbSet<PacienteBase> Pacientes { get; set; }
         public DbSet<Medico> Medicos { get; set; }
-        public DbSet<Owner> Duenios { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
         public DbSet<PersonaBase> Personas { get; set; }
         public DbSet<Clinica> Clinicas { get; set; }
         public DbSet<Dosis> Dosis { get; set; }
