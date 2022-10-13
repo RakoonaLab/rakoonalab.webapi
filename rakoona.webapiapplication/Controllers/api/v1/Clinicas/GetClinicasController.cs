@@ -11,12 +11,12 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
     [Route("api/clinicas")]
     [Authorize]
     [ApiController]
-    public class GetClinicasController : ControllerBase
+    public class GetClientesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IUserInfoService _userInfo;
 
-        public GetClinicasController(
+        public GetClientesController(
             ApplicationDbContext context,
             IUserInfoService userInfo
             )
