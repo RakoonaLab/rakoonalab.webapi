@@ -31,6 +31,13 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
             if (_context.Clinicas == null)
                 return Problem("Entity set 'ApplicationDbContext.Clinicas'  is null.");
 
+            var clinicas = _context.Clinicas.Where(x => x.UserRef == _userInfo.UserId).ToList();
+
+            if (clinicas == null)
+            {
+                return NotFound();
+            }
+
             var clinica = request.CreateFromRequest(_userInfo.UserId);
 
             _context.Clinicas.Add(clinica);
