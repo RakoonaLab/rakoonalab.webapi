@@ -4,6 +4,7 @@ using rakoona.webapiapplication.Configuration.Services;
 using rakoona.webapiapplication.Context;
 using rakoona.webapiapplication.Entities.Dtos.Response;
 using rakoona.webapiapplication.Entities.Models;
+using rakoona.webapiapplication.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
@@ -27,7 +28,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Clinicas" })]
-        public async Task<ActionResult<PagedResponse<List<Clinica>>>> GetClinica()
+        public async Task<ActionResult<List<ClinicaResponse>>> GetClinica()
         {
             if (_context.Clinicas == null)
             {
@@ -44,7 +45,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
             response.Count = clinicas.Count;
             response.Items = clinicas;
 
-            return response;
+            return clinicas.Select(x=> x.MapToResponse()).ToList();
         }
 
     }
