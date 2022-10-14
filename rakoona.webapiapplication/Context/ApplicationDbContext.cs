@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using rakoona.webapi.Entities.Models;
 using rakoona.webapiapplication.Entities.Maps;
 using rakoona.webapiapplication.Entities.Maps.Consultas;
 using rakoona.webapiapplication.Entities.Maps.Pacientes;
@@ -44,6 +45,7 @@ namespace rakoona.webapiapplication.Context
             builder.ApplyConfiguration(new PacienteMap());
             builder.ApplyConfiguration(new PersonaMap());
             builder.ApplyConfiguration(new ClinicaMap());
+            builder.ApplyConfiguration(new ClinicaMedicoMap());
             builder.ApplyConfiguration(new DosisMap());
             builder.ApplyConfiguration(new RecetaMap());
         }
@@ -58,5 +60,6 @@ namespace rakoona.webapiapplication.Context
         public DbSet<Clinica> Clinicas { get; set; }
         public DbSet<Dosis> Dosis { get; set; }
         public DbSet<Receta> Recetas { get; set; }
+        public DbSet<ClinicaMedico> ClinicasMedicos { get; set; }
     }
 }
