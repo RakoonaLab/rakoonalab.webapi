@@ -1,4 +1,5 @@
-﻿using rakoona.webapiapplication.Entities.Models.Seguridad;
+﻿using rakoona.webapi.Entities.Models;
+using rakoona.webapiapplication.Entities.Models.Seguridad;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace rakoona.webapiapplication.Entities.Models
@@ -19,6 +20,8 @@ namespace rakoona.webapiapplication.Entities.Models
 
         [Column("Telefono")]
         public string Telefono { get; set; }
+
+        public ICollection<ClinicaMedico> ClinicaMedicos { get; set; }
 
     }
 }

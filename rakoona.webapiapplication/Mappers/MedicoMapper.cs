@@ -4,23 +4,24 @@ using rakoona.webapiapplication.Entities.Models.Personas;
 
 namespace rakoona.webapiapplication.Mappers
 {
-    public static class ClienteMapper
+    public static class MedicoMapper
     {
-        public static Cliente CreateFromRequest(this CreateClienteRequest request, string userId)
+        public static Medico CreateFromRequest(this CreateMedicoRequest request, string userId)
         {
-            Cliente Cliente = new Cliente
+            Medico medico = new Medico
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = DateTime.Now
             };
-            return Cliente;
+            return medico;
         }
 
-        public static ClienteResponse MapToResponse(this Cliente entity)
+        public static MedicoResponse MapToResponse(this Medico entity)
         {
-            ClienteResponse response = new ClienteResponse
+            MedicoResponse response = new MedicoResponse
             {
                 Id = entity.ExternalId,
+                Nombre = entity.PrimerNombre,
                 FechaDeCreacion = entity.FechaDeCreacion,
             };
             return response;

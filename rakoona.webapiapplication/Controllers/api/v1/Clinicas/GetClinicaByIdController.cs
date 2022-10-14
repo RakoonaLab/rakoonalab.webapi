@@ -6,7 +6,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
 {
-    [Route("api/clinicas")]
+    [Route("api/clinica")]
     [Authorize]
     [ApiController]
     public class GetClinicaByIdController : ControllerBase
@@ -18,16 +18,15 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
             _context = context;
         }
 
-        // GET: api/Clinicas/5
         [HttpGet("{id}")]
         [SwaggerOperation(Tags = new[] { "Clinicas" })]
-        public async Task<ActionResult<Clinica>> GetClinica(int id)
+        public async Task<ActionResult<Clinica>> GetClinica([FromRoute] string id)
         {
             if (_context.Clinicas == null)
             {
                 return NotFound();
             }
-            var clinica = await _context.Clinicas.FindAsync(id);
+            var clinica = _context.Clinicas.Single(x=> x.ExternalId == id);
 
             if (clinica == null)
             {
