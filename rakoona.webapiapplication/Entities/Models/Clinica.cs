@@ -22,6 +22,7 @@ namespace rakoona.webapiapplication.Entities.Models
         public string Telefono { get; set; }
 
         public ICollection<ClinicaMedico> ClinicaMedicos { get; set; }
+        public ICollection<ClienteClinica> ClienteClinicas { get; set; }
 
     }
 }
