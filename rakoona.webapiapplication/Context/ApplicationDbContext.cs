@@ -46,6 +46,7 @@ namespace rakoona.webapiapplication.Context
             builder.ApplyConfiguration(new PersonaMap());
             builder.ApplyConfiguration(new ClinicaMap());
             builder.ApplyConfiguration(new ClinicaMedicoMap());
+            builder.ApplyConfiguration(new ClienteClinicaMap());
             builder.ApplyConfiguration(new DosisMap());
             builder.ApplyConfiguration(new RecetaMap());
         }
@@ -61,5 +62,6 @@ namespace rakoona.webapiapplication.Context
         public DbSet<Dosis> Dosis { get; set; }
         public DbSet<Receta> Recetas { get; set; }
         public DbSet<ClinicaMedico> ClinicasMedicos { get; set; }
+        public DbSet<ClienteClinica> ClientesClinicas { get; set; }
     }
 }
