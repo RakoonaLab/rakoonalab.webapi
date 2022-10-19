@@ -18,7 +18,7 @@ namespace rakoona.webapiapplication.Entities.Models.Personas
         public string SegundoApellido { get; set; }
 
         [Column("Nacimiento")]
-        public DateTime Nacimiento { get; set; }
+        public DateTime? Nacimiento { get; set; }
         
 
         public string? UsuarioRef { get; set; }
