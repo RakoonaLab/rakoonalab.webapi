@@ -17,7 +17,7 @@ namespace rakoona.webapi.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -153,6 +153,58 @@ namespace rakoona.webapi.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("rakoona.webapi.Entities.Models.ClienteClinica", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int")
+                        .HasColumnName("ClienteId");
+
+                    b.Property<int>("ClinicaId")
+                        .HasColumnType("int")
+                        .HasColumnName("ClinicaId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("ClinicaId");
+
+                    b.ToTable("ClienteClinica", (string)null);
+                });
+
+            modelBuilder.Entity("rakoona.webapi.Entities.Models.ClinicaMedico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ClinicaId")
+                        .HasColumnType("int")
+                        .HasColumnName("ClinicaId");
+
+                    b.Property<int>("MedicoId")
+                        .HasColumnType("int")
+                        .HasColumnName("MedicoId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClinicaId");
+
+                    b.HasIndex("MedicoId");
+
+                    b.ToTable("ClinicaMedicos", (string)null);
                 });
 
             modelBuilder.Entity("rakoona.webapiapplication.Entities.Models.Clinica", b =>
@@ -336,7 +388,7 @@ namespace rakoona.webapi.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("FechaDeCreacion");
 
-                    b.Property<DateTime>("Nacimiento")
+                    b.Property<DateTime?>("Nacimiento")
                         .HasColumnType("datetime2")
                         .HasColumnName("Nacimiento");
 
@@ -501,18 +553,22 @@ namespace rakoona.webapi.Migrations
                     b.ToTable("Mascotas");
                 });
 
+            modelBuilder.Entity("rakoona.webapiapplication.Entities.Models.Personas.Cliente", b =>
+                {
+                    b.HasBaseType("rakoona.webapiapplication.Entities.Models.Personas.PersonaBase");
+
+                    b.Property<string>("Direccion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Cliente");
+                });
+
             modelBuilder.Entity("rakoona.webapiapplication.Entities.Models.Personas.Medico", b =>
                 {
                     b.HasBaseType("rakoona.webapiapplication.Entities.Models.Personas.PersonaBase");
 
                     b.HasDiscriminator().HasValue("Medico");
-                });
-
-            modelBuilder.Entity("rakoona.webapiapplication.Entities.Models.Personas.Owner", b =>
-                {
-                    b.HasBaseType("rakoona.webapiapplication.Entities.Models.Personas.PersonaBase");
-
-                    b.HasDiscriminator().HasValue("Owner");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -564,6 +620,44 @@ namespace rakoona.webapi.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("rakoona.webapi.Entities.Models.ClienteClinica", b =>
+                {
+                    b.HasOne("rakoona.webapiapplication.Entities.Models.Personas.Cliente", "Cliente")
+                        .WithMany("ClienteClinicas")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("rakoona.webapiapplication.Entities.Models.Clinica", "Clinica")
+                        .WithMany("ClienteClinicas")
+                        .HasForeignKey("ClinicaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Clinica");
+                });
+
+            modelBuilder.Entity("rakoona.webapi.Entities.Models.ClinicaMedico", b =>
+                {
+                    b.HasOne("rakoona.webapiapplication.Entities.Models.Clinica", "Clinica")
+                        .WithMany("ClinicaMedicos")
+                        .HasForeignKey("ClinicaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("rakoona.webapiapplication.Entities.Models.Personas.Medico", "Medico")
+                        .WithMany("ClinicaMedicos")
+                        .HasForeignKey("MedicoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Clinica");
+
+                    b.Navigation("Medico");
                 });
 
             modelBuilder.Entity("rakoona.webapiapplication.Entities.Models.Clinica", b =>
@@ -621,7 +715,7 @@ namespace rakoona.webapi.Migrations
 
             modelBuilder.Entity("rakoona.webapiapplication.Entities.Models.Pacientes.Mascota", b =>
                 {
-                    b.HasOne("rakoona.webapiapplication.Entities.Models.Personas.Owner", "Duenio")
+                    b.HasOne("rakoona.webapiapplication.Entities.Models.Personas.Cliente", "Duenio")
                         .WithMany("Mascotas")
                         .HasForeignKey("DuenioRef")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -634,6 +728,13 @@ namespace rakoona.webapi.Migrations
                         .IsRequired();
 
                     b.Navigation("Duenio");
+                });
+
+            modelBuilder.Entity("rakoona.webapiapplication.Entities.Models.Clinica", b =>
+                {
+                    b.Navigation("ClienteClinicas");
+
+                    b.Navigation("ClinicaMedicos");
                 });
 
             modelBuilder.Entity("rakoona.webapiapplication.Entities.Models.Consultas.ConsultaBase", b =>
@@ -659,9 +760,16 @@ namespace rakoona.webapi.Migrations
                     b.Navigation("Consultas");
                 });
 
-            modelBuilder.Entity("rakoona.webapiapplication.Entities.Models.Personas.Owner", b =>
+            modelBuilder.Entity("rakoona.webapiapplication.Entities.Models.Personas.Cliente", b =>
                 {
+                    b.Navigation("ClienteClinicas");
+
                     b.Navigation("Mascotas");
+                });
+
+            modelBuilder.Entity("rakoona.webapiapplication.Entities.Models.Personas.Medico", b =>
+                {
+                    b.Navigation("ClinicaMedicos");
                 });
 #pragma warning restore 612, 618
         }
