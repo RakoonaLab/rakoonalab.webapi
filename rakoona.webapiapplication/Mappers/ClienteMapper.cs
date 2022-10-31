@@ -7,19 +7,26 @@ namespace rakoona.webapiapplication.Mappers
 {
     public static class ClienteMapper
     {
-        public static Cliente CreateFromRequest(this CreateClienteRequest request,int clinicaId)
+        public static Cliente CreateFromRequest(this CreateClienteRequest request, int clinicaId)
         {
-            ClienteClinica clienteClinica = new ClienteClinica {
-                 ClinicaId = clinicaId,
+            ClienteClinica clienteClinica = new ClienteClinica
+            {
+                ClinicaId = clinicaId,
             };
 
             Cliente Cliente = new Cliente
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = DateTime.Now,
+                Nacimiento = request.Nacimiento,
+                PrimerNombre = request.PrimerNombre,
+                SegundoNombre = request.SegundoNombre,
+                PrimerApellido = request.PrimerApellido,
+                SegundoApellido = request.SegundoApellido,
+                Direccion = request.Direccion,
                 ClienteClinicas = new List<ClienteClinica> {
                     clienteClinica
-                } 
+                }
             };
             return Cliente;
         }
