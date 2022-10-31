@@ -35,7 +35,11 @@ namespace rakoona.webapiapplication.Mappers
             MedicoResponse response = new MedicoResponse
             {
                 Id = entity.ExternalId,
-                Nombre = entity.PrimerNombre,
+                PrimerNombre = entity.PrimerNombre,
+                SegundoNombre = entity.SegundoNombre,
+                PrimerApellido = entity.PrimerApellido,
+                SegundoApellido = entity.SegundoApellido,
+                Nacimiento = entity.Nacimiento.ToString(),
                 FechaDeCreacion = entity.FechaDeCreacion,
             };
             return response;
