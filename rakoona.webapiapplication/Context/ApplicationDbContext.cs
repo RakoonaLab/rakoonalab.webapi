@@ -42,7 +42,7 @@ namespace rakoona.webapiapplication.Context
 
             builder.ApplyConfiguration(new UserMap());
             builder.ApplyConfiguration(new ConsultaMap());
-            builder.ApplyConfiguration(new PacienteMap());
+            builder.ApplyConfiguration(new MascotaMap());
             builder.ApplyConfiguration(new PersonaMap());
             builder.ApplyConfiguration(new ClinicaMap());
             builder.ApplyConfiguration(new ClinicaMedicoMap());
@@ -54,7 +54,6 @@ namespace rakoona.webapiapplication.Context
         public DbSet<User> Usuarios { get; set; }
         public DbSet<ConsultaBase> Consulta { get; set; }
         public DbSet<Mascota> Mascotas { get; set; }
-        public DbSet<PacienteBase> Pacientes { get; set; }
         public DbSet<Medico> Medicos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<PersonaBase> Personas { get; set; }
