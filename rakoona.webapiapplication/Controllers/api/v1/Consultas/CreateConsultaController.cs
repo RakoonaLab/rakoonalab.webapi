@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using rakoona.webapiapplication.Configuration.Services;
 using rakoona.webapiapplication.Context;
 using rakoona.webapiapplication.Entities.Dtos.Request;
@@ -10,15 +11,15 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.api.v1.Consultas
 {
-    [Route("api/consultas")]
+    [Route("api/mascota/{mascotaId}/consulta")]
     [Authorize]
     [ApiController]
-    public class CreateController : ControllerBase
+    public class CreateConsultaController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IUserInfoService _userInfo;
 
-        public CreateController(
+        public CreateConsultaController(
             ApplicationDbContext context,
             IUserInfoService userInfo)
         {
@@ -28,12 +29,14 @@ namespace rakoona.webapi.Controllers.api.v1.Consultas
 
         [HttpPost]
         [SwaggerOperation(Tags = new[] { "Consultas" })]
-        public async Task<ActionResult<ConsultaResponse>> PostConsulta([FromBody] CreateConsultaRequest request)
+        public async Task<ActionResult<ConsultaResponse>> PostConsulta([FromBody] CreateConsultaRequest request, [FromRoute] string mascotaId)
         {
-            if (_context.Clinicas == null)
-                return Problem("Entity set 'ApplicationDbContext.Consultas'  is null.");
+            //if (_context.Clinicas == null)
+            //    return Problem("Entity set 'ApplicationDbContext.Consultas'  is null.");
 
-            var consulta = request.CreateFromRequest(_userInfo.UserId);
+            var mascota = _context.Mascotas.FirstOrDefault(x => x.ExternalId == mascotaId);
+
+            var consulta = request.CreateFromRequest(mascota.Id);
 
             _context.Consulta.Add(consulta);
             await _context.SaveChangesAsync();

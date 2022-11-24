@@ -1,4 +1,5 @@
-﻿using rakoona.webapiapplication.Entities.Models.Consultas;
+﻿using rakoona.webapi.Entities.Models;
+using rakoona.webapiapplication.Entities.Models.Consultas;
 using rakoona.webapiapplication.Entities.Models.Personas;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,5 +15,9 @@ namespace rakoona.webapiapplication.Entities.Models.Pacientes
 
         [ForeignKey("MascotaRef")]
         public List<ConsultaBase> Consultas { get; set; }
+
+        [ForeignKey("MascotaRef")]
+        public List<Vacuna> Vacunas { get; set; }
+
     }
 }

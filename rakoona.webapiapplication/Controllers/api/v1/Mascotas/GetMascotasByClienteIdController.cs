@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using rakoona.webapiapplication.Configuration.Services;
 using rakoona.webapiapplication.Context;
 using rakoona.webapiapplication.Entities.Dtos.Response;
@@ -12,12 +13,12 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Mascota
     [Route("api/clientes/{clienteId}/mascotas")]
     [Authorize]
     [ApiController]
-    public class GetMascotasByClienteIdController : ControllerBase
+    public class GetVacunasByMascotaIdController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IUserInfoService _userInfo;
 
-        public GetMascotasByClienteIdController(
+        public GetVacunasByMascotaIdController(
             ApplicationDbContext context,
             IUserInfoService userInfo
             )
@@ -27,7 +28,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Mascota
         }
 
         [HttpGet]
-        [SwaggerOperation(Tags = new[] { "Clientes" })]
+        [SwaggerOperation(Tags = new[] { "Mascotas" })]
         public async Task<ActionResult<List<PacienteResponse>>> GetMascotasByClienteId([FromRoute] string clienteId)
         {
             if (_context.Mascotas == null)
@@ -37,7 +38,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Mascota
 
             var cliente = _context.Clientes.FirstOrDefault(x => x.ExternalId == clienteId);
 
-            var mascotas = _context.Mascotas.Where(x => x.DuenioRef == cliente.Id ).ToList();
+            var mascotas = _context.Mascotas.Where(x => x.DuenioRef == cliente.Id).Include(x => x.Vacunas).ToList();
 
             if (mascotas == null)
             {

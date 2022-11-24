@@ -12,8 +12,6 @@ namespace rakoona.webapiapplication.Mappers
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 Nombre = request.Nombre,
-                Direccion = request.Direccion,
-                Telefono = request.Telefono,
                 FechaDeCreacion = DateTime.Now,
                 UserRef = userId
             };
@@ -26,8 +24,8 @@ namespace rakoona.webapiapplication.Mappers
             {
                 Id = entity.ExternalId,
                 Nombre = entity.Nombre,
-                Direccion = entity.Direccion,
-                Telefono = entity.Telefono,
+                Direccion = "",
+                Telefono = "",
                 FechaDeCreacion = entity.FechaDeCreacion,
             };
             return response;

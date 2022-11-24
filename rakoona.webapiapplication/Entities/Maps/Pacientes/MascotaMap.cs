@@ -18,6 +18,12 @@ namespace rakoona.webapiapplication.Entities.Maps.Pacientes
             builder.Property(c => c.FechaDeCreacion).HasColumnName("FechaDeCreacion");
 
             builder.Property(c => c.Nombre).HasColumnName("Nombre");
+            builder.Property(c => c.Genero).HasColumnName("Genero");
+
+            builder.Property(c => c.DiaNacimiento).HasColumnName("DiaNacimiento");
+            builder.Property(c => c.MesNacimiento).HasColumnName("MesNacimiento");
+            builder.Property(c => c.AnioNacimiento).HasColumnName("AnioNacimiento");
+
             builder.Property(c => c.DuenioRef).HasColumnName("DuenioRef");
 
             #endregion

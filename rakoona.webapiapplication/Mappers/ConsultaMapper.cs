@@ -6,12 +6,15 @@ namespace rakoona.webapiapplication.Mappers
 {
     public static class ConsultaMapper
     {
-        public static ConsultaBase CreateFromRequest(this CreateConsultaRequest request, string userId)
+        public static ConsultaBase CreateFromRequest(this CreateConsultaRequest request, int mascotaId)
         {
             ConsultaBase Consulta = new ConsultaBase
             {
                 ExternalId = Guid.NewGuid().ToString(),
-                FechaDeCreacion = DateTime.Now
+                FechaDeCreacion = DateTime.Now,
+                Diagnostico = "",
+                Observaciones = "",
+                MascotaRef = mascotaId
             };
             return Consulta;
         }

@@ -7,17 +7,17 @@ using rakoona.webapiapplication.Entities.Models.Personas;
 using rakoona.webapiapplication.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace rakoona.webapiapplication.Controllers.api.v1.Clientes
+namespace rakoona.webapiapplication.Controllers.api.v1.Mascota
 {
-    [Route("api/clinica/{clinicaId}/clientes")]
+    [Route("api/mascota/{mascotaId}")]
     [Authorize]
     [ApiController]
-    public class GetClientesByClinicaIdController : ControllerBase
+    public class GetMascotaByIdController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IUserInfoService _userInfo;
 
-        public GetClientesByClinicaIdController(
+        public GetMascotaByIdController(
             ApplicationDbContext context,
             IUserInfoService userInfo
             )
@@ -27,22 +27,22 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clientes
         }
 
         [HttpGet]
-        [SwaggerOperation(Tags = new[] { "Clientes" })]
-        public async Task<ActionResult<List<ClienteResponse>>> GetClientesByClinicaId([FromRoute] string clinicaId)
+        [SwaggerOperation(Tags = new[] { "Mascotas" })]
+        public async Task<ActionResult<PacienteResponse>> GetMascotaById([FromRoute] string mascotaId)
         {
-            if (_context.ClientesClinicas == null)
-            {
-                return NotFound();
-            }
-            var clientes = _context.ClientesClinicas.Where(x => x.Clinica.UserRef == _userInfo.UserId && x.Clinica.ExternalId == clinicaId).Select(x => x.Cliente)
-                .ToList();
-
-            if (clientes == null)
+            if (_context.Mascotas == null)
             {
                 return NotFound();
             }
 
-            return clientes.Select(x => x.MapToResponse()).ToList();
+            var mascota = _context.Mascotas.FirstOrDefault(x => x.ExternalId == mascotaId);
+
+            if (mascota == null)
+            {
+                return NotFound();
+            }
+
+            return mascota.MapToResponse();
         }
 
     }

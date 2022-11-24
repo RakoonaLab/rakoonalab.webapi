@@ -15,12 +15,6 @@ namespace rakoona.webapiapplication.Entities.Models
         [Column("Nombre")]
         public string Nombre { get; set; }
 
-        [Column("Direccion")]
-        public string Direccion { get; set; }
-
-        [Column("Telefono")]
-        public string Telefono { get; set; }
-
         public ICollection<ClinicaMedico> ClinicaMedicos { get; set; }
         public ICollection<ClienteClinica> ClienteClinicas { get; set; }
 

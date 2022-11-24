@@ -8,10 +8,10 @@ namespace rakoona.webapiapplication.Entities.Dtos.Request
         [JsonProperty("nombre", Required = Required.Always)]
         public string? Nombre { get; set; }
 
-        [JsonProperty("direccion", Required = Required.Always)]
+        [JsonProperty("direccion", Required = Required.AllowNull)]
         public string? Direccion { get; set; }
 
-        [JsonProperty("telefono", Required = Required.Always)]
+        [JsonProperty("telefono", Required = Required.AllowNull)]
         public string? Telefono { get; set; }
     }
 }
