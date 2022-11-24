@@ -20,7 +20,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
         // DELETE: api/Clinicas/5
         [HttpDelete("{id}")]
         [SwaggerOperation(Tags = new[] { "Clinicas" })]
-        public async Task<IActionResult> DeleteClinica(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (_context.Clinicas == null)
             {

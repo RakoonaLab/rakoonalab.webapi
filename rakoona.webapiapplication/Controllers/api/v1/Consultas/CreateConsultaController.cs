@@ -29,7 +29,7 @@ namespace rakoona.webapi.Controllers.api.v1.Consultas
 
         [HttpPost]
         [SwaggerOperation(Tags = new[] { "Consultas" })]
-        public async Task<ActionResult<ConsultaResponse>> PostConsulta([FromBody] CreateConsultaRequest request, [FromRoute] string mascotaId)
+        public async Task<ActionResult<ConsultaResponse>> Post([FromBody] CreateConsultaRequest request, [FromRoute] string mascotaId)
         {
             //if (_context.Clinicas == null)
             //    return Problem("Entity set 'ApplicationDbContext.Consultas'  is null.");

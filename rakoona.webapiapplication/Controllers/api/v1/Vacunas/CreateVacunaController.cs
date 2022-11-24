@@ -28,7 +28,7 @@ namespace rakoona.webapi.Controllers.api.v1.Vacunas
 
         [HttpPost]
         [SwaggerOperation(Tags = new[] { "Vacunas" })]
-        public async Task<ActionResult<VacunaResponse>> PostVacuna([FromBody] CreateVacunaRequest request, [FromRoute] string mascotaId)
+        public async Task<ActionResult<VacunaResponse>> Post([FromBody] CreateVacunaRequest request, [FromRoute] string mascotaId)
         {
             if (_context.Vacunas == null)
                 return Problem("Entity set 'ApplicationDbContext.Vacunas'  is null.");

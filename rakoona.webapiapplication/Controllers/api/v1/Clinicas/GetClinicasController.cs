@@ -28,7 +28,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Clinicas" })]
-        public async Task<ActionResult<List<ClinicaResponse>>> GetClinica()
+        public async Task<ActionResult<List<ClinicaResponse>>> Get()
         {
             if (_context.Clinicas == null)
             {

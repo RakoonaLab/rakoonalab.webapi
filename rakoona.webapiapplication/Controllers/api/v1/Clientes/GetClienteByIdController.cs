@@ -24,7 +24,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clientes
         // GET: api/Clientes/5
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Clientes" })]
-        public async Task<ActionResult<ClienteResponse>> GetCliente(string clienteId)
+        public async Task<ActionResult<ClienteResponse>> Get(string clienteId)
         {
             if (_context.Clientes == null)
             {
