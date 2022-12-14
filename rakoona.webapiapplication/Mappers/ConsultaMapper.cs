@@ -1,4 +1,4 @@
-﻿using rakoona.webapiapplication.Entities.Dtos.Request;
+﻿using rakoona.webapi.Entities.Dtos.Request.Consultas;
 using rakoona.webapiapplication.Entities.Dtos.Response;
 using rakoona.webapiapplication.Entities.Models.Consultas;
 
@@ -12,11 +12,35 @@ namespace rakoona.webapiapplication.Mappers
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = DateTime.Now,
-                Diagnostico = "",
-                Observaciones = "",
+                Fecha = request.Fecha,
+                Pulso = request.Pulso,
+                CaracteristicasDelPulso = request.CaracteristicasDelPulso,
+                FrecuenciaRespiratoria = request.FrecuenciaRespiratoria,
+                Peso = request.Peso,
+                RitmoCardiaco = request.RitmoCardiaco,
+                Temperatura = request.Temperatura,
+                Motivo = request.Motivo,
+                Diagnostico = request.Diagnostico,
+                Observaciones = request.Observaciones,
                 MascotaRef = mascotaId
             };
             return Consulta;
+        }
+
+        public static ConsultaBase UpdateFromRequest(this UpdateConsultaRequest request, ConsultaBase consulta)
+        {
+            consulta.Fecha = request.Fecha;
+            consulta.Pulso = request.Pulso;
+            consulta.CaracteristicasDelPulso = request.CaracteristicasDelPulso;
+            consulta.FrecuenciaRespiratoria = request.FrecuenciaRespiratoria;
+            consulta.Peso = request.Peso;
+            consulta.RitmoCardiaco = request.RitmoCardiaco;
+            consulta.Temperatura = request.Temperatura;
+            consulta.Motivo = request.Motivo;
+            consulta.Diagnostico = request.Diagnostico;
+            consulta.Observaciones = request.Observaciones;
+
+            return consulta;
         }
 
         public static ConsultaResponse MapToResponse(this ConsultaBase entity)
@@ -25,6 +49,16 @@ namespace rakoona.webapiapplication.Mappers
             {
                 Id = entity.ExternalId,
                 FechaDeCreacion = entity.FechaDeCreacion,
+                Fecha = entity.Fecha,
+                Pulso = entity.Pulso,
+                CaracteristicasDelPulso = entity.CaracteristicasDelPulso,
+                FrecuenciaRespiratoria = entity.FrecuenciaRespiratoria,
+                Peso = entity.Peso,
+                RitmoCardiaco = entity.RitmoCardiaco,
+                Temperatura = entity.Temperatura,
+                Motivo = entity.Motivo,
+                Diagnostico = entity.Diagnostico,
+                Observaciones = entity.Observaciones,
             };
             return response;
         }
