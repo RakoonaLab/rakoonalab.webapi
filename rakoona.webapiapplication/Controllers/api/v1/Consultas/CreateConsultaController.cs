@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using rakoona.webapi.Entities.Dtos.Request.Consultas;
 using rakoona.webapiapplication.Configuration.Services;
 using rakoona.webapiapplication.Context;
-using rakoona.webapiapplication.Entities.Dtos.Request;
 using rakoona.webapiapplication.Entities.Dtos.Response;
 using rakoona.webapiapplication.Entities.Models.Consultas;
 using rakoona.webapiapplication.Mappers;
