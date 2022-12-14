@@ -1,6 +1,4 @@
-﻿using rakoona.webapiapplication.Entities.Models.Seguridad;
-
-namespace rakoona.webapiapplication.Entities.Dtos.Response
+﻿namespace rakoona.dtos.Response
 {
     public class AuthenticateResponse
     {
@@ -10,11 +8,5 @@ namespace rakoona.webapiapplication.Entities.Dtos.Response
         public string Username { get; set; }
         public string Token { get; set; }
 
-
-        public AuthenticateResponse(User user, string token)
-        {
-
-            Token = token;
-        }
     }
 }

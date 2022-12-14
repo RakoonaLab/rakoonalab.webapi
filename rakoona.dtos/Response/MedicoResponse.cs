@@ -1,4 +1,4 @@
-﻿namespace rakoona.webapiapplication.Entities.Dtos.Response
+﻿namespace rakoona.dtos.Response
 {
     public class MedicoResponse
     {

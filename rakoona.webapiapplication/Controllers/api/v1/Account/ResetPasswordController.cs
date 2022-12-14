@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using rakoona.webapiapplication.Entities.Models.Seguridad;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.WebUtilities;
-using System.Text.Encodings.Web;
-using System.Text;
-using rakoona.webapiapplication.Entities.Dtos.Request;
+using Microsoft.AspNetCore.Mvc;
+using rakoona.dtos;
+using rakoona.webapiapplication.Entities.Models.Seguridad;
 using Swashbuckle.AspNetCore.Annotations;
-using rakoona.webapi.Entities.Dtos.Request;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Account
 {

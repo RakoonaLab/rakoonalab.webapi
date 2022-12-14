@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using rakoona.dtos.Request;
+using rakoona.dtos.Response;
 using rakoona.webapiapplication.Configuration.Services;
 using rakoona.webapiapplication.Context;
-using rakoona.webapiapplication.Entities.Dtos.Request;
-using rakoona.webapiapplication.Entities.Dtos.Response;
 using rakoona.webapiapplication.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 

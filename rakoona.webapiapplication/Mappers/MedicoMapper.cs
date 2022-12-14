@@ -1,6 +1,6 @@
-﻿using rakoona.webapi.Entities.Models;
-using rakoona.webapiapplication.Entities.Dtos.Request;
-using rakoona.webapiapplication.Entities.Dtos.Response;
+﻿using rakoona.dtos.Request;
+using rakoona.dtos.Response;
+using rakoona.webapi.Entities.Models;
 using rakoona.webapiapplication.Entities.Models.Personas;
 
 namespace rakoona.webapiapplication.Mappers

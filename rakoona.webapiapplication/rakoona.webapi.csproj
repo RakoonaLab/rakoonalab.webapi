@@ -33,4 +33,8 @@
     <Folder Include="Configuration\jwt\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\rakoona.dtos\rakoona.dtos.csproj" />
+  </ItemGroup>
+
 </Project>

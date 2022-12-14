@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using rakoona.webapi.Entities.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using rakoona.dtos.Request;
+using rakoona.dtos.Response;
 using rakoona.webapiapplication.Context;
-using rakoona.webapiapplication.Entities.Dtos.Request;
-using rakoona.webapiapplication.Entities.Dtos.Response;
-using rakoona.webapiapplication.Entities.Models;
 using rakoona.webapiapplication.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 

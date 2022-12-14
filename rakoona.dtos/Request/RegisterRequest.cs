@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace rakoona.webapiapplication.Entities.Dtos.Request
+namespace rakoona.dtos.Request
 {
     public class RegisterRequest
     {

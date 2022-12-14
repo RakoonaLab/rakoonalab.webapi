@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using rakoona.webapiapplication.Configuration.Services;
-using rakoona.webapiapplication.Context;
-using rakoona.webapiapplication.Entities.Dtos.Request;
-using rakoona.webapiapplication.Entities.Dtos.Response;
-using rakoona.webapiapplication.Entities.Models;
-using rakoona.webapiapplication.Mappers;
+using rakoona.dtos.Response;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas

@@ -1,4 +1,4 @@
-﻿namespace rakoona.webapi.Entities.Dtos.Request.Consultas
+﻿namespace rakoona.dtos.Request.Consultas
 {
     public class UpdateConsultaRequest
     {
