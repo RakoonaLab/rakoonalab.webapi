@@ -1,5 +1,4 @@
 ﻿using rakoona.webapiapplication.Entities.Models.Pacientes;
-using rakoona.webapiapplication.Entities.Models.Personas;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace rakoona.webapiapplication.Entities.Models.Consultas
@@ -9,12 +8,19 @@ namespace rakoona.webapiapplication.Entities.Models.Consultas
     {
         [Column("Fecha")]
         public DateTime Fecha { get; set; }
+        public double? Peso { get; set; }
+        public double? Temperatura { get; set; }
+        public int? RitmoCardiaco { get; set; }
+        public int? FrecuenciaRespiratoria { get; set; }
+        public int? Pulso { get; set; }
+        public string? CaracteristicasDelPulso { get; set; }
+        public string? Motivo { get; set; }
 
         [Column("Observaciones")]
-        public string Observaciones { get; set; }
-        
+        public string? Observaciones { get; set; }
+
         [Column("Diagnostico")]
-        public string Diagnostico { get; set; }
+        public string? Diagnostico { get; set; }
 
         [Column("MascotaRef")]
         [ForeignKey("Mascota")]
@@ -23,6 +29,8 @@ namespace rakoona.webapiapplication.Entities.Models.Consultas
 
         [ForeignKey("ConsultaRef")]
         public List<Receta> Recetas { get; set; }
+
+
 
     }
 }
