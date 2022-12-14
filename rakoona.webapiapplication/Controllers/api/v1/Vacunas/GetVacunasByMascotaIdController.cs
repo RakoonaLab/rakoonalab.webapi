@@ -28,7 +28,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Vacunas
         }
 
         [HttpGet]
-        [SwaggerOperation(Tags = new[] { "Vacunas" })]
+        [SwaggerOperation(Tags = new[] { "Vacunas", "Mascotas" })]
         public async Task<ActionResult<List<VacunaResponse>>> Get([FromRoute] string mascotaId)
         {
             if (_context.Vacunas == null)
