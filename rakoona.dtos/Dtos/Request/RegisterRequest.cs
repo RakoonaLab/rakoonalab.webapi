@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace rakoona.dtos.Request
+namespace rakoona.services.Dtos.Request
 {
-    public class AuthenticateRequest
+    public class RegisterRequest
     {
+        [EmailAddress]
         [Required(ErrorMessage = "Email is required")]
         public string? Email { get; set; }
 

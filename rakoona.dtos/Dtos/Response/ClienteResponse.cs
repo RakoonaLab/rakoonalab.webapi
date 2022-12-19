@@ -1,4 +1,4 @@
-﻿namespace rakoona.dtos.Response
+﻿namespace rakoona.services.Dtos.Response
 {
     public class ClienteResponse
     {
@@ -11,6 +11,6 @@
         public string Direccion { get; set; }
         public string Telefono { get; set; }
         public DateTime FechaDeCreacion { get; set; }
-        
+
     }
 }

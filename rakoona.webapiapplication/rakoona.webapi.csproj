@@ -35,6 +35,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\rakoona.dtos\rakoona.dtos.csproj" />
+    <ProjectReference Include="..\rakoona.dtos\rakoona.services.csproj" />
   </ItemGroup>
 
 </Project>

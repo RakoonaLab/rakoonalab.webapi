@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using rakoona.dtos.Response;
+using rakoona.services.Dtos.Response;
 using rakoona.webapiapplication.Configuration.Services;
 using rakoona.webapiapplication.Context;
 using rakoona.webapiapplication.Entities.Models;

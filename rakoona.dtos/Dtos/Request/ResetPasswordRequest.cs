@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace rakoona.dtos
+namespace rakoona.services.Dtos.Request
 {
     public class ResetPasswordRequest
     {

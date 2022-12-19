@@ -1,4 +1,4 @@
-﻿namespace rakoona.dtos.Request
+﻿namespace rakoona.services.Dtos.Request
 {
     public class CreateMedicoRequest
     {

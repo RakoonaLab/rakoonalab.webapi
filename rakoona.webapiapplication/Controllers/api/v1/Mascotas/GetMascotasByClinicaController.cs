@@ -4,20 +4,21 @@ using Microsoft.EntityFrameworkCore;
 using rakoona.services.Dtos.Response;
 using rakoona.webapiapplication.Configuration.Services;
 using rakoona.webapiapplication.Context;
+using rakoona.webapiapplication.Entities.Models.Personas;
 using rakoona.webapiapplication.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Mascota
 {
-    [Route("api/clientes/{clienteId}/mascotas")]
+    [Route("api/clinica/{clinicaId}/mascotas")]
     [Authorize]
     [ApiController]
-    public class GetVacunasByMascotaIdController : ControllerBase
+    public class GetMascotasByClinicaController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IUserInfoService _userInfo;
 
-        public GetVacunasByMascotaIdController(
+        public GetMascotasByClinicaController(
             ApplicationDbContext context,
             IUserInfoService userInfo
             )
@@ -27,24 +28,24 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Mascota
         }
 
         [HttpGet]
-        [SwaggerOperation(Tags = new[] { "Mascotas" })]
-        public async Task<ActionResult<List<PacienteResponse>>> Get([FromRoute] string clienteId)
+        [SwaggerOperation(Tags = new[] { "Mascotas", "Clinicas" })]
+        public async Task<ActionResult<List<PacienteResponse>>> Get([FromRoute] string clinicaId)
         {
             if (_context.Mascotas == null)
             {
                 return NotFound();
             }
 
-            var cliente = _context.Clientes.FirstOrDefault(x => x.ExternalId == clienteId);
+            var clinica = _context.Clinicas.First(x => x.ExternalId == clinicaId);
 
-            var mascotas = _context.Mascotas.Where(x => x.DuenioRef == cliente.Id).Include(x => x.Vacunas).ToList();
+            var mascotas = _context.ClientesClinicas.Where(x => x.ClinicaId == clinica.Id).SelectMany(c => c.Cliente.Mascotas).ToList();
 
             if (mascotas == null)
             {
                 return NotFound();
             }
 
-            return mascotas.Select(x => x.MapToResponse()).ToList();
+            return Ok(mascotas.Select(x => x.MapToResponse()).ToList());
         }
 
     }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using rakoona.dtos.Response;
+using rakoona.services.Dtos.Response;
 using rakoona.webapiapplication.Configuration.Services;
 using rakoona.webapiapplication.Context;
 using rakoona.webapiapplication.Mappers;
@@ -26,7 +26,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clientes
         }
 
         [HttpGet]
-        [SwaggerOperation(Tags = new[] { "Clientes" })]
+        [SwaggerOperation(Tags = new[] { "Clientes", "Clinicas" })]
         public async Task<ActionResult<List<ClienteResponse>>> Get([FromRoute] string clinicaId)
         {
             if (_context.ClientesClinicas == null)

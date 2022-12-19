@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using rakoona.dtos.Request;
-using rakoona.dtos.Response;
+using rakoona.services.Dtos.Request;
+using rakoona.services.Dtos.Response;
 using rakoona.webapiapplication.Context;
 using rakoona.webapiapplication.Mappers;
 using Swashbuckle.AspNetCore.Annotations;

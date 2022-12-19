@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
-namespace rakoona.dtos.Request
+namespace rakoona.services.Dtos.Request
 {
     public class CreateClinicaRequest
     {

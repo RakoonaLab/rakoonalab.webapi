@@ -1,5 +1,5 @@
-﻿using rakoona.dtos.Request.Consultas;
-using rakoona.dtos.Response;
+﻿using rakoona.services.Dtos.Request.Consultas;
+using rakoona.services.Dtos.Response;
 using rakoona.webapiapplication.Entities.Models.Consultas;
 
 namespace rakoona.webapiapplication.Mappers

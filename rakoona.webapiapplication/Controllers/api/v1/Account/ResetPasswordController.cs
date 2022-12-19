@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using rakoona.dtos;
+using rakoona.services.Dtos.Request;
 using rakoona.webapiapplication.Entities.Models.Seguridad;
 using Swashbuckle.AspNetCore.Annotations;
 
