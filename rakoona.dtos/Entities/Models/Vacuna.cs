@@ -1,11 +1,12 @@
-﻿using rakoona.services.Entities.Models.Pacientes;
+﻿using rakoona.services.Entities.Models.Consultas;
 
 namespace rakoona.services.Entities.Models
 {
     public class Vacuna : ModelBase
     {
         public string Nombre { get; set; }
-        public int MascotaRef { get; set; }
-        public virtual Mascota Mascota { get; set; }
+        public string? Lote { get; set; }
+        public int ConsultaRef { get; set; }
+        public virtual ConsultaBase Consulta { get; set; }
     }
 }
