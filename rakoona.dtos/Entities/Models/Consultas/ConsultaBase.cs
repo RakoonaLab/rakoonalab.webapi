@@ -14,9 +14,12 @@ namespace rakoona.services.Entities.Models.Consultas
         public string? Motivo { get; set; }
         public string? Observaciones { get; set; }
         public string? Diagnostico { get; set; }
+
         public int MascotaRef { get; set; }
         public virtual Mascota Mascota { get; set; }
+
         public List<Receta> Recetas { get; set; }
+        public List<Vacuna> Vacunas { get; set; }
     }
 }
 
