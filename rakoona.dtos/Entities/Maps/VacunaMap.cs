@@ -17,6 +17,7 @@ namespace rakoona.services.Entities.Maps
             builder.Property(c => c.FechaDeCreacion).HasColumnName("FechaDeCreacion");
 
             builder.Property(c => c.Nombre).HasColumnName("Nombre");
+            builder.Property(c => c.Lote).HasColumnName("Lote");
 
             #endregion
 
@@ -25,9 +26,9 @@ namespace rakoona.services.Entities.Maps
             #endregion
 
             #region HasOne
-            builder.HasOne(a => a.Mascota)
+            builder.HasOne(a => a.Consulta)
                     .WithMany(b => b.Vacunas)
-                    .HasForeignKey(b => b.MascotaRef);
+                    .HasForeignKey(b => b.ConsultaRef);
             #endregion
 
 
