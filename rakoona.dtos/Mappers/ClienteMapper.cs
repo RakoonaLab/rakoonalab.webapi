@@ -33,31 +33,12 @@ namespace rakoona.services.Mappers
 
         public static ClienteResponse MapToResponse(this Cliente entity)
         {
-            StringBuilder sb = new StringBuilder();
-            if (entity.PrimerNombre != "")
-            {
-                sb.Append(entity.PrimerNombre + " ");
-            }
-            if (entity.SegundoNombre != "")
-            {
-                sb.Append(entity.SegundoNombre + " ");
-            }
-            if (entity.PrimerApellido != "")
-            {
-                sb.Append(entity.PrimerApellido + " ");
-            }
-            if (entity.SegundoApellido != "")
-            {
-                sb.Append(entity.SegundoApellido);
-            }
-            string nombreCompleto = sb.ToString();
-            if (nombreCompleto.EndsWith(" "))
-                nombreCompleto = nombreCompleto.Remove(nombreCompleto.Length - 1);
+            
 
             ClienteResponse response = new ClienteResponse
             {
                 Id = entity.ExternalId,
-                NombreCompleto = nombreCompleto,
+                NombreCompleto = entity.NombreCompleto,
                 FechaDeCreacion = entity.FechaDeCreacion,
                 PrimerNombre = entity.PrimerNombre,
                 SegundoNombre = entity.SegundoNombre,

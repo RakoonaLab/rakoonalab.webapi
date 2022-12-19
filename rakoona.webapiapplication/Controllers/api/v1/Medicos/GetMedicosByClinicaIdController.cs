@@ -26,7 +26,7 @@ namespace rakoona.webapi.Controllers.api.v1.Medicos
         }
 
         [HttpGet]
-        [SwaggerOperation(Tags = new[] { "Medicos" })]
+        [SwaggerOperation(Tags = new[] { "Medicos", "Clinica" })]
         public async Task<ActionResult<List<MedicoResponse>>> Get([FromRoute] string clinicaId)
         {
             if (_context.Clinicas == null)

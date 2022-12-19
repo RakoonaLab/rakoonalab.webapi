@@ -19,7 +19,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
         }
 
         [HttpGet("{id}")]
-        [SwaggerOperation(Tags = new[] { "Clinicas" })]
+        [SwaggerOperation(Tags = new[] { "Clinica" })]
         public async Task<ActionResult<Clinica>> Get([FromRoute] string id)
         {
             if (_context.Clinicas == null)

@@ -34,7 +34,9 @@ namespace rakoona.services.Entities.Maps.Pacientes
 
 
             #region HasOne
-
+            builder.HasOne(a => a.Duenio)
+                   .WithMany(b => b.Mascotas)
+                   .HasForeignKey(b => b.DuenioRef);
             #endregion
 
 

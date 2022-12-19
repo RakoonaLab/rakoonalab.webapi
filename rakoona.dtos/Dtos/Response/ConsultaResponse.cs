@@ -3,7 +3,6 @@
     public class ConsultaResponse
     {
         public string Id { get; set; }
-        public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
         public DateTime FechaDeCreacion { get; set; }
@@ -17,5 +16,9 @@
         public string? CaracteristicasDelPulso { get; set; }
         public int? Pulso { get; set; }
         public DateTime Fecha { get; set; }
+        public string? MascotaId { get; set; }
+        public string? MascotaNombre { get; set; }
+        public string? ClienteNombre { get; set; }
+        public string? ClienteId { get; set; }
     }
 }

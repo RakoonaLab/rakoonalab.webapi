@@ -22,7 +22,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
         // PUT: api/Clinicas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [SwaggerOperation(Tags = new[] { "Clinicas" })]
+        [SwaggerOperation(Tags = new[] { "Clinica" })]
         public async Task<IActionResult> Put(int id, Clinica clinica)
         {
             if (id != clinica.Id)

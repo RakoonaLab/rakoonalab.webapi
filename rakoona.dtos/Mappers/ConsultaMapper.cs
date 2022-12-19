@@ -59,6 +59,10 @@ namespace rakoona.services.Mappers
                 Motivo = entity.Motivo,
                 Diagnostico = entity.Diagnostico,
                 Observaciones = entity.Observaciones,
+                MascotaNombre = entity.Mascota?.Nombre,
+                MascotaId = entity.Mascota?.ExternalId,
+                ClienteNombre = entity.Mascota?.Duenio?.NombreCompleto,
+                ClienteId = entity.Mascota?.Duenio?.ExternalId,
             };
             return response;
         }
