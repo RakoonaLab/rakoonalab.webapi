@@ -1,18 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using rakoona.webapi.Entities.Maps;
-using rakoona.webapi.Entities.Models;
-using rakoona.webapiapplication.Entities.Maps;
-using rakoona.webapiapplication.Entities.Maps.Consultas;
-using rakoona.webapiapplication.Entities.Maps.Pacientes;
-using rakoona.webapiapplication.Entities.Maps.Personas;
-using rakoona.webapiapplication.Entities.Maps.Seguridad;
-using rakoona.webapiapplication.Entities.Models;
-using rakoona.webapiapplication.Entities.Models.Consultas;
-using rakoona.webapiapplication.Entities.Models.Pacientes;
-using rakoona.webapiapplication.Entities.Models.Personas;
-using rakoona.webapiapplication.Entities.Models.Seguridad;
+using rakoona.services.Entities.Models;
+using rakoona.services.Entities.Models.Consultas;
+using rakoona.services.Entities.Models.Pacientes;
+using rakoona.services.Entities.Models.Personas;
+using rakoona.services.Entities.Models.Seguridad;
+using rakoona.services.Entities.Maps;
+using rakoona.services.Entities.Maps.Consultas;
+using rakoona.services.Entities.Maps.Pacientes;
+using rakoona.services.Entities.Maps.Personas;
+using rakoona.services.Entities.Maps.Seguridad;
 
 namespace rakoona.webapiapplication.Context
 {

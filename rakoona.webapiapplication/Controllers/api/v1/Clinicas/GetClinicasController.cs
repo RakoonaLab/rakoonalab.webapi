@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using rakoona.services.Dtos.Response;
 using rakoona.webapiapplication.Configuration.Services;
 using rakoona.webapiapplication.Context;
-using rakoona.webapiapplication.Entities.Models;
-using rakoona.webapiapplication.Mappers;
+using rakoona.services.Entities.Models;
+using rakoona.services.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas

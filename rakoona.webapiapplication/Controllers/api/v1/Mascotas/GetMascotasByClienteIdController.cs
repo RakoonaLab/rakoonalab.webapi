@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using rakoona.services.Dtos.Response;
 using rakoona.webapiapplication.Configuration.Services;
 using rakoona.webapiapplication.Context;
-using rakoona.webapiapplication.Mappers;
+using rakoona.services.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Mascota

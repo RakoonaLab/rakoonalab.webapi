@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using rakoona.webapiapplication.Context;
-using rakoona.webapiapplication.Entities.Models.Seguridad;
 
 namespace rakoona.webapi.Configuration
 {

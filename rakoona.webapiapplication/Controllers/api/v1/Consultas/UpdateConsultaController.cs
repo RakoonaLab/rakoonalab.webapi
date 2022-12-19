@@ -4,7 +4,7 @@ using rakoona.services.Dtos.Request.Consultas;
 using rakoona.services.Dtos.Response;
 using rakoona.webapiapplication.Configuration.Services;
 using rakoona.webapiapplication.Context;
-using rakoona.webapiapplication.Mappers;
+using rakoona.services.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.api.v1.Consultas

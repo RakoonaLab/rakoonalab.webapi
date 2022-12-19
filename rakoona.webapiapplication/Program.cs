@@ -1,15 +1,13 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using rakoona.webapiapplication.Context;
-using System.Text;
 using Microsoft.OpenApi.Models;
-using rakoona.webapiapplication.Entities.Models.Seguridad;
-using rakoona.webapiapplication.Configuration.Extensions;
-using rakoona.webapiapplication.Configuration.Services;
+using rakoona.services.Entities.Models.Seguridad;
 using rakoona.webapi.Configuration;
 using rakoona.webapi.Configuration.Models;
+using rakoona.webapiapplication.Configuration.Services;
+using rakoona.webapiapplication.Context;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 

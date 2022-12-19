@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.services.Dtos.Request;
 using rakoona.services.Dtos.Response;
+using rakoona.services.Entities.Models.Seguridad;
 using rakoona.webapiapplication.Configuration.Services;
-using rakoona.webapiapplication.Entities.Models.Seguridad;
 using Swashbuckle.AspNetCore.Annotations;
 using System.IdentityModel.Tokens.Jwt;
 

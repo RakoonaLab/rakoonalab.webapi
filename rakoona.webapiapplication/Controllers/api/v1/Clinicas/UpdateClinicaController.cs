@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using rakoona.webapiapplication.Context;
-using rakoona.webapiapplication.Entities.Models;
+using rakoona.services.Entities.Models;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas

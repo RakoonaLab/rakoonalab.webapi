@@ -2,7 +2,7 @@
 using rakoona.services.Dtos.Request;
 using rakoona.services.Dtos.Response;
 using rakoona.webapiapplication.Context;
-using rakoona.webapiapplication.Mappers;
+using rakoona.services.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.api.v1.Vacunas

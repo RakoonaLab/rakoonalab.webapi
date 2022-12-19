@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.services.Dtos.Request;
-using rakoona.webapiapplication.Entities.Models.Seguridad;
+using rakoona.services.Entities.Models.Seguridad;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Account

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol;
 using rakoona.services.Dtos.Request;
 using rakoona.services.Dtos.Response;
-using rakoona.webapiapplication.Entities.Models.Seguridad;
+using rakoona.services.Entities.Models.Seguridad;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Authenticate
