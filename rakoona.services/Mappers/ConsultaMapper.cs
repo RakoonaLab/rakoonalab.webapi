@@ -61,7 +61,7 @@ namespace rakoona.services.Mappers
                 Observaciones = entity.Observaciones,
                 MascotaNombre = entity.Mascota?.Nombre,
                 MascotaId = entity.Mascota?.ExternalId,
-                ClienteNombre = entity.Mascota?.Duenio?.NombreCompleto,
+                ClienteNombre = entity.Mascota?.Duenio?.GetNombreCompleto(),
                 ClienteId = entity.Mascota?.Duenio?.ExternalId,
             };
             return response;

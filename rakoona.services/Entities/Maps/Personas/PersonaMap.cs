@@ -16,11 +16,9 @@ namespace rakoona.services.Entities.Maps.Personas
             builder.Property(c => c.ExternalId).HasColumnName("ExternalId").HasMaxLength(250);
             builder.Property(c => c.FechaDeCreacion).HasColumnName("FechaDeCreacion");
 
-            builder.Property(c => c.PrimerNombre).HasColumnName("PrimerNombre");
-            builder.Property(c => c.SegundoNombre).HasColumnName("SegundoNombre");
-            builder.Property(c => c.PrimerApellido).HasColumnName("PrimerApellido");
-            builder.Property(c => c.SegundoApellido).HasColumnName("SegundoApellido");
-            builder.Property(c => c.Nacimiento).HasColumnName("Nacimiento");
+            builder.Property(c => c.Nombres).HasColumnName("Nombres");
+            builder.Property(c => c.Apellidos).HasColumnName("Apellidos");
+            builder.Property(c => c.FechaDeNacimiento).HasColumnName("FechaDeNacimiento");
 
             #endregion
 
@@ -37,7 +35,9 @@ namespace rakoona.services.Entities.Maps.Personas
 
             #endregion
 
-
+            builder.HasMany(a => a.InformacionDeContacto)
+                .WithOne(b => b.Persona)
+                .HasForeignKey(b => b.PersonaRef);
         }
 
     }

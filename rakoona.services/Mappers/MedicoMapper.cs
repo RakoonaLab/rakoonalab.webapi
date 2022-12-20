@@ -18,12 +18,9 @@ namespace rakoona.services.Mappers
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = DateTime.Now,
-                PrimerNombre = request.PrimerNombre,
-                SegundoNombre = request.SegundoNombre,
-                PrimerApellido = request.PrimerApellido,
-                SegundoApellido = request.SegundoApellido,
-
-                Nacimiento = request.Nacimiento != "" ? DateTime.Parse(request.Nacimiento) : null,
+                Nombres = request.PrimerNombre + " " + request.SegundoNombre,
+                Apellidos = request.PrimerApellido + " " + request.SegundoApellido,
+                FechaDeNacimiento = request.Nacimiento != "" ? DateTime.Parse(request.Nacimiento) : null,
 
                 ClinicaMedicos = new List<ClinicaMedico> { clinicaMedico }
             };
@@ -35,11 +32,11 @@ namespace rakoona.services.Mappers
             MedicoResponse response = new MedicoResponse
             {
                 Id = entity.ExternalId,
-                PrimerNombre = entity.PrimerNombre,
-                SegundoNombre = entity.SegundoNombre,
-                PrimerApellido = entity.PrimerApellido,
-                SegundoApellido = entity.SegundoApellido,
-                Nacimiento = entity.Nacimiento.ToString(),
+                PrimerNombre = "",
+                SegundoNombre = "",
+                PrimerApellido = "",
+                SegundoApellido = "",
+                Nacimiento = "",
                 FechaDeCreacion = entity.FechaDeCreacion,
             };
             return response;
