@@ -26,7 +26,7 @@ namespace rakoona.webapi.Controllers.api.v1.Mascota
 
         [HttpPost]
         [SwaggerOperation(Tags = new[] { "Mascotas" })]
-        public async Task<ActionResult<PacienteResponse>> Post([FromBody] CreatePacienteRequest request, [FromRoute] string clienteId)
+        public async Task<ActionResult<MascotaResponse>> Post([FromBody] CreatePacienteRequest request, [FromRoute] string clienteId)
         {
             if (_context.Mascotas == null)
                 return Problem("Entity set 'ApplicationDbContext.Pacientes'  is null.");

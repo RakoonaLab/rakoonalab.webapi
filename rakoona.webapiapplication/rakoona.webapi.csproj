@@ -27,8 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\rakoona.dtos\rakoona.dtos.csproj" />
     <ProjectReference Include="..\rakoona.dtos\rakoona.services.csproj" />
+    <ProjectReference Include="..\rakoona.services\rakoona.services.csproj" />
   </ItemGroup>
 
 </Project>

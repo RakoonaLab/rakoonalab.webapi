@@ -2,6 +2,8 @@
 using rakoona.services.Dtos.Response;
 using rakoona.services.Entities.Models.Pacientes;
 using System.Globalization;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace rakoona.services.Mappers
@@ -27,7 +29,7 @@ namespace rakoona.services.Mappers
             return Paciente;
         }
 
-        public static PacienteResponse MapToResponse(this Mascota entity)
+        public static MascotaResponse MapToResponse(this Mascota entity)
         {
             var today = DateTime.Today;
             StringBuilder sb = new StringBuilder();
@@ -44,14 +46,15 @@ namespace rakoona.services.Mappers
                 sb.Append(entity.AnioNacimiento.Value);
             }
 
-            PacienteResponse response = new PacienteResponse
+            MascotaResponse response = new MascotaResponse
             {
                 Id = entity.ExternalId,
                 Nombre = entity.Nombre,
                 Genero = entity.Genero,
                 Edad = entity.AnioNacimiento.HasValue ? (today.Year - entity.AnioNacimiento.Value) + " Años" : null,
                 FechaDeNacimiento = sb.ToString(),
-                Vacunas = entity.Vacunas?.Count(),
+                VacunasCount = entity.Consultas?.Where(x=> x.Motivo == "Vacuna").Count(),
+                Peso = entity.Consultas?.OrderByDescending(x => x.FechaDeCreacion).FirstOrDefault()?.Peso,
                 FechaDeCreacion = entity.FechaDeCreacion,
             };
             return response;
