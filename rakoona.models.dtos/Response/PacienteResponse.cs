@@ -12,5 +12,7 @@
         public double? Peso { get; set; }
         public string? Especie { get; set; }
         public string? Raza { get; set; }
+        public string? DuenioNombre { get; set; }
+        public string? DuenioId { get; set; }
     }
 }
