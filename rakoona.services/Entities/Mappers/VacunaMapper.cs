@@ -27,7 +27,7 @@ namespace rakoona.services.Entities.Mappers
             {
                 Nombre = request.Nombre,
                 Lote = request.Lote,
-                Caducidad = request.Caducidad.Value,
+                Caducidad = request.Caducidad,
                 Laboratorio = request.Laboratorio,
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = now,
