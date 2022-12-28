@@ -1,4 +1,4 @@
-﻿namespace rakoona.services.Dtos.Request.Consultas
+﻿namespace rakoona.models.dtos.Request.Consultas
 {
     public class CreateConsultaRequest
     {

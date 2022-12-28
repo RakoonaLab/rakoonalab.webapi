@@ -18,6 +18,8 @@ namespace rakoona.services.Entities.Maps.Pacientes
 
             builder.Property(c => c.Nombre).HasColumnName("Nombre");
             builder.Property(c => c.Genero).HasColumnName("Genero");
+            builder.Property(c => c.Raza).HasColumnName("Raza");
+            builder.Property(c => c.Especie).HasColumnName("Especie");
 
             builder.Property(c => c.DiaNacimiento).HasColumnName("DiaNacimiento");
             builder.Property(c => c.MesNacimiento).HasColumnName("MesNacimiento");

@@ -6,7 +6,7 @@ using rakoona.services.Entities.Models.Seguridad;
 using rakoona.webapi.Configuration;
 using rakoona.webapi.Configuration.Models;
 using rakoona.webapiapplication.Configuration.Services;
-using rakoona.webapiapplication.Context;
+using rakoona.services.Context;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);

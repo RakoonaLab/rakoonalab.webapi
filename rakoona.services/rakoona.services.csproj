@@ -18,4 +18,8 @@
     <Folder Include="Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\rakoona.models.dtos\rakoona.models.dtos.csproj" />
+  </ItemGroup>
+
 </Project>

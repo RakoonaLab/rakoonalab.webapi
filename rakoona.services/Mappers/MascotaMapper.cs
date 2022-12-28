@@ -1,5 +1,5 @@
-﻿using rakoona.services.Dtos.Request;
-using rakoona.services.Dtos.Response;
+﻿using rakoona.models.dtos.Request;
+using rakoona.models.dtos.Response;
 using rakoona.services.Entities.Models.Pacientes;
 using System.Globalization;
 using System.Linq;
@@ -16,6 +16,8 @@ namespace rakoona.services.Mappers
             {
                 Nombre = request.Nombre,
                 Genero = request.Genero,
+                Especie = request.Especie,
+                Raza= request.Raza,
                 ExternalId = Guid.NewGuid().ToString(),
                 DiaNacimiento = request.DiaNacimiento,
                 MesNacimiento = request.MesNacimiento,
@@ -51,6 +53,8 @@ namespace rakoona.services.Mappers
                 Id = entity.ExternalId,
                 Nombre = entity.Nombre,
                 Genero = entity.Genero,
+                Especie = entity.Especie,
+                Raza = entity.Raza,
                 Edad = entity.AnioNacimiento.HasValue ? (today.Year - entity.AnioNacimiento.Value) + " Años" : null,
                 FechaDeNacimiento = sb.ToString(),
                 VacunasCount = entity.Consultas?.Where(x=> x.Motivo == "Vacuna").Count(),

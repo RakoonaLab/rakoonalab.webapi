@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using rakoona.services.Dtos.Request;
-using rakoona.services.Dtos.Response;
-using rakoona.webapiapplication.Configuration.Services;
-using rakoona.webapiapplication.Context;
+using rakoona.services.Context;
+using rakoona.models.dtos.Request;
+using rakoona.models.dtos.Response;
 using rakoona.services.Mappers;
+using rakoona.webapiapplication.Configuration.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas

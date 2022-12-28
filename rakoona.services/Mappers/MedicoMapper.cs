@@ -1,5 +1,5 @@
-﻿using rakoona.services.Dtos.Request;
-using rakoona.services.Dtos.Response;
+﻿using rakoona.models.dtos.Request;
+using rakoona.models.dtos.Response;
 using rakoona.services.Entities.Models;
 using rakoona.services.Entities.Models.Personas;
 

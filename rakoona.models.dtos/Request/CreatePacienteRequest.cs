@@ -1,4 +1,4 @@
-﻿namespace rakoona.services.Dtos.Request
+﻿namespace rakoona.models.dtos.Request
 {
     public class CreatePacienteRequest
     {
@@ -7,5 +7,7 @@
         public int? DiaNacimiento { get; set; }
         public int? MesNacimiento { get; set; }
         public int? AnioNacimiento { get; set; }
+        public string? Especie { get; set; }
+        public string? Raza { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using rakoona.services.Dtos.Response;
+using rakoona.models.dtos.Response;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas

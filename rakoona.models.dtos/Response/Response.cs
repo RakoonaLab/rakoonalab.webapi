@@ -1,4 +1,4 @@
-﻿namespace rakoona.services.Dtos.Response
+﻿namespace rakoona.models.dtos.Response
 {
     public class Response
     {

@@ -11,8 +11,9 @@ using rakoona.services.Entities.Maps.Consultas;
 using rakoona.services.Entities.Maps.Pacientes;
 using rakoona.services.Entities.Maps.Personas;
 using rakoona.services.Entities.Maps.Seguridad;
+using rakoona.services.Entities.Models.TiposDeContacto;
 
-namespace rakoona.webapiapplication.Context
+namespace rakoona.services.Context
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
@@ -49,6 +50,7 @@ namespace rakoona.webapiapplication.Context
             builder.ApplyConfiguration(new DosisMap());
             builder.ApplyConfiguration(new RecetaMap());
             builder.ApplyConfiguration(new VacunaMap());
+            builder.ApplyConfiguration(new ContactoMap());
         }
 
         public DbSet<User> Usuarios { get; set; }
@@ -63,5 +65,6 @@ namespace rakoona.webapiapplication.Context
         public DbSet<ClinicaMedico> ClinicasMedicos { get; set; }
         public DbSet<ClienteClinica> ClientesClinicas { get; set; }
         public DbSet<Vacuna> Vacunas { get; set; }
+        public DbSet<Contacto> InformacionDeContacto { get; set; }
     }
 }

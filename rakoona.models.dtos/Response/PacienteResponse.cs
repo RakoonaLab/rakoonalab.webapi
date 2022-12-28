@@ -1,4 +1,4 @@
-﻿namespace rakoona.services.Dtos.Response
+﻿namespace rakoona.models.dtos.Response
 {
     public class MascotaResponse
     {
@@ -10,5 +10,7 @@
         public string? FechaDeNacimiento { get; set; }
         public int? VacunasCount { get; set; }
         public double? Peso { get; set; }
+        public string? Especie { get; set; }
+        public string? Raza { get; set; }
     }
 }

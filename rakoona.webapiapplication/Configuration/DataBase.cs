@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using rakoona.webapiapplication.Context;
+using rakoona.services.Context;
 
 namespace rakoona.webapi.Configuration
 {

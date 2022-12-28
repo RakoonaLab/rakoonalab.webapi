@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using rakoona.services.Dtos.Response;
+using Microsoft.EntityFrameworkCore;
+using rakoona.models.dtos.Response;
 using rakoona.services.Mappers;
-using rakoona.webapiapplication.Context;
+using rakoona.services.Context;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Clientes
@@ -28,14 +29,16 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clientes
             {
                 return NotFound();
             }
-            var cliente = _context.Clientes.First(x => x.ExternalId == clienteId);
+            var cliente = _context.Clientes.Where(x => x.ExternalId == clienteId)
+                .Include(x=> x.InformacionDeContacto)
+                .First();
 
             if (cliente == null)
             {
                 return NotFound();
             }
 
-            return cliente.MapToResponse();
+            return Ok(cliente.MapToResponse());
         }
 
     }

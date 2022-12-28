@@ -1,5 +1,5 @@
-﻿using rakoona.services.Dtos.Request;
-using rakoona.services.Dtos.Response;
+﻿using rakoona.models.dtos.Request;
+using rakoona.models.dtos.Response;
 using rakoona.services.Entities.Models;
 using rakoona.services.Entities.Models.Personas;
 using rakoona.services.Entities.Models.TiposDeContacto;
@@ -46,7 +46,8 @@ namespace rakoona.services.Mappers
                 FechaDeCreacion = entity.FechaDeCreacion,
                 Nombres = entity.Nombres,
                 Apellidos = entity.Apellidos,
-                Celular = entity.InformacionDeContacto?.First(x => x.ContactType == "Celular")?.Valor
+                Celular = entity.InformacionDeContacto?.FirstOrDefault(x => x.ContactType == "Celular")?.Valor,
+                Mascotas = entity.Mascotas?.Select(x=> x.MapToResponse())
             };
             return response;
         }

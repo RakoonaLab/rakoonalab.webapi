@@ -1,4 +1,4 @@
-﻿namespace rakoona.services.Dtos.Request
+﻿namespace rakoona.models.dtos.Request
 {
     public class CreateClienteRequest
     {
