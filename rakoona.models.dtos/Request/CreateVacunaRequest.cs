@@ -9,7 +9,7 @@
         public string? Nombre { get; set; }
         public string? Lote { get; set; }
         public string? Laboratorio { get; set; }
-        public DateOnly? Caducidad { get; set; }
+        public DateTime? Caducidad { get; set; }
         public string Observaciones { get; set; }
     }
 }
