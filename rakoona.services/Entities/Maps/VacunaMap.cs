@@ -18,6 +18,8 @@ namespace rakoona.services.Entities.Maps
 
             builder.Property(c => c.Nombre).HasColumnName("Nombre");
             builder.Property(c => c.Lote).HasColumnName("Lote");
+            builder.Property(c => c.Caducidad).HasColumnName("Caducidad");
+            builder.Property(c => c.Laboratorio).HasColumnName("Laboratorio");
 
             #endregion
 
