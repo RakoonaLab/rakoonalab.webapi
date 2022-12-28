@@ -23,9 +23,6 @@ namespace rakoona.services.Entities.Maps
             #endregion
 
             #region HasOne
-            builder.HasOne(a => a.Consulta)
-                    .WithMany(b => b.Recetas)
-                    .HasForeignKey(b => b.ConsultaRef);
             #endregion
 
 

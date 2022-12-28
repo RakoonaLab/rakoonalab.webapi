@@ -1,22 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using rakoona.models.dtos.Response;
+using rakoona.models.dtos.Response.Consultas;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
 using rakoona.webapiapplication.Configuration.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace rakoona.webapiapplication.Controllers.api.v1.Consultas
+namespace rakoona.webapi.Controllers.api.v1.Consultas.Preventiva
 {
-    [Route("api/mascota/{mascotaId}/consultas")]
+    [Route("api/mascota/{mascotaId}/consultas/preventivas")]
     [Authorize]
     [ApiController]
-    public class GetConsultasByMascotaController : ControllerBase
+    public class GetConsultasPreventivasByMascotaController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IUserInfoService _userInfo;
 
-        public GetConsultasByMascotaController(
+        public GetConsultasPreventivasByMascotaController(
             ApplicationDbContext context,
             IUserInfoService userInfo
             )
@@ -26,18 +26,12 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Consultas
         }
 
         [HttpGet]
-        [SwaggerOperation(Tags = new[] { "Consultas","Mascotas" })]
-        public async Task<ActionResult<List<ConsultaResponse>>> Get([FromRoute] string mascotaId)
+        [SwaggerOperation(Tags = new[] { "Consultas", "Mascotas" })]
+        public async Task<ActionResult<List<ConsultaPreventivaResponse>>> Get([FromRoute] string mascotaId)
         {
-            if (_context.Consulta == null)
-            {
-                return NotFound();
-            }
-
             var mascota = _context.Mascotas.Single(x => x.ExternalId == mascotaId);
 
-
-            var consultas = _context.Consulta.Where(x => x.MascotaRef == mascota.Id).ToList();
+            var consultas = _context.ConsultaPreventiva.Where(x => x.MascotaRef == mascota.Id).ToList();
 
             if (consultas == null)
             {

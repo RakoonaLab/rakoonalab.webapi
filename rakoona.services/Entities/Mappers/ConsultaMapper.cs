@@ -1,14 +1,14 @@
 ﻿using rakoona.models.dtos.Request.Consultas;
-using rakoona.models.dtos.Response;
+using rakoona.models.dtos.Response.Consultas;
 using rakoona.services.Entities.Models.Consultas;
 
 namespace rakoona.services.Entities.Mappers
 {
-    public static class ConsultaMapper
+    public static class ConsultaBasicaMapper
     {
-        public static ConsultaBase CreateFromRequest(this CreateConsultaRequest request, int mascotaId)
+        public static ConsultaBasica CreateFromRequest(this CreateConsultaBasicaRequest request, int mascotaId)
         {
-            ConsultaBase Consulta = new ConsultaBase
+            ConsultaBasica Consulta = new ConsultaBasica
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = DateTime.Now,
@@ -27,7 +27,7 @@ namespace rakoona.services.Entities.Mappers
             return Consulta;
         }
 
-        public static ConsultaBase UpdateFromRequest(this UpdateConsultaRequest request, ConsultaBase consulta)
+        public static ConsultaBasica UpdateFromRequest(this UpdateConsultaRequest request, ConsultaBasica consulta)
         {
             consulta.Fecha = request.Fecha;
             consulta.Pulso = request.Pulso;
@@ -43,9 +43,9 @@ namespace rakoona.services.Entities.Mappers
             return consulta;
         }
 
-        public static ConsultaResponse MapToResponse(this ConsultaBase entity)
+        public static ConsultaBasicaResponse MapToResponse(this ConsultaBasica entity)
         {
-            ConsultaResponse response = new ConsultaResponse
+            ConsultaBasicaResponse response = new ConsultaBasicaResponse
             {
                 Id = entity.ExternalId,
                 FechaDeCreacion = entity.FechaDeCreacion.Date.ToShortDateString(),

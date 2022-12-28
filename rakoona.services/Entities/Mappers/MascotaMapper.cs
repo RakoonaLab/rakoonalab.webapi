@@ -57,8 +57,8 @@ namespace rakoona.services.Entities.Mappers
                 Raza = entity.Raza,
                 Edad = entity.AnioNacimiento.HasValue ? today.Year - entity.AnioNacimiento.Value + " Años" : null,
                 FechaDeNacimiento = sb.ToString(),
-                VacunasCount = entity.Consultas?.Where(x => x.Motivo == "Vacuna").Count(),
-                Peso = entity.Consultas?.OrderByDescending(x => x.FechaDeCreacion).FirstOrDefault()?.Peso,
+                VacunasCount = entity.ConsultasPreventivas?.Where(x => x.Motivo == "Vacuna").Count(),
+                Peso = entity.ConsultasPreventivas?.OrderByDescending(x => x.FechaDeCreacion).FirstOrDefault()?.Peso,
                 FechaDeCreacion = entity.FechaDeCreacion,
             };
             return response;

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace rakoona.services.Entities.Models.Consultas
 {
-    internal class ConsultaPreventiva: ConsultaBase
+    public class ConsultaPreventiva: ConsultaBase
     {
+        public List<Vacuna> Vacunas { get; set; }
     }
 }

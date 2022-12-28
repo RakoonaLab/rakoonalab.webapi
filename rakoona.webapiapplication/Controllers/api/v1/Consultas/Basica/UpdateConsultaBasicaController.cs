@@ -1,24 +1,23 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Request.Consultas;
-using rakoona.models.dtos.Response;
-using rakoona.webapiapplication.Configuration.Services;
+using rakoona.models.dtos.Response.Consultas;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
+using rakoona.webapiapplication.Configuration.Services;
 using Swashbuckle.AspNetCore.Annotations;
-using rakoona.services.Entities.Mappers;
 
-namespace rakoona.webapi.Controllers.api.v1.Consultas
+namespace rakoona.webapi.Controllers.api.v1.Consultas.Basica
 {
-    [Route("api/consulta/{consultaId}")]
+    [Route("api/consulta/basica/{consultaId}")]
     [Authorize]
     [ApiController]
-    public class ÚpdateConsultaController : ControllerBase
+    public class ÚpdateConsultaBasicaController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IUserInfoService _userInfo;
 
-        public ÚpdateConsultaController(
+        public ÚpdateConsultaBasicaController(
             ApplicationDbContext context,
             IUserInfoService userInfo)
         {
@@ -28,12 +27,9 @@ namespace rakoona.webapi.Controllers.api.v1.Consultas
 
         [HttpPut]
         [SwaggerOperation(Tags = new[] { "Consultas" })]
-        public async Task<ActionResult<ConsultaResponse>> Put([FromBody] UpdateConsultaRequest request, [FromRoute] string consultaId)
+        public async Task<ActionResult<ConsultaBasicaResponse>> Put([FromBody] UpdateConsultaRequest request, [FromRoute] string consultaId)
         {
-            if (_context.Consulta == null)
-                return Problem("Entity set 'ApplicationDbContext.Consulta'  is null.");
-
-            var consulta = _context.Consulta.FirstOrDefault(x => x.ExternalId == consultaId);
+            var consulta = _context.ConsultaBasica.FirstOrDefault(x => x.ExternalId == consultaId);
 
             if (consulta == null)
                 return StatusCode(StatusCodes.Status404NotFound, "Consulta no encontrada");

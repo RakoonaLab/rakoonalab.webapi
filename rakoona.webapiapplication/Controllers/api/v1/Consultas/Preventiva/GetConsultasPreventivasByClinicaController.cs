@@ -1,24 +1,23 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using rakoona.models.dtos.Response;
-using rakoona.webapiapplication.Configuration.Services;
+using Microsoft.EntityFrameworkCore;
+using rakoona.models.dtos.Response.Consultas;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
+using rakoona.webapiapplication.Configuration.Services;
 using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.EntityFrameworkCore;
-using rakoona.services.Entities.Mappers;
 
-namespace rakoona.webapiapplication.Controllers.api.v1.Consultas
+namespace rakoona.webapi.Controllers.api.v1.Consultas.Preventiva
 {
-    [Route("api/clinica/{clinicaId}/consultas")]
+    [Route("api/clinica/{clinicaId}/consultas/preventivas")]
     [Authorize]
     [ApiController]
-    public class GetConsultasByClinicaController : ControllerBase
+    public class GetConsultasPreventivasByClinicaController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IUserInfoService _userInfo;
 
-        public GetConsultasByClinicaController(
+        public GetConsultasPreventivasByClinicaController(
             ApplicationDbContext context,
             IUserInfoService userInfo
             )
@@ -29,19 +28,14 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Consultas
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Consultas", "Clinica" })]
-        public async Task<ActionResult<List<ConsultaResponse>>> Get([FromRoute] string clinicaId)
+        public async Task<ActionResult<List<ConsultaPreventivaResponse>>> Get([FromRoute] string clinicaId)
         {
-            if (_context.Consulta == null)
-            {
-                return NotFound();
-            }
-
             var clinica = _context.Clinicas.Single(x => x.ExternalId == clinicaId);
 
             var consultas = _context.ClientesClinicas
                 .Where(x => x.ClinicaId == clinica.Id)
                 .SelectMany(c => c.Cliente.Mascotas)
-                .SelectMany(m => m.Consultas)
+                .SelectMany(m => m.ConsultasPreventivas)
                 .Include(c => c.Mascota).ThenInclude(m => m.Duenio)
                 .ToList();
 

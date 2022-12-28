@@ -12,17 +12,12 @@ namespace rakoona.services.Entities.Mappers
         {
             var now = DateTime.Now;
 
-            ConsultaBase Consulta = new ConsultaBase
+            ConsultaPreventiva Consulta = new()
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = now,
                 Fecha = now,
-                Pulso = request.Pulso,
-                CaracteristicasDelPulso = request.CaracteristicasDelPulso,
-                FrecuenciaRespiratoria = request.FrecuenciaRespiratoria,
                 Peso = request.Peso,
-                RitmoCardiaco = request.RitmoCardiaco,
-                Temperatura = request.Temperatura,
                 Motivo = "Vacuna",
                 Observaciones = request.Observaciones,
                 MascotaRef = mascotaId
@@ -32,9 +27,11 @@ namespace rakoona.services.Entities.Mappers
             {
                 Nombre = request.Nombre,
                 Lote = request.Lote,
+                Caducidad = request.Caducidad.Value,
+                Laboratorio = request.Laboratorio,
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = now,
-                Consulta = Consulta
+                ConsultaPreventiva = Consulta
             };
 
 

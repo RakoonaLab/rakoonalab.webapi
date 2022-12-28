@@ -7,7 +7,8 @@ namespace rakoona.services.Entities.Models.Pacientes
     {
         public int DuenioRef { get; set; }
         public virtual Cliente Duenio { get; set; }
-        public List<ConsultaBase> Consultas { get; set; }
+        public virtual List<ConsultaBasica> ConsultasBasicas { get; set; }
+        public virtual List<ConsultaPreventiva> ConsultasPreventivas { get; set; }
         public string? Especie { get;  set; }
         public string? Raza { get;  set; }
     }

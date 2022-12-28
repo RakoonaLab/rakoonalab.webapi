@@ -1,23 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using rakoona.models.dtos.Response;
-using rakoona.webapiapplication.Configuration.Services;
+using rakoona.models.dtos.Response.Consultas;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
+using rakoona.webapiapplication.Configuration.Services;
 using Swashbuckle.AspNetCore.Annotations;
-using rakoona.services.Entities.Mappers;
 
-namespace rakoona.webapiapplication.Controllers.api.v1.Consultas
+namespace rakoona.webapi.Controllers.api.v1.Consultas.Preventiva
 {
-    [Route("api/consulta/{consultaId}")]
+    [Route("api/consulta/preventiva/{consultaId}")]
     [Authorize]
     [ApiController]
-    public class GetConsultaByIdController : ControllerBase
+    public class GetConsultaPreventivaByIdController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IUserInfoService _userInfo;
 
-        public GetConsultaByIdController(
+        public GetConsultaPreventivaByIdController(
             ApplicationDbContext context,
             IUserInfoService userInfo
             )
@@ -28,14 +27,10 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Consultas
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Consultas" })]
-        public async Task<ActionResult<ConsultaResponse>> Get([FromRoute] string consultaId)
+        public async Task<ActionResult<ConsultaPreventivaResponse>> Get([FromRoute] string consultaId)
         {
-            if (_context.Consulta == null)
-            {
-                return NotFound();
-            }
 
-            var consulta = _context.Consulta.FirstOrDefault(x => x.ExternalId == consultaId);
+            var consulta = _context.ConsultaPreventiva.FirstOrDefault(x => x.ExternalId == consultaId);
 
             if (consulta == null)
             {

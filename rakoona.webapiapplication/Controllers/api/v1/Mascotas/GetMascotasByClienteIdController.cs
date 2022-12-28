@@ -39,7 +39,7 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Mascota
             var cliente = _context.Clientes.FirstOrDefault(x => x.ExternalId == clienteId);
 
             var mascotas = _context.Mascotas.Where(x => x.DuenioRef == cliente.Id)
-                .Include(x => x.Consultas).ToList();
+                .Include(x => x.ConsultasPreventivas).ToList();
 
             if (mascotas == null)
             {
