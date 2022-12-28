@@ -8,7 +8,7 @@ namespace rakoona.services.Entities.Maps.Consultas
     {
         public void Configure(EntityTypeBuilder<ConsultaBasica> builder)
         {
-            builder.ToTable(name: "Consultas");
+            builder.ToTable(name: "ConsultasBasicas");
 
             #region Property 
             builder.HasKey(c => c.Id);
