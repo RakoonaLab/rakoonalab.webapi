@@ -5,7 +5,7 @@ using rakoona.services.Entities.Models.Personas;
 using rakoona.services.Entities.Models.TiposDeContacto;
 using System.Text;
 
-namespace rakoona.services.Mappers
+namespace rakoona.services.Entities.Mappers
 {
     public static class ClienteMapper
     {
@@ -47,7 +47,7 @@ namespace rakoona.services.Mappers
                 Nombres = entity.Nombres,
                 Apellidos = entity.Apellidos,
                 Celular = entity.InformacionDeContacto?.FirstOrDefault(x => x.ContactType == "Celular")?.Valor,
-                Mascotas = entity.Mascotas?.Select(x=> x.MapToResponse())
+                Mascotas = entity.Mascotas?.Select(x => x.MapToResponse())
             };
             return response;
         }

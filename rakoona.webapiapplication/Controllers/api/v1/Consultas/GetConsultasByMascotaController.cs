@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
-using rakoona.webapiapplication.Configuration.Services;
 using rakoona.services.Context;
-using rakoona.services.Mappers;
+using rakoona.services.Entities.Mappers;
+using rakoona.webapiapplication.Configuration.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Consultas

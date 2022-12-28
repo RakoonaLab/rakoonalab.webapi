@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace rakoona.services.Mappers
+namespace rakoona.services.Entities.Mappers
 {
     public static class MascotaMapper
     {
@@ -17,7 +17,7 @@ namespace rakoona.services.Mappers
                 Nombre = request.Nombre,
                 Genero = request.Genero,
                 Especie = request.Especie,
-                Raza= request.Raza,
+                Raza = request.Raza,
                 ExternalId = Guid.NewGuid().ToString(),
                 DiaNacimiento = request.DiaNacimiento,
                 MesNacimiento = request.MesNacimiento,
@@ -55,9 +55,9 @@ namespace rakoona.services.Mappers
                 Genero = entity.Genero,
                 Especie = entity.Especie,
                 Raza = entity.Raza,
-                Edad = entity.AnioNacimiento.HasValue ? (today.Year - entity.AnioNacimiento.Value) + " Años" : null,
+                Edad = entity.AnioNacimiento.HasValue ? today.Year - entity.AnioNacimiento.Value + " Años" : null,
                 FechaDeNacimiento = sb.ToString(),
-                VacunasCount = entity.Consultas?.Where(x=> x.Motivo == "Vacuna").Count(),
+                VacunasCount = entity.Consultas?.Where(x => x.Motivo == "Vacuna").Count(),
                 Peso = entity.Consultas?.OrderByDescending(x => x.FechaDeCreacion).FirstOrDefault()?.Peso,
                 FechaDeCreacion = entity.FechaDeCreacion,
             };

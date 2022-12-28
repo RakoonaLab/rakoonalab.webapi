@@ -2,7 +2,7 @@
 using rakoona.models.dtos.Response;
 using rakoona.services.Entities.Models;
 
-namespace rakoona.services.Mappers
+namespace rakoona.services.Entities.Mappers
 {
     public static class ClinicaMapper
     {

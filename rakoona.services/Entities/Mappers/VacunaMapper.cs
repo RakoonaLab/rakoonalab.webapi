@@ -4,7 +4,7 @@ using rakoona.services.Entities.Models;
 using rakoona.services.Entities.Models.Consultas;
 using System.Text;
 
-namespace rakoona.services.Mappers
+namespace rakoona.services.Entities.Mappers
 {
     public static class VacunaMapper
     {

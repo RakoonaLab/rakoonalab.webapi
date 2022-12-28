@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
 using rakoona.webapiapplication.Configuration.Services;
 using rakoona.services.Context;
-using rakoona.services.Mappers;
+using rakoona.services.Entities.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.EntityFrameworkCore;
+using rakoona.services.Entities.Mappers;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Consultas
 {
