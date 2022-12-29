@@ -41,12 +41,14 @@ namespace rakoona.services.Context
             });
 
             builder.ApplyConfiguration(new UserMap());
-            builder.ApplyConfiguration(new ConsultaBasicaMap());
-            builder.ApplyConfiguration(new MascotaMap());
-            builder.ApplyConfiguration(new PersonaMap());
             builder.ApplyConfiguration(new ClinicaMap());
             builder.ApplyConfiguration(new ClinicaMedicoMap());
             builder.ApplyConfiguration(new ClienteClinicaMap());
+            builder.ApplyConfiguration(new ConsultaBasicaMap());
+            builder.ApplyConfiguration(new ConsultaPreventivaMap());
+            builder.ApplyConfiguration(new MascotaMap());
+            builder.ApplyConfiguration(new PersonaMap());
+            
             builder.ApplyConfiguration(new DosisMap());
             builder.ApplyConfiguration(new RecetaMap());
             builder.ApplyConfiguration(new VacunaMap());
