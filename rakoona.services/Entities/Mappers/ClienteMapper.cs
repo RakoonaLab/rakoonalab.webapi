@@ -1,4 +1,4 @@
-﻿using rakoona.models.dtos.Request;
+﻿using rakoona.models.dtos.Request.Clientes;
 using rakoona.models.dtos.Response;
 using rakoona.services.Entities.Models;
 using rakoona.services.Entities.Models.Personas;
@@ -33,6 +33,14 @@ namespace rakoona.services.Entities.Mappers
                     new Celular { ExternalId = Guid.NewGuid().ToString(), Valor = request.Celular }
                 };
             }
+
+            return cliente;
+        }
+
+        public static Cliente CreateFromRequest(this UpdateClienteRequest request, Cliente cliente)
+        {
+            cliente.Nombres = request.Nombres;
+            cliente.Apellidos = request.Apellidos;
 
             return cliente;
         }
