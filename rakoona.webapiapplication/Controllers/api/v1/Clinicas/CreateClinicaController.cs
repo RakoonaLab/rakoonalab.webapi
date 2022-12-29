@@ -1,16 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using rakoona.services.Context;
 using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
+using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
 using rakoona.webapiapplication.Configuration.Services;
 using Swashbuckle.AspNetCore.Annotations;
-using rakoona.services.Entities.Mappers;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
 {
-    [Route("api/clinicas")]
+    [Route("api/clinica")]
     [Authorize]
     [ApiController]
     public class CreateClinicaController : ControllerBase

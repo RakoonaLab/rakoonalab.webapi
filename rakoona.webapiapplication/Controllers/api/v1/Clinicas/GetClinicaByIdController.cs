@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using rakoona.models.dtos.Response;
 using rakoona.services.Context;
+using rakoona.services.Entities.Mappers;
 using rakoona.services.Entities.Models;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
 {
-    [Route("api/clinica")]
+    [Route("api/clinica/{clinicaId}")]
     [Authorize]
     [ApiController]
     public class GetClinicaByIdController : ControllerBase
@@ -18,22 +20,22 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Clinicas
             _context = context;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         [SwaggerOperation(Tags = new[] { "Clinica" })]
-        public async Task<ActionResult<Clinica>> Get([FromRoute] string id)
+        public async Task<ActionResult<ClinicaResponse>> Get([FromRoute] string clinicaId)
         {
             if (_context.Clinicas == null)
             {
                 return NotFound();
             }
-            var clinica = _context.Clinicas.Single(x=> x.ExternalId == id);
+            var clinica = _context.Clinicas.Single(x=> x.ExternalId == clinicaId);
 
             if (clinica == null)
             {
                 return NotFound();
             }
 
-            return clinica;
+            return Ok(clinica.MapToResponse());
         }
 
     }
