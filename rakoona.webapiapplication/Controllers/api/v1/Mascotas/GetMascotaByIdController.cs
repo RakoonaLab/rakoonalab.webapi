@@ -6,6 +6,7 @@ using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 using rakoona.services.Entities.Mappers;
+using Microsoft.EntityFrameworkCore;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Mascota
 {
@@ -35,14 +36,16 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Mascota
                 return NotFound();
             }
 
-            var mascota = _context.Mascotas.FirstOrDefault(x => x.ExternalId == mascotaId);
+            var mascota = _context.Mascotas.Where(x => x.ExternalId == mascotaId)
+                .Include(x => x.Duenio)
+                .FirstOrDefault();
 
             if (mascota == null)
             {
                 return NotFound();
             }
 
-            return mascota.MapToResponse();
+            return Ok(mascota.MapToResponse());
         }
 
     }
