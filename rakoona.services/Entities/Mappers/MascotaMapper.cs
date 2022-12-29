@@ -49,8 +49,8 @@ namespace rakoona.services.Entities.Mappers
                 FechaDeNacimiento = GetFechaNacimiento(entity.DiaNacimiento, entity.MesNacimiento, entity.AnioNacimiento) ,
                 VacunasCount = entity.ConsultasPreventivas?.Where(x => x.Motivo == "Vacuna").Count(),
                 Peso = entity.ConsultasPreventivas?.OrderByDescending(x => x.FechaDeCreacion).FirstOrDefault()?.Peso,
-                DuenioNombre= entity.Duenio.GetNombreCompleto(),
-                DuenioId = entity.Duenio.ExternalId,
+                DuenioNombre= entity.Duenio?.GetNombreCompleto(),
+                DuenioId = entity.Duenio?.ExternalId,
                 FechaDeCreacion = entity.FechaDeCreacion,
             };
             return response;
