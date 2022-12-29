@@ -27,9 +27,7 @@ namespace rakoona.services.Entities.Maps.Consultas
             #endregion
 
             #region Discriminator
-            builder.HasDiscriminator<string>("consulta_type")
-                .HasValue<ConsultaBasica>("Basica")
-                .HasValue<ConsultaPreventiva>("Preventiva");
+            
             #endregion
 
             #region HasOne
