@@ -10,32 +10,24 @@ namespace rakoona.services.Entities.Maps.Personas
         {
             builder.ToTable(name: "Personas");
 
-            #region Property 
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Id).HasColumnName("Id");
             builder.Property(c => c.ExternalId).HasColumnName("ExternalId").HasMaxLength(250);
             builder.Property(c => c.FechaDeCreacion).HasColumnName("FechaDeCreacion");
-
             builder.Property(c => c.Nombres).HasColumnName("Nombres");
             builder.Property(c => c.Apellidos).HasColumnName("Apellidos");
             builder.Property(c => c.FechaDeNacimiento).HasColumnName("FechaDeNacimiento");
 
-            #endregion
-
-            #region Discriminator
-
-            #endregion
-
-
-
-            #region HasOne
+            
             builder.HasOne(a => a.User)
                 .WithOne(b => b.Persona)
                 .HasForeignKey<PersonaBase>(b => b.UsuarioRef);
 
-            #endregion
-
             builder.HasMany(a => a.InformacionDeContacto)
+                .WithOne(b => b.Persona)
+                .HasForeignKey(b => b.PersonaRef);
+
+            builder.HasMany(a => a.Domicilios)
                 .WithOne(b => b.Persona)
                 .HasForeignKey(b => b.PersonaRef);
         }
