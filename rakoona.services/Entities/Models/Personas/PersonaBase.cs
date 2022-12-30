@@ -12,7 +12,7 @@ namespace rakoona.services.Entities.Models.Personas
         public string? UsuarioRef { get; set; }
         public virtual User? User { get; set; }
         public List<Contacto>? InformacionDeContacto { get; set; }
-
+        public List<Domicilio>? Domicilios { get; set; }
 
         public string GetNombreCompleto()
         {
