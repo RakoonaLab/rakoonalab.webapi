@@ -50,6 +50,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddControllers();
 builder.Services.AddTransient<IUserInfoService, UserInfoService>();
 builder.Services.AddTransient<IDomicilioService, DomicilioService>();
+builder.Services.AddTransient<IMascotaService, MascotaService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
