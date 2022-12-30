@@ -63,5 +63,23 @@ namespace rakoona.services.Services.Implementacion
 
             return domicilio.MapToResponse();
         }
+
+        public async Task<DomicilioResponse?> ActualizarAsync(UpdateDomicilioRequest request, string domicilioId)
+        {
+            if (_context.Domicilios == null)
+                throw new Exception("Validar _context.Domicilios, es null");
+
+            var domicilio = await _context.Domicilios.SingleAsync(x => x.ExternalId == domicilioId);
+
+            if (domicilio == null)
+                return null;
+
+            var updated = request.UpdateFromRequest(domicilio);
+
+            _context.Update(updated);
+            await _context.SaveChangesAsync();
+
+            return updated.MapToResponse();
+        }
     }
 }

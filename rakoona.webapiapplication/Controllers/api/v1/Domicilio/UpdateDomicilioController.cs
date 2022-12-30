@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Request.Domicilio;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
-using rakoona.webapiapplication.Configuration.Services;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.api.v1.Domicilio
@@ -14,33 +12,23 @@ namespace rakoona.webapi.Controllers.api.v1.Domicilio
     [ApiController]
     public class UpdateDomicilioController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private IUserInfoService _userInfo;
+        private readonly IDomicilioService _domicilioService;
 
-        public UpdateDomicilioController(
-            ApplicationDbContext context,
-            IUserInfoService userInfo)
+        public UpdateDomicilioController(IDomicilioService domicilioService)
         {
-            _userInfo = userInfo;
-            _context = context;
+            _domicilioService = domicilioService;
         }
 
         [HttpPut]
         [SwaggerOperation(Tags = new[] { "Domicilio" })]
         public async Task<ActionResult<DomicilioResponse>> Put([FromBody] UpdateDomicilioRequest request, [FromRoute] string domicilioId)
         {
-            var domicilio = _context.Domicilios.FirstOrDefault(x => x.ExternalId == domicilioId && x.Principal);
+            var domicilio = await _domicilioService.ActualizarAsync(request, domicilioId);
 
             if (domicilio == null)
-                return StatusCode(StatusCodes.Status404NotFound, "contacto no encontrad0");
+                return StatusCode(StatusCodes.Status404NotFound, "domicilio no encontrado");
 
-            var updated = request.UpdateFromRequest(domicilio);
-
-            _context.Update(updated);
-            await _context.SaveChangesAsync();
-
-            var response = updated.MapToResponse();
-            return StatusCode(StatusCodes.Status201Created, response);
+            return StatusCode(StatusCodes.Status200OK, domicilio);
         }
 
     }
