@@ -16,7 +16,7 @@ namespace rakoona.services.Services.Implementacion
             _context = context;
         }
 
-        public async Task<DomicilioResponse> CrearDomicilioAsync(CreateDomicilioRequest request, string clienteId)
+        public async Task<DomicilioResponse> CrearAsync(CreateDomicilioRequest request, string clienteId)
         {
             if (_context.Personas == null)
                 throw new Exception("Validar _context.Personas, es null");
