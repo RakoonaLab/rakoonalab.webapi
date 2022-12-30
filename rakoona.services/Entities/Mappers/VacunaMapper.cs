@@ -49,6 +49,12 @@ namespace rakoona.services.Entities.Mappers
                 Id = entity.ExternalId,
                 Nombre = entity.Nombre,
                 FechaDeCreacion = entity.FechaDeCreacion,
+                Laboratorio = entity.Laboratorio,
+                Caducidad = entity.Caducidad,
+                Motivo = entity.ConsultaPreventiva?.Motivo,
+                Observaciones = entity.ConsultaPreventiva?.Observaciones,
+                Peso = entity.ConsultaPreventiva?.Peso,
+
             };
             return response;
         }
