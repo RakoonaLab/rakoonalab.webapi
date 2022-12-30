@@ -8,6 +8,8 @@ using rakoona.webapi.Configuration.Models;
 using rakoona.webapiapplication.Configuration.Services;
 using rakoona.services.Context;
 using System.Text;
+using rakoona.services.Services.Interfaces;
+using rakoona.services.Services.Implementacion;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +49,8 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddTransient<IUserInfoService, UserInfoService>();
+builder.Services.AddTransient<IDomicilioService, DomicilioService>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
