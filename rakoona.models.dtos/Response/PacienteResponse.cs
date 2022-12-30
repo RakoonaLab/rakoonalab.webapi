@@ -1,6 +1,6 @@
 ﻿namespace rakoona.models.dtos.Response
 {
-    public class MascotaResponse
+    public class MascotaResponse : IResponse
     {
         public string Id { get; set; }
         public string Nombre { get; set; }

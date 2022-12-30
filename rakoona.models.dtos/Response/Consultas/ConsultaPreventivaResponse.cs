@@ -1,6 +1,6 @@
 ﻿namespace rakoona.models.dtos.Response.Consultas
 {
-    public class ConsultaPreventivaResponse
+    public class ConsultaPreventivaResponse : IResponse
     {
         public string? Id { get; set; }
         public string? FechaDeCreacion { get; set; }
