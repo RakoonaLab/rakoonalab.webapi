@@ -26,9 +26,7 @@ namespace rakoona.services.Services.Implementacion
             var cliente = await _context.Clientes.SingleAsync(x => x.ExternalId == clienteId);
 
             if (cliente == null)
-            {
-                return new ApplicationResponse("Cliente no encontrado");
-            }
+                return new ApplicationResponse();
 
             var paciente = request.CreateFromRequest(cliente.Id);
 
@@ -36,6 +34,21 @@ namespace rakoona.services.Services.Implementacion
             await _context.SaveChangesAsync();
 
             return new ApplicationResponse(paciente.MapToResponse());
+        }
+
+        public async Task<ApplicationResponse> GetAsync(string mascotaId)
+        {
+            if (_context.Mascotas == null)
+                return new ApplicationResponse("Entity set 'ApplicationDbContext.Pacientes' is null.");
+
+            var mascota = await _context.Mascotas.Where(x => x.ExternalId == mascotaId)
+                .Include(x => x.Duenio)
+                .FirstOrDefaultAsync();
+
+            if (mascota == null)
+                return new ApplicationResponse();
+
+            return new ApplicationResponse(mascota.MapToResponse());
         }
     }
 }

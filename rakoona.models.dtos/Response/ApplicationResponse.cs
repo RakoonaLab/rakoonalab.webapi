@@ -2,13 +2,19 @@
 {
     public class ApplicationResponse
     {
+        public ApplicationResponse()
+        {
+            IsWorking = true;
+            Message = string.Empty;
+        }
+
         public ApplicationResponse(string message)
         {
             IsWorking = false;
             Message = message;
         }
 
-        public ApplicationResponse(IResponse respuesta)
+        public ApplicationResponse(IResponse? respuesta)
         {
             Respuesta = respuesta;
             IsWorking = true;

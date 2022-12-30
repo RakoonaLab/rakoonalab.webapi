@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
-using rakoona.webapiapplication.Configuration.Services;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
-using rakoona.services.Entities.Mappers;
-using Microsoft.EntityFrameworkCore;
 
 namespace rakoona.webapiapplication.Controllers.api.v1.Mascota
 {
@@ -15,37 +11,27 @@ namespace rakoona.webapiapplication.Controllers.api.v1.Mascota
     [ApiController]
     public class GetMascotaByIdController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private IUserInfoService _userInfo;
-
+        private readonly IMascotaService _mascotaService;
         public GetMascotaByIdController(
-            ApplicationDbContext context,
-            IUserInfoService userInfo
-            )
+            IMascotaService mascotaService)
         {
-            _userInfo = userInfo;
-            _context = context;
+            _mascotaService = mascotaService;
         }
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Mascotas" })]
-        public async Task<ActionResult<MascotaResponse>> Get([FromRoute] string mascotaId)
+        public async Task<ActionResult<MascotaResponse>> GetAsync([FromRoute] string mascotaId)
         {
-            if (_context.Mascotas == null)
-            {
+            var respuesta = await _mascotaService.GetAsync(mascotaId);
+
+            if (respuesta == null)
+                return Problem();
+            if (!respuesta.IsWorking)
+                return Problem();
+            if (respuesta.Respuesta == null)
                 return NotFound();
-            }
 
-            var mascota = _context.Mascotas.Where(x => x.ExternalId == mascotaId)
-                .Include(x => x.Duenio)
-                .FirstOrDefault();
-
-            if (mascota == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(mascota.MapToResponse());
+            return Ok(respuesta.Respuesta);
         }
 
     }
