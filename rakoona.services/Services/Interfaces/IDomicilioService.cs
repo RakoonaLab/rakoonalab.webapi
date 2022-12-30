@@ -7,5 +7,6 @@ namespace rakoona.services.Services.Interfaces
     {
         Task<DomicilioResponse> CrearDomicilioAsync(CreateDomicilioRequest request, string clienteId);
         Task<DomicilioResponse?> GetDomicilioAsync(string domicilioId);
+        Task<DomicilioResponse?> GetDomicilioPrincipalByClienteAsync(string clienteId);
     }
 }

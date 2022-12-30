@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.api.v1.Domicilio
@@ -12,28 +11,23 @@ namespace rakoona.webapi.Controllers.api.v1.Domicilio
     [ApiController]
     public class GetDomicilioByClienteController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IDomicilioService _domicilioService;
 
-        public GetDomicilioByClienteController(ApplicationDbContext context)
+        public GetDomicilioByClienteController(IDomicilioService domicilioService)
         {
-            _context = context;
+            _domicilioService = domicilioService;
         }
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Clientes", "Domicilio" })]
         public async Task<ActionResult<DomicilioResponse>> Get(string clienteId)
         {
-            var cliente = _context.Clientes.Single(x => x.ExternalId == clienteId);
-
-            var domicilio = _context.Domicilios.Where(x => x.PersonaRef == cliente.Id && x.Principal).FirstOrDefault();
+            var domicilio = await _domicilioService.GetDomicilioPrincipalByClienteAsync(clienteId);
 
             if (domicilio == null)
-            {
                 return NotFound();
-            }
 
-            return Ok(domicilio.MapToResponse());
-
+            return Ok(domicilio);
         }
 
     }

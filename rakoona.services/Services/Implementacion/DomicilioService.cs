@@ -46,5 +46,22 @@ namespace rakoona.services.Services.Implementacion
 
             return domicilio.MapToResponse();
         }
+
+        public async Task<DomicilioResponse?> GetDomicilioPrincipalByClienteAsync(string clienteId)
+        {
+            if (_context.Domicilios == null)
+                throw new Exception("Validar _context.Domicilios, es null");
+            if (_context.Clientes == null)
+                throw new Exception("Validar _context.Clientes, es null");
+
+            var cliente = await _context.Clientes.SingleAsync(x => x.ExternalId == clienteId);
+
+            var domicilio = await _context.Domicilios.FirstOrDefaultAsync(x => x.PersonaRef == cliente.Id && x.Principal);
+
+            if (domicilio == null)
+                return null;
+
+            return domicilio.MapToResponse();
+        }
     }
 }
