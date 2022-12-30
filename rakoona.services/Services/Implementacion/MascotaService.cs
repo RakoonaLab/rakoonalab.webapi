@@ -16,19 +16,18 @@ namespace rakoona.services.Services.Implementacion
             _context = context;
         }
 
-        public async Task<MascotaResponse, ApplicationResponse> CreateAsync(CreatePacienteRequest request, string clienteId)
+        public async Task<ApplicationResponse> CreateAsync(CreatePacienteRequest request, string clienteId)
         {
             if (_context.Mascotas == null)
-                throw new Exception("Entity set 'ApplicationDbContext.Pacientes' is null.");
+                return new ApplicationResponse("Entity set 'ApplicationDbContext.Pacientes' is null.");
             if (_context.Clientes == null)
-                throw new Exception("Entity set 'ApplicationDbContext.Clientes' is null.");
-
+                return new ApplicationResponse("Entity set 'ApplicationDbContext.Clientes' is null.");
 
             var cliente = await _context.Clientes.SingleAsync(x => x.ExternalId == clienteId);
 
             if (cliente == null)
             {
-                throw new Exception("Cliente no encontrado");
+                return new ApplicationResponse("Cliente no encontrado");
             }
 
             var paciente = request.CreateFromRequest(cliente.Id);
@@ -36,7 +35,7 @@ namespace rakoona.services.Services.Implementacion
             await _context.Mascotas.AddAsync(paciente);
             await _context.SaveChangesAsync();
 
-            return paciente.MapToResponse();
+            return new ApplicationResponse(paciente.MapToResponse());
         }
     }
 }
