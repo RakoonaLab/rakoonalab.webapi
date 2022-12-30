@@ -22,7 +22,7 @@ namespace rakoona.webapi.Controllers.api.v1.Domicilio
         [SwaggerOperation(Tags = new[] { "Domicilio" })]
         public async Task<ActionResult<DomicilioResponse>> Get(string domicilioId)
         {
-            var domicilio = _domicilioService.GetDomicilio(domicilioId);
+            var domicilio = await _domicilioService.GetDomicilioAsync(domicilioId);
 
             if (domicilio == null)
                 return NotFound();

@@ -1,4 +1,5 @@
-﻿using rakoona.models.dtos.Request.Domicilio;
+﻿using Microsoft.EntityFrameworkCore;
+using rakoona.models.dtos.Request.Domicilio;
 using rakoona.models.dtos.Response;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
@@ -15,20 +16,28 @@ namespace rakoona.services.Services.Implementacion
             _context = context;
         }
 
-        public async Task<DomicilioResponse> CrearDomicilio(CreateDomicilioRequest request, string clienteId)
+        public async Task<DomicilioResponse> CrearDomicilioAsync(CreateDomicilioRequest request, string clienteId)
         {
-            var cliente = _context.Personas.First(x => x.ExternalId == clienteId);
+            if (_context.Personas == null)
+                throw new Exception("Validar _context.Personas, es null");
+            if (_context.Domicilios == null)
+                throw new Exception("Validar _context.Domicilios, es null");
+
+            var cliente = await _context.Personas.SingleAsync(x => x.ExternalId == clienteId);
             var domicilio = request.CreateFromRequest(cliente.Id);
 
-            _context.Domicilios.Add(domicilio);
+            await _context.Domicilios.AddAsync(domicilio);
             await _context.SaveChangesAsync();
 
             return domicilio.MapToResponse();
         }
 
-        public DomicilioResponse? GetDomicilio(string domicilioId)
+        public async Task<DomicilioResponse?> GetDomicilioAsync(string domicilioId)
         {
-            var domicilio = _context.Domicilios.Single(x => x.ExternalId == domicilioId && x.Principal);
+            if (_context.Domicilios == null)
+                throw new Exception("Validar _context.Domicilios, es null");
+
+            var domicilio = await _context.Domicilios.SingleAsync(x => x.ExternalId == domicilioId && x.Principal);
 
             if (domicilio == null)
             {
@@ -36,7 +45,6 @@ namespace rakoona.services.Services.Implementacion
             }
 
             return domicilio.MapToResponse();
-
         }
     }
 }
