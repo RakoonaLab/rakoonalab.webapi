@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using rakoona.services.Entities.Models;
-using rakoona.services.Entities.Models.Consultas;
-using rakoona.services.Entities.Models.Pacientes;
-using rakoona.services.Entities.Models.Personas;
-using rakoona.services.Entities.Models.Seguridad;
 using rakoona.services.Entities.Maps;
 using rakoona.services.Entities.Maps.Consultas;
 using rakoona.services.Entities.Maps.Pacientes;
 using rakoona.services.Entities.Maps.Personas;
 using rakoona.services.Entities.Maps.Seguridad;
+using rakoona.services.Entities.Models;
+using rakoona.services.Entities.Models.Consultas;
+using rakoona.services.Entities.Models.Pacientes;
+using rakoona.services.Entities.Models.Personas;
+using rakoona.services.Entities.Models.Seguridad;
 using rakoona.services.Entities.Models.TiposDeContacto;
 
 namespace rakoona.services.Context
@@ -53,21 +53,23 @@ namespace rakoona.services.Context
             builder.ApplyConfiguration(new RecetaMap());
             builder.ApplyConfiguration(new VacunaMap());
             builder.ApplyConfiguration(new ContactoMap());
+            builder.ApplyConfiguration(new DomicilioMap());
         }
 
-        public DbSet<User> Usuarios { get; set; }
-        public DbSet<ConsultaBasica> ConsultaBasica { get; set; }
-        public DbSet<ConsultaPreventiva> ConsultaPreventiva { get; set; }
-        public DbSet<Mascota> Mascotas { get; set; }
-        public DbSet<Medico> Medicos { get; set; }
-        public DbSet<Cliente> Clientes { get; set; }
-        public DbSet<PersonaBase> Personas { get; set; }
-        public DbSet<Clinica> Clinicas { get; set; }
-        public DbSet<Dosis> Dosis { get; set; }
-        public DbSet<Receta> Recetas { get; set; }
-        public DbSet<ClinicaMedico> ClinicasMedicos { get; set; }
-        public DbSet<ClienteClinica> ClientesClinicas { get; set; }
-        public DbSet<Vacuna> Vacunas { get; set; }
-        public DbSet<Contacto> InformacionDeContacto { get; set; }
+        public DbSet<User>? Usuarios { get; set; }
+        public DbSet<ConsultaBasica>? ConsultaBasica { get; set; }
+        public DbSet<ConsultaPreventiva>? ConsultaPreventiva { get; set; }
+        public DbSet<Mascota>? Mascotas { get; set; }
+        public DbSet<Medico>? Medicos { get; set; }
+        public DbSet<Cliente>? Clientes { get; set; }
+        public DbSet<PersonaBase>? Personas { get; set; }
+        public DbSet<Clinica>? Clinicas { get; set; }
+        public DbSet<Dosis>? Dosis { get; set; }
+        public DbSet<Receta>? Recetas { get; set; }
+        public DbSet<ClinicaMedico>? ClinicasMedicos { get; set; }
+        public DbSet<ClienteClinica>? ClientesClinicas { get; set; }
+        public DbSet<Vacuna>? Vacunas { get; set; }
+        public DbSet<Contacto>? InformacionDeContacto { get; set; }
+        public DbSet<Domicilio>? Domicilios { get; set; }
     }
 }
