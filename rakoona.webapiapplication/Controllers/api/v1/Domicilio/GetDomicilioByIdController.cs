@@ -25,9 +25,7 @@ namespace rakoona.webapi.Controllers.api.v1.Domicilio
             var domicilio = _domicilioService.GetDomicilio(domicilioId);
 
             if (domicilio == null)
-            {
                 return NotFound();
-            }
 
             return Ok(domicilio);
 
