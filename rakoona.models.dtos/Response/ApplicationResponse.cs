@@ -1,28 +1,26 @@
 ﻿namespace rakoona.models.dtos.Response
 {
-    public class ApplicationResponse
+    public class ApplicationResponse<T>
     {
-        public ApplicationResponse()
+        private T? _respuesta { get; set; }
+
+        public ApplicationResponse(int code, T? respuesta)
         {
-            IsWorking = true;
-            Message = string.Empty;
+            IsSuccess = true;
+            Code = code;
+            _respuesta = respuesta;
         }
 
-        public ApplicationResponse(string message)
+        public ApplicationResponse(Response error)
         {
-            IsWorking = false;
-            Message = message;
+            IsSuccess = false;
+            Code = Convert.ToInt32(error.Status);
+            Error = new { message = error.Message };
         }
 
-        public ApplicationResponse(IResponse? respuesta)
-        {
-            Respuesta = respuesta;
-            IsWorking = true;
-            Message = string.Empty;
-        }
-
-        public IResponse? Respuesta { get; }
-        public bool IsWorking { get; }
-        public string Message { get; }
+        public bool IsSuccess { get; }
+        public int Code { get; }
+        public T? Respuesta { get; }
+        public object? Error { get; }
     }
 }

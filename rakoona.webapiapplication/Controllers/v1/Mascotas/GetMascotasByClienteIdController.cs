@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using rakoona.models.dtos.Response;
-using rakoona.webapiapplication.Configuration.Services;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
-using rakoona.services.Entities.Mappers;
 
 namespace rakoona.webapi.Controllers.v1.Mascotas
 {
@@ -15,38 +11,26 @@ namespace rakoona.webapi.Controllers.v1.Mascotas
     [ApiController]
     public class GetVacunasByMascotaIdController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private IUserInfoService _userInfo;
-
+        private readonly IMascotaService _mascotaService;
         public GetVacunasByMascotaIdController(
-            ApplicationDbContext context,
-            IUserInfoService userInfo
-            )
+            IMascotaService mascotaService)
         {
-            _userInfo = userInfo;
-            _context = context;
+            _mascotaService = mascotaService;
         }
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Mascotas" })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<List<MascotaResponse>>> Get([FromRoute] string clienteId)
         {
-            if (_context.Mascotas == null)
-            {
+            var respuesta = await _mascotaService.GetPorCliente(clienteId);
+
+            if (respuesta == null)
                 return NotFound();
-            }
 
-            var cliente = _context.Clientes.FirstOrDefault(x => x.ExternalId == clienteId);
-
-            var mascotas = _context.Mascotas.Where(x => x.DuenioRef == cliente.Id)
-                .Include(x => x.ConsultasPreventivas).ToList();
-
-            if (mascotas == null)
-            {
-                return NotFound();
-            }
-
-            return mascotas.Select(x => x.MapToResponse()).ToList();
+            return Ok(respuesta);
         }
 
     }

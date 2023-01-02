@@ -5,7 +5,10 @@ namespace rakoona.services.Services.Interfaces
 {
     public interface IMascotaService
     {
-        Task<ApplicationResponse> CreateAsync(CreatePacienteRequest request, string clienteId);
-        Task<ApplicationResponse> GetAsync(string mascotaId);
+        Task<MascotaResponse> CreateAsync(CreatePacienteRequest request, string clienteId);
+        Task<MascotaResponse> GetAsync(string mascotaId);
+        Task<List<MascotaResponse>> GetPorCliente(string clienteId);
+        Task<List<MascotaResponse>> GetPorClinica(string clinicaId);
+        Task<bool> DeleteAsync(string mascotaId);
     }
 }

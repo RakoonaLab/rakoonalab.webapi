@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
-using rakoona.webapiapplication.Configuration.Services;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
-using rakoona.services.Entities.Mappers;
 
 namespace rakoona.webapi.Controllers.v1.Mascotas
 {
@@ -14,31 +11,24 @@ namespace rakoona.webapi.Controllers.v1.Mascotas
     [ApiController]
     public class DeleteMascotaByIdController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private IUserInfoService _userInfo;
-
+        private readonly IMascotaService _mascotaService;
         public DeleteMascotaByIdController(
-            ApplicationDbContext context,
-            IUserInfoService userInfo
-            )
+            IMascotaService mascotaService)
         {
-            _userInfo = userInfo;
-            _context = context;
+            _mascotaService = mascotaService;
         }
 
         [HttpDelete]
         [SwaggerOperation(Tags = new[] { "Mascotas" })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        
         public async Task<ActionResult<MascotaResponse>> Delete([FromRoute] string mascotaId)
         {
-            var mascota = _context.Mascotas.FirstOrDefault(x => x.ExternalId == mascotaId);
-
-            if (mascota == null)
-                return NotFound();
-
-            _context.Mascotas.Remove(mascota);
-            _context.SaveChanges();
-
-            return StatusCode(StatusCodes.Status200OK);
+            var respuesta = await _mascotaService.DeleteAsync(mascotaId);
+            
+            return respuesta ? StatusCode(StatusCodes.Status204NoContent): NotFound();
         }
 
     }

@@ -4,6 +4,7 @@ using rakoona.models.dtos.Request.Domicilio;
 using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Http;
 
 namespace rakoona.webapi.Controllers.v1.Domicilio
 {
@@ -21,6 +22,9 @@ namespace rakoona.webapi.Controllers.v1.Domicilio
 
         [HttpPost]
         [SwaggerOperation(Tags = new[] { "Clientes", "Domicilio" })]
+        [ProducesResponseType(typeof(DomicilioResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<DomicilioResponse>> Get([FromBody] CreateDomicilioRequest request, [FromRoute] string clienteId)
         {
             var domicilio = await _domicilioService.CrearAsync(request, clienteId);

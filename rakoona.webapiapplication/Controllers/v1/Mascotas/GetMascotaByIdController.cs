@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Http;
 
 namespace rakoona.webapi.Controllers.v1.Mascotas
 {
@@ -20,18 +21,17 @@ namespace rakoona.webapi.Controllers.v1.Mascotas
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Mascotas" })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<MascotaResponse>> GetAsync([FromRoute] string mascotaId)
         {
             var respuesta = await _mascotaService.GetAsync(mascotaId);
 
             if (respuesta == null)
-                return Problem();
-            if (!respuesta.IsWorking)
-                return Problem();
-            if (respuesta.Respuesta == null)
                 return NotFound();
 
-            return Ok(respuesta.Respuesta);
+            return Ok(respuesta);
         }
 
     }
