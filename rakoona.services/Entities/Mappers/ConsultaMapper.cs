@@ -66,5 +66,30 @@ namespace rakoona.services.Entities.Mappers
             };
             return response;
         }
+
+        public static ConsultaResponse MapToConsultaResponse(this ConsultaBasica entity)
+        {
+            ConsultaResponse response = new ()
+            {
+                Id = entity.ExternalId,
+                Tipo="Basica",
+                FechaDeCreacion = entity.FechaDeCreacion.Date.ToShortDateString(),
+                Fecha = entity.Fecha.Date.ToShortDateString(),
+                Pulso = entity.Pulso.HasValue ? entity.Pulso : 0,
+                CaracteristicasDelPulso = entity.CaracteristicasDelPulso,
+                FrecuenciaRespiratoria = entity.FrecuenciaRespiratoria.HasValue ? entity.FrecuenciaRespiratoria : 0,
+                Peso = entity.Peso.HasValue ? entity.Peso : 0,
+                RitmoCardiaco = entity.RitmoCardiaco.HasValue ? entity.RitmoCardiaco : 0,
+                Temperatura = entity.Temperatura.HasValue ? entity.Temperatura : 0,
+                Motivo = entity.Motivo,
+                Diagnostico = entity.Diagnostico,
+                Observaciones = entity.Observaciones,
+                MascotaNombre = entity.Mascota?.Nombre,
+                MascotaId = entity.Mascota?.ExternalId,
+                ClienteNombre = entity.Mascota?.Duenio?.GetNombreCompleto(),
+                ClienteId = entity.Mascota?.Duenio?.ExternalId,
+            };
+            return response;
+        }
     }
 }
