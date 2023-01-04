@@ -8,17 +8,17 @@ using rakoona.services.Entities.Models.Consultas;
 using rakoona.webapiapplication.Configuration.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace rakoona.webapi.Controllers.v1.Consultas.Basica
+namespace rakoona.webapi.Controllers.v1.Consultas
 {
-    [Route("api/mascota/{mascotaId}/consulta/basica")]
+    [Route("api/mascota/{mascotaId}/consulta")]
     [Authorize]
     [ApiController]
-    public class CreateConsultaBasicaController : ControllerBase
+    public class CreateConsultaController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IUserInfoService _userInfo;
 
-        public CreateConsultaBasicaController(
+        public CreateConsultaController(
             ApplicationDbContext context,
             IUserInfoService userInfo)
         {
@@ -35,14 +35,14 @@ namespace rakoona.webapi.Controllers.v1.Consultas.Basica
 
             var mascota = _context.Mascotas.FirstOrDefault(x => x.ExternalId == mascotaId);
 
-            var consulta = new ConsultaBasica()
+            var consulta = new Consulta()
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = DateTime.Now,
                 MascotaRef = mascota.Id
             };
 
-            await _context.ConsultaBasica.AddAsync(consulta);
+            await _context.Consultas.AddAsync(consulta);
             await _context.SaveChangesAsync();
 
             var response = consulta.MapToResponse();

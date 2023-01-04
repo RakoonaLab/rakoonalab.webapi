@@ -6,9 +6,9 @@ namespace rakoona.services.Entities.Mappers
 {
     public static class ConsultaBasicaMapper
     {
-        public static ConsultaBasica CreateFromRequest(this CreateConsultaBasicaRequest request, int mascotaId)
+        public static Consulta CreateFromRequest(this CreateConsultaBasicaRequest request, int mascotaId)
         {
-            ConsultaBasica Consulta = new ConsultaBasica
+            Consulta Consulta = new Consulta
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = DateTime.Now,
@@ -27,7 +27,7 @@ namespace rakoona.services.Entities.Mappers
             return Consulta;
         }
 
-        public static ConsultaBasica UpdateFromRequest(this UpdateConsultaRequest request, ConsultaBasica consulta)
+        public static Consulta UpdateFromRequest(this UpdateConsultaRequest request, Consulta consulta)
         {
             consulta.Fecha = request.Fecha;
             consulta.Pulso = request.Pulso;
@@ -43,7 +43,7 @@ namespace rakoona.services.Entities.Mappers
             return consulta;
         }
 
-        public static ConsultaBasicaResponse MapToResponse(this ConsultaBasica entity)
+        public static ConsultaBasicaResponse MapToResponse(this Consulta entity)
         {
             ConsultaBasicaResponse response = new ConsultaBasicaResponse
             {
@@ -67,7 +67,7 @@ namespace rakoona.services.Entities.Mappers
             return response;
         }
 
-        public static ConsultaResponse MapToConsultaResponse(this ConsultaBasica entity)
+        public static ConsultaResponse MapToConsultaResponse(this Consulta entity)
         {
             ConsultaResponse response = new ()
             {

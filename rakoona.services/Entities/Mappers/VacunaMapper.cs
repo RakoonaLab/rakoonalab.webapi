@@ -8,37 +8,25 @@ namespace rakoona.services.Entities.Mappers
 {
     public static class VacunaMapper
     {
-        public static Vacuna CreateFromRequest(this CreateVacunaRequest request, int mascotaId)
+        public static Vacunacion CreateFromRequest(this CreateVacunaRequest request, int mascotaId)
         {
             var now = DateTime.Now;
-
-            ConsultaPreventiva Consulta = new()
+            Vacunacion vacuna = new Vacunacion
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = now,
                 Fecha = now,
-                Peso = request.Peso,
-                Motivo = "Vacuna",
-                Observaciones = request.Observaciones,
-                MascotaRef = mascotaId
-            };
-
-            Vacuna vacuna = new Vacuna
-            {
                 Nombre = request.Nombre,
                 Lote = request.Lote,
                 Caducidad = DateTime.Parse(request.Caducidad),
-                Laboratorio = request.Laboratorio,
-                ExternalId = Guid.NewGuid().ToString(),
-                FechaDeCreacion = now,
-                ConsultaPreventiva = Consulta
+                Laboratorio = request.Laboratorio
             };
 
 
             return vacuna;
         }
 
-        public static VacunaResponse MapToResponse(this Vacuna entity)
+        public static VacunaResponse MapToResponse(this Vacunacion entity)
         {
             var today = DateTime.Today;
             StringBuilder sb = new StringBuilder();
@@ -51,10 +39,6 @@ namespace rakoona.services.Entities.Mappers
                 FechaDeCreacion = entity.FechaDeCreacion,
                 Laboratorio = entity.Laboratorio,
                 Caducidad = entity.Caducidad,
-                Motivo = entity.ConsultaPreventiva?.Motivo,
-                Observaciones = entity.ConsultaPreventiva?.Observaciones,
-                Peso = entity.ConsultaPreventiva?.Peso,
-
             };
             return response;
         }

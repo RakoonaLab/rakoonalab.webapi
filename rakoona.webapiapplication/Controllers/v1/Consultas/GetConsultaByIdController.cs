@@ -6,17 +6,17 @@ using rakoona.services.Entities.Mappers;
 using rakoona.webapiapplication.Configuration.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace rakoona.webapi.Controllers.v1.Consultas.Basica
+namespace rakoona.webapi.Controllers.v1.Consultas
 {
-    [Route("api/consulta/basica/{consultaId}")]
+    [Route("api/consulta/{consultaId}")]
     [Authorize]
     [ApiController]
-    public class GetConsultaBasicaByIdController : ControllerBase
+    public class GetConsultaByIdController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IUserInfoService _userInfo;
 
-        public GetConsultaBasicaByIdController(
+        public GetConsultaByIdController(
             ApplicationDbContext context,
             IUserInfoService userInfo
             )
@@ -30,7 +30,7 @@ namespace rakoona.webapi.Controllers.v1.Consultas.Basica
         public async Task<ActionResult<ConsultaBasicaResponse>> Get([FromRoute] string consultaId)
         {
 
-            var consulta = _context.ConsultaBasica.FirstOrDefault(x => x.ExternalId == consultaId);
+            var consulta = _context.Consultas.FirstOrDefault(x => x.ExternalId == consultaId);
 
             if (consulta == null)
             {

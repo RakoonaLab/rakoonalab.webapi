@@ -4,11 +4,11 @@ using rakoona.services.Entities.Models;
 
 namespace rakoona.services.Entities.Maps
 {
-    public class VacunaMap : IEntityTypeConfiguration<Vacuna>
+    public class VacunacionMap : IEntityTypeConfiguration<Vacunacion>
     {
-        public void Configure(EntityTypeBuilder<Vacuna> builder)
+        public void Configure(EntityTypeBuilder<Vacunacion> builder)
         {
-            builder.ToTable(name: "Vacunas");
+            builder.ToTable(name: "Vacunaciones");
 
             #region Property 
             builder.HasKey(c => c.Id);
@@ -28,7 +28,7 @@ namespace rakoona.services.Entities.Maps
             #endregion
 
             #region HasOne
-            builder.HasOne(a => a.ConsultaPreventiva)
+            builder.HasOne(a => a.Consulta)
                     .WithMany(b => b.Vacunas)
                     .HasForeignKey(b => b.ConsultaRef);
             #endregion

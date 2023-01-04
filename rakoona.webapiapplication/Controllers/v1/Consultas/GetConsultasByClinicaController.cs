@@ -7,7 +7,7 @@ using rakoona.services.Entities.Mappers;
 using rakoona.webapiapplication.Configuration.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace rakoona.webapi.Controllers.v1.Consultas.Preventiva
+namespace rakoona.webapi.Controllers.v1.Consultas
 {
     [Route("api/clinica/{clinicaId}/consultas")]
     [Authorize]
@@ -28,30 +28,23 @@ namespace rakoona.webapi.Controllers.v1.Consultas.Preventiva
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Consultas", "Clinica" })]
-        public async Task<ActionResult<List<ConsultaResponse>>> Get([FromRoute] string clinicaId)
+        public async Task<ActionResult<List<ConsultaBasicaResponse>>> Get([FromRoute] string clinicaId)
         {
             var clinica = _context.Clinicas.Single(x => x.ExternalId == clinicaId);
 
-            var consultasPreventivas = _context.ClientesClinicas
+            var consultas = _context.ClientesClinicas
                 .Where(x => x.ClinicaId == clinica.Id)
                 .SelectMany(c => c.Cliente.Mascotas)
-                .SelectMany(m => m.ConsultasPreventivas)
+                .SelectMany(m => m.Consultas)
                 .Include(c => c.Mascota).ThenInclude(m => m.Duenio)
                 .ToList();
 
-            var consultasBasicas = _context.ClientesClinicas
-                .Where(x => x.ClinicaId == clinica.Id)
-                .SelectMany(c => c.Cliente.Mascotas)
-                .SelectMany(m => m.ConsultasBasicas)
-                .Include(c => c.Mascota).ThenInclude(m => m.Duenio)
-                .ToList();
+            if (consultas == null)
+            {
+                return NotFound();
+            }
 
-            var listConsultas = new List<ConsultaResponse>();
-
-            listConsultas.AddRange( consultasPreventivas.Select(x => x.MapToConsultaResponse()).ToList());
-            listConsultas.AddRange(consultasBasicas.Select(x => x.MapToConsultaResponse()).ToList());
-
-            return Ok(listConsultas);
+            return Ok(consultas.Select(x => x.MapToResponse()).ToList());
         }
 
     }

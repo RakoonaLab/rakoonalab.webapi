@@ -7,17 +7,17 @@ using rakoona.services.Entities.Mappers;
 using rakoona.webapiapplication.Configuration.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace rakoona.webapi.Controllers.v1.Consultas.Basica
+namespace rakoona.webapi.Controllers.v1.Consultas
 {
-    [Route("api/consulta/basica/{consultaId}")]
+    [Route("api/consulta/{consultaId}")]
     [Authorize]
     [ApiController]
-    public class ÚpdateConsultaBasicaController : ControllerBase
+    public class ÚpdateConsultaController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IUserInfoService _userInfo;
 
-        public ÚpdateConsultaBasicaController(
+        public ÚpdateConsultaController(
             ApplicationDbContext context,
             IUserInfoService userInfo)
         {
@@ -29,7 +29,7 @@ namespace rakoona.webapi.Controllers.v1.Consultas.Basica
         [SwaggerOperation(Tags = new[] { "Consultas" })]
         public async Task<ActionResult<ConsultaBasicaResponse>> Put([FromBody] UpdateConsultaRequest request, [FromRoute] string consultaId)
         {
-            var consulta = _context.ConsultaBasica.FirstOrDefault(x => x.ExternalId == consultaId);
+            var consulta = _context.Consultas.FirstOrDefault(x => x.ExternalId == consultaId);
 
             if (consulta == null)
                 return StatusCode(StatusCodes.Status404NotFound, "Consulta no encontrada");

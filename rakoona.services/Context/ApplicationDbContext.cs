@@ -44,21 +44,19 @@ namespace rakoona.services.Context
             builder.ApplyConfiguration(new ClinicaMap());
             builder.ApplyConfiguration(new ClinicaMedicoMap());
             builder.ApplyConfiguration(new ClienteClinicaMap());
-            builder.ApplyConfiguration(new ConsultaBasicaMap());
-            builder.ApplyConfiguration(new ConsultaPreventivaMap());
+            builder.ApplyConfiguration(new ConsultaMap());
             builder.ApplyConfiguration(new MascotaMap());
             builder.ApplyConfiguration(new PersonaMap());
             
             builder.ApplyConfiguration(new DosisMap());
             builder.ApplyConfiguration(new RecetaMap());
-            builder.ApplyConfiguration(new VacunaMap());
+            builder.ApplyConfiguration(new VacunacionMap());
             builder.ApplyConfiguration(new ContactoMap());
             builder.ApplyConfiguration(new DomicilioMap());
         }
 
         public DbSet<User>? Usuarios { get; set; }
-        public DbSet<ConsultaBasica>? ConsultaBasica { get; set; }
-        public DbSet<ConsultaPreventiva>? ConsultaPreventiva { get; set; }
+        public DbSet<Consulta>? Consultas { get; set; }
         public DbSet<Mascota>? Mascotas { get; set; }
         public DbSet<Medico>? Medicos { get; set; }
         public DbSet<Cliente>? Clientes { get; set; }
@@ -68,7 +66,7 @@ namespace rakoona.services.Context
         public DbSet<Receta>? Recetas { get; set; }
         public DbSet<ClinicaMedico>? ClinicasMedicos { get; set; }
         public DbSet<ClienteClinica>? ClientesClinicas { get; set; }
-        public DbSet<Vacuna>? Vacunas { get; set; }
+        public DbSet<Vacunacion>? Vacunas { get; set; }
         public DbSet<Contacto>? InformacionDeContacto { get; set; }
         public DbSet<Domicilio>? Domicilios { get; set; }
     }
