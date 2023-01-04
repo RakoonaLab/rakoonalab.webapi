@@ -48,5 +48,24 @@ namespace rakoona.services.Entities.Mappers
             };
             return response;
         }
+
+        public static ConsultaResponse MapToConsultaResponse(this ConsultaPreventiva entity)
+        {
+            ConsultaResponse response = new()
+            {
+                Id = entity.ExternalId,
+                Tipo= "Preventiva",
+                FechaDeCreacion = entity.FechaDeCreacion.Date.ToShortDateString(),
+                Fecha = entity.Fecha.Date.ToShortDateString(),
+                Peso = entity.Peso.HasValue ? entity.Peso : 0,
+                Motivo = entity.Motivo,
+                Observaciones = entity.Observaciones,
+                MascotaNombre = entity.Mascota?.Nombre,
+                MascotaId = entity.Mascota?.ExternalId,
+                ClienteNombre = entity.Mascota?.Duenio?.GetNombreCompleto(),
+                ClienteId = entity.Mascota?.Duenio?.ExternalId,
+            };
+            return response;
+        }
     }
 }
