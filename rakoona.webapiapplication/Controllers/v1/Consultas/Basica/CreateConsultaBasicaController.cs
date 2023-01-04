@@ -4,6 +4,7 @@ using rakoona.models.dtos.Request.Consultas;
 using rakoona.models.dtos.Response.Consultas;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
+using rakoona.services.Entities.Models.Consultas;
 using rakoona.webapiapplication.Configuration.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -27,16 +28,21 @@ namespace rakoona.webapi.Controllers.v1.Consultas.Basica
 
         [HttpPost]
         [SwaggerOperation(Tags = new[] { "Consultas", "Mascotas" })]
-        public async Task<ActionResult<ConsultaBasicaResponse>> Post([FromBody] CreateConsultaBasicaRequest request, [FromRoute] string mascotaId)
+        public async Task<ActionResult<ConsultaBasicaResponse>> Post([FromRoute] string mascotaId)
         {
             //if (_context.Clinicas == null)
             //    return Problem("Entity set 'ApplicationDbContext.Consultas'  is null.");
 
             var mascota = _context.Mascotas.FirstOrDefault(x => x.ExternalId == mascotaId);
 
-            var consulta = request.CreateFromRequest(mascota.Id);
+            var consulta = new ConsultaBasica()
+            {
+                ExternalId = Guid.NewGuid().ToString(),
+                FechaDeCreacion = DateTime.Now,
+                MascotaRef = mascota.Id
+            };
 
-            _context.ConsultaBasica.Add(consulta);
+            await _context.ConsultaBasica.AddAsync(consulta);
             await _context.SaveChangesAsync();
 
             var response = consulta.MapToResponse();
