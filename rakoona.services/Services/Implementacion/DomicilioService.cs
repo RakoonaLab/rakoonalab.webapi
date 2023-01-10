@@ -3,6 +3,7 @@ using rakoona.models.dtos.Request.Domicilio;
 using rakoona.models.dtos.Response;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
+using rakoona.services.Entities.Models.Personas;
 using rakoona.services.Services.Interfaces;
 
 namespace rakoona.services.Services.Implementacion
@@ -24,6 +25,16 @@ namespace rakoona.services.Services.Implementacion
                 throw new Exception("Validar _context.Domicilios, es null");
 
             var cliente = await _context.Personas.SingleAsync(x => x.ExternalId == clienteId);
+            if (request.Principal)
+            {
+                var domicilioPrincipal = await _context.Domicilios.FirstOrDefaultAsync(x => x.PersonaRef == cliente.Id && x.Principal);
+                if (domicilioPrincipal != null)
+                {
+                    domicilioPrincipal.Principal = false;
+                    _context.Domicilios.Update(domicilioPrincipal);
+                }
+            }
+
             var domicilio = request.CreateFromRequest(cliente.Id);
 
             await _context.Domicilios.AddAsync(domicilio);
@@ -73,6 +84,16 @@ namespace rakoona.services.Services.Implementacion
 
             if (domicilio == null)
                 return null;
+
+            if (request.Principal)
+            {
+                var domicilioPrincipal = await _context.Domicilios.FirstOrDefaultAsync(x => x.Principal);
+                if (domicilioPrincipal != null && (domicilio.Id != domicilioPrincipal.Id))
+                {
+                    domicilioPrincipal.Principal = false;
+                    _context.Domicilios.Update(domicilioPrincipal);
+                }
+            }
 
             var updated = request.UpdateFromRequest(domicilio);
 
