@@ -44,7 +44,7 @@ namespace rakoona.services.Entities.Mappers
             domicilio.Municipio = request.Municipio;
             domicilio.Estado = request.Estado;
             domicilio.CP = request.CP;
-
+            domicilio.Principal = request.Principal;
             return domicilio;
         }
     }
