@@ -7,5 +7,6 @@
         public string? Municipio { get; set; }
         public string? Estado { get; set; }
         public string? CP { get; set; }
+        public bool Principal { get; set; }
     }
 }
