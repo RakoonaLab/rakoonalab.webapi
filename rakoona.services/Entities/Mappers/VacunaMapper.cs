@@ -19,7 +19,7 @@ namespace rakoona.services.Entities.Mappers
                 Fecha = now,
                 Peso = request.Peso,
                 Temperatura = request.Temperatura,
-                Observaciones= request.Observaciones,
+                Observaciones = request.Observaciones,
             };
             Vacunacion vacuna = new Vacunacion
             {
@@ -49,7 +49,11 @@ namespace rakoona.services.Entities.Mappers
                 Nombre = entity.Nombre,
                 FechaDeCreacion = entity.FechaDeCreacion,
                 Laboratorio = entity.Laboratorio,
-                Caducidad = entity.Caducidad,
+                Caducidad = entity.Caducidad.Value.ToShortDateString(),
+                Lote = entity.Lote,
+                Peso = entity.Consulta?.Peso ?? 0,
+                Temperatura = entity.Consulta?.Temperatura ?? 0,
+                Observaciones = entity.Consulta?.Observaciones
             };
             return response;
         }
