@@ -75,9 +75,14 @@ namespace rakoona.webapi.Controllers.v1.Clientes
 
             var clientes = _context.ClientesClinicas.Where(x => x.Clinica.UserRef == _userInfo.UserId && x.Clinica.ExternalId == clinicaId)
                 .Include(x => x.Cliente)
-                .ThenInclude(x => x.InformacionDeContacto)
+                .ThenInclude(x => x.InformacionDeContacto.Where(d => d.ContactType == "Celular"))
+
+                .Include(x => x.Cliente)
+                .ThenInclude(x => x.Domicilios.Where(d=> d.Principal))
+
                 .Include(x => x.Cliente)
                 .ThenInclude(x => x.Mascotas);
+
             if (clientes == null)
             {
                 return NotFound();
