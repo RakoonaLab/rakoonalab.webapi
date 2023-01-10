@@ -11,8 +11,19 @@ namespace rakoona.services.Entities.Mappers
         public static Vacunacion CreateFromRequest(this CreateVacunaRequest request, int mascotaId)
         {
             var now = DateTime.Now;
+            Consulta consulta = new()
+            {
+                ExternalId = Guid.NewGuid().ToString(),
+                MascotaRef = mascotaId,
+                FechaDeCreacion = now,
+                Fecha = now,
+                Peso = request.Peso,
+                Temperatura = request.Temperatura,
+                Observaciones= request.Observaciones,
+            };
             Vacunacion vacuna = new Vacunacion
             {
+                Consulta = consulta,
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = now,
                 Fecha = now,
