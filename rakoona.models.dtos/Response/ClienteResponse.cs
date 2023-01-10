@@ -9,5 +9,6 @@
         public string? Nombres { get; set; }
         public string? Apellidos { get; set; }
         public IEnumerable<MascotaResponse> Mascotas { get; set; }
+        public string? Domicilio { get; set; }
     }
 }
