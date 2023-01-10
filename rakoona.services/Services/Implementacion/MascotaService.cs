@@ -65,7 +65,6 @@ namespace rakoona.services.Services.Implementacion
             var mascotas = await _context.Mascotas
                 .Where(x => x.DuenioRef == cliente.Id)
                 .Include(x => x.Duenio)
-                .Include(x => x.ConsultasPreventivas)
                 .ToListAsync();
 
             return mascotas.Select(x => x.MapToResponse()).ToList();
