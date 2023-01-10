@@ -38,6 +38,7 @@ namespace rakoona.webapi.Controllers.v1.Vacunas
             var mascota = _context.Mascotas.FirstOrDefault(x => x.ExternalId == mascotaId);
 
             var vacunas = _context.Vacunas.Where(x => x.Consulta.MascotaRef == mascota.Id)
+                .Include(x => x.Consulta)
                 .ToList();
 
             if (vacunas == null)
