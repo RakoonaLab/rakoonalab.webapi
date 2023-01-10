@@ -47,6 +47,9 @@ namespace rakoona.services.Entities.Mappers
 
         public static ClienteResponse MapToResponse(this Cliente entity)
         {
+            var celular = entity.InformacionDeContacto?.FirstOrDefault(x => x.ContactType == "Celular")?.Valor;
+            var domicilio = entity.Domicilios?.FirstOrDefault(x => x.Principal);
+
             ClienteResponse response = new ClienteResponse
             {
                 Id = entity.ExternalId,
@@ -54,8 +57,9 @@ namespace rakoona.services.Entities.Mappers
                 FechaDeCreacion = entity.FechaDeCreacion,
                 Nombres = entity.Nombres,
                 Apellidos = entity.Apellidos,
-                Celular = entity.InformacionDeContacto?.FirstOrDefault(x => x.ContactType == "Celular")?.Valor,
-                Mascotas = entity.Mascotas?.Select(x => x.MapToResponse())
+                Celular = celular,
+                Mascotas = entity.Mascotas?.Select(x => x.MapToResponse()),
+                Domicilio = domicilio != null ? domicilio.Calle + ", " + domicilio.Colonia + ", " + domicilio.Municipio + ", " + domicilio.Estado + ", " + domicilio.CP : ""
             };
             return response;
         }
