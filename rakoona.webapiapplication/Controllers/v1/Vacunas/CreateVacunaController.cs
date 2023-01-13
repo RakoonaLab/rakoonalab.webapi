@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Vacunas
@@ -11,34 +10,24 @@ namespace rakoona.webapi.Controllers.v1.Vacunas
     [ApiController]
     public class CreateVacunaController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IVacunaService _vacunaService;
 
-        public CreateVacunaController(ApplicationDbContext context)
+        public CreateVacunaController(IVacunaService vacunaService)
         {
-            _context = context;
+            _vacunaService = vacunaService;
         }
 
         [HttpPost]
         [SwaggerOperation(Tags = new[] { "Vacunas", "Mascotas" })]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<VacunaResponse>> Post([FromBody] CreateVacunaRequest request, [FromRoute] string mascotaId)
         {
-            if (_context.Vacunas == null)
-                return Problem("Entity set 'ApplicationDbContext.Vacunas'  is null.");
+            var vacuna = await _vacunaService.CrearAsync(request, mascotaId);
 
-            var mascota = _context.Mascotas.Single(x => x.ExternalId == mascotaId);
-
-            if (mascota == null)
-            {
+            if (vacuna == null)
                 return NotFound();
-            }
-
-            var vacuna = request.CreateFromRequest(mascota.Id);
-
-            _context.Vacunas.Add(vacuna);
-            await _context.SaveChangesAsync();
-
-            var response = vacuna.MapToResponse();
-            return StatusCode(StatusCodes.Status201Created, response);
         }
 
     }
