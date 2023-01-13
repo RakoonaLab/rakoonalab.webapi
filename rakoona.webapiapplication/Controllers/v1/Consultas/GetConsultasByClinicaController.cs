@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using rakoona.models.dtos.Response.Consultas;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
-using rakoona.webapiapplication.Configuration.Services;
+using rakoona.webapi.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Consultas
