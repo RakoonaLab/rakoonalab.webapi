@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using rakoona.services.Context;
+using rakoona.models.dtos.Parameters;
 using rakoona.models.dtos.Response;
-using rakoona.services.Entities.Mappers;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
-using rakoona.services.Entities.Mappers;
-using rakoona.webapi.Services;
+using System.Drawing.Printing;
 
 namespace rakoona.webapi.Controllers.v1.Clientes
 {
@@ -15,80 +13,36 @@ namespace rakoona.webapi.Controllers.v1.Clientes
     [ApiController]
     public class GetClientesByClinicaIdController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private IUserInfoService _userInfo;
+        private readonly IClienteService _clienteService;
 
         public GetClientesByClinicaIdController(
-            ApplicationDbContext context,
-            IUserInfoService userInfo
+            IClienteService clienteService
             )
         {
-            _userInfo = userInfo;
-            _context = context;
+            _clienteService = clienteService;
         }
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Clientes", "Clinica" })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<List<ClienteResponse>>> Get([FromRoute] string clinicaId,
-                                                                   [FromQuery] string? nombre = "",
-                                                                   [FromQuery] string? celular = "")
+                                                                   [FromQuery] string? nombres,
+                                                                   [FromQuery] string? apellidos,
+                                                                   [FromQuery] string? celular,
+                                                                   [FromQuery] int? page,
+                                                                   [FromQuery] int? pagesize)
         {
-            if (_context.ClientesClinicas == null)
-            {
+            var parameters = new SearchClienteParameters() { Nombres = nombres, Apellidos = apellidos, Celular = celular };
+            var pagination = new PaginationParameters(page, pagesize);
+
+            var result = await _clienteService.GetClientesByClinica(clinicaId, parameters, pagination);
+
+            if (result == null)
                 return NotFound();
-            }
 
-            var clinica = _context.Clinicas.Single(x => x.ExternalId == clinicaId);
-
-            //var query = _context.ClientesClinicas.Where(x => x.Clinica.UserRef == _userInfo.UserId && x.Clinica.ExternalId == clinicaId)
-            //    .Include(x => x.Cliente)
-            //    .ThenInclude(x => x.InformacionDeContacto)
-            //    .Include(x => x.Cliente)
-            //    .ThenInclude(x => x.Mascotas);
-
-            //var query2 = _context.ClientesClinicas.Where(x => x.Clinica.UserRef == _userInfo.UserId && x.Clinica.ExternalId == clinicaId)
-            //    .Include(x => x.Cliente)
-            //    .ThenInclude(x => x.InformacionDeContacto)
-            //    .Include(x => x.Cliente)
-            //    .ThenInclude(x => x.Mascotas)
-            //    .Select(x => x.Cliente);
-
-            //if (!String.IsNullOrEmpty(celular))
-            ////{
-            //    var query3 = _context.InformacionDeContacto.Where(x => x.ContactType == "Celular" && x.Valor == "celular");
-
-            //    var query4 = _context.InformacionDeContacto.Where(x => x.ContactType == "Celular" && x.Valor.Contains(celular));
-
-            //    var query5 = _context.Clientes.Where(x => query4.);
-            //////}
-
-            //if (!String.IsNullOrEmpty(celular))
-            //{
-            //    var query3 = _context.InformacionDeContacto.Where(x => x.ContactType== "Celular" && x.Valor == "celular");
-
-
-            //}
-
-            //.ThenInclude(x => x.InformacionDeContacto)
-            //.Include(x => x.Cliente)
-            //.ThenInclude(x => x.Mascotas);
-
-            var clientes = _context.ClientesClinicas.Where(x => x.Clinica.UserRef == _userInfo.UserId && x.Clinica.ExternalId == clinicaId)
-                .Include(x => x.Cliente)
-                .ThenInclude(x => x.InformacionDeContacto.Where(d => d.ContactType == "Celular"))
-
-                .Include(x => x.Cliente)
-                .ThenInclude(x => x.Domicilios.Where(d=> d.Principal))
-
-                .Include(x => x.Cliente)
-                .ThenInclude(x => x.Mascotas);
-
-            if (clientes == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(clientes.Select(x => x.Cliente.MapToResponse()).ToList());
+            return Ok(result);
         }
 
     }
