@@ -5,11 +5,11 @@ using Microsoft.OpenApi.Models;
 using rakoona.services.Entities.Models.Seguridad;
 using rakoona.webapi.Configuration;
 using rakoona.webapi.Configuration.Models;
-using rakoona.webapiapplication.Configuration.Services;
 using rakoona.services.Context;
 using System.Text;
 using rakoona.services.Services.Interfaces;
 using rakoona.services.Services.Implementacion;
+using rakoona.webapi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,21 +17,16 @@ ConfigurationManager configuration = builder.Configuration;
 
 Database.ConfigConnectionString(ref builder);
 
-
-// For Identity
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-// Adding Authentication
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-
-// Adding Jwt Bearer
 .AddJwtBearer(options =>
 {
     options.SaveToken = true;
@@ -51,6 +46,7 @@ builder.Services.AddControllers();
 builder.Services.AddTransient<IUserInfoService, UserInfoService>();
 builder.Services.AddTransient<IDomicilioService, DomicilioService>();
 builder.Services.AddTransient<IMascotaService, MascotaService>();
+builder.Services.AddTransient<IVacunaService, VacunaService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -58,8 +54,8 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "ToDo API",
-        Description = "An ASP.NET Core Web API for managing ToDo items",
+        Title = "Rakoona-APIs",
+        Description = "Rakoona-APIs.",
         TermsOfService = new Uri("https://example.com/terms"),
         Contact = new OpenApiContact
         {
@@ -97,19 +93,6 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
-
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy(
-//        name: "AllowOrigin",
-//        builder =>
-//        {
-//            builder.AllowAnyOrigin()
-//                    .AllowAnyMethod()
-//                    .AllowAnyHeader();
-//        });
-//});
-
 builder.Services.AddCors(options => options.AddPolicy("AllowOrigin", builder =>
 {
     builder
