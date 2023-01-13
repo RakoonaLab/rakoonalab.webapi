@@ -3,6 +3,8 @@ using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Http;
+using rakoona.services.Entities.Models;
 
 namespace rakoona.webapi.Controllers.v1.Vacunas
 {
@@ -22,12 +24,15 @@ namespace rakoona.webapi.Controllers.v1.Vacunas
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<VacunaResponse>> Post([FromBody] CreateVacunaRequest request, [FromRoute] string mascotaId)
         {
             var vacuna = await _vacunaService.CrearAsync(request, mascotaId);
 
             if (vacuna == null)
                 return NotFound();
+
+            return StatusCode(StatusCodes.Status201Created, vacuna);
         }
 
     }
