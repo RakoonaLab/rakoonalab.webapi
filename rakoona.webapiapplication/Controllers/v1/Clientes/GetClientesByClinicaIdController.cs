@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using rakoona.services.Context;
 using rakoona.models.dtos.Response;
 using rakoona.services.Entities.Mappers;
-using rakoona.webapiapplication.Configuration.Services;
 using Swashbuckle.AspNetCore.Annotations;
 using rakoona.services.Entities.Mappers;
+using rakoona.webapi.Services;
 
 namespace rakoona.webapi.Controllers.v1.Clientes
 {
