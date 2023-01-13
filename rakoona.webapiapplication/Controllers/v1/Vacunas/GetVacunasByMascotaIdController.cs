@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
-using rakoona.webapiapplication.Configuration.Services;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Vacunas
@@ -14,39 +11,28 @@ namespace rakoona.webapi.Controllers.v1.Vacunas
     [ApiController]
     public class GetVacunasByMascotaIdController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private IUserInfoService _userInfo;
+        private readonly IVacunaService _vacunaService;
 
-        public GetVacunasByMascotaIdController(
-            ApplicationDbContext context,
-            IUserInfoService userInfo
-            )
+        public GetVacunasByMascotaIdController(IVacunaService vacunaService)
         {
-            _userInfo = userInfo;
-            _context = context;
+            _vacunaService = vacunaService;
         }
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Vacunas", "Mascotas" })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<List<VacunaResponse>>> Get([FromRoute] string mascotaId)
         {
-            if (_context.Vacunas == null)
-            {
-                return NotFound();
-            }
-
-            var mascota = _context.Mascotas.FirstOrDefault(x => x.ExternalId == mascotaId);
-
-            var vacunas = _context.Vacunas.Where(x => x.Consulta.MascotaRef == mascota.Id)
-                .Include(x => x.Consulta)
-                .ToList();
+            var vacunas = await _vacunaService.GetVacunasByMascota(mascotaId);
 
             if (vacunas == null)
             {
                 return NotFound();
             }
 
-            return Ok(vacunas.Select(x => x.MapToResponse()).ToList());
+            return Ok(vacunas);
         }
 
     }
