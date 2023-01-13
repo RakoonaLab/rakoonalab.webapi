@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
-using rakoona.webapiapplication.Configuration.Services;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 using rakoona.services.Entities.Mappers;
+using rakoona.webapi.Services;
 
 namespace rakoona.webapi.Controllers.v1.Medicos
 {
