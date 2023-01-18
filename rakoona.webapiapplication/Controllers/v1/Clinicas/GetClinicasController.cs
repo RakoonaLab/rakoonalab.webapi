@@ -42,10 +42,6 @@ namespace rakoona.webapi.Controllers.v1.Clinicas
                 return NotFound();
             }
 
-            PagedResponse<List<Clinica>> response = new PagedResponse<List<Clinica>>();
-            response.Count = clinicas.Count;
-            response.Items = clinicas;
-
             return Ok(clinicas.Select(x => x.MapToResponse()).ToList());
         }
 
