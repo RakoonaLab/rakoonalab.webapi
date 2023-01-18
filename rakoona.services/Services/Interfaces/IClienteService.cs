@@ -5,7 +5,7 @@ namespace rakoona.services.Services.Interfaces
 {
     public interface IClienteService
     {
-        Task<List<ClienteResponse>> GetClientesByClinica(string clinicaId,
+        Task<PagedResponse<List<ClienteResponse>>> GetClientesByClinica(string clinicaId,
                                                         SearchClienteParameters parameters,
                                                         PaginationParameters pagination);
     }

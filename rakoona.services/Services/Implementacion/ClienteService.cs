@@ -3,7 +3,6 @@ using rakoona.models.dtos.Parameters;
 using rakoona.models.dtos.Response;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
-using rakoona.services.Entities.Models.Personas;
 using rakoona.services.Services.Interfaces;
 
 namespace rakoona.services.Services.Implementacion
@@ -17,7 +16,7 @@ namespace rakoona.services.Services.Implementacion
             _context = context;
         }
 
-        public async Task<List<ClienteResponse>> GetClientesByClinica(string clinicaId, SearchClienteParameters parameters, PaginationParameters pagination)
+        public async Task<PagedResponse<List<ClienteResponse>>> GetClientesByClinica(string clinicaId, SearchClienteParameters parameters, PaginationParameters pagination)
         {
             if (_context.Clinicas == null)
                 throw new Exception("Validar _context.Clinicas, es null");
@@ -32,6 +31,14 @@ namespace rakoona.services.Services.Implementacion
             var clinica = await _context.Clinicas.SingleAsync(x => x.ExternalId == clinicaId);
 
             var query = _context.ClientesClinicas.Where(x => x.Clinica.ExternalId == clinicaId);
+            query = query.Include(x => x.Cliente);
+
+            query = query.OrderBy(x => x.Cliente.Nombres);
+            if (pagination.Page > 1)
+            {
+                query = query.Skip(pagination.Page-1 * pagination.PageSize);
+            }
+            query = query.Take(pagination.PageSize);
 
             query = query.Include(x => x.Cliente)
                 .ThenInclude(x => x.Domicilios.Where(d => d.Principal));
@@ -64,16 +71,16 @@ namespace rakoona.services.Services.Implementacion
                 query = query.Where(x => !string.IsNullOrEmpty(x.Cliente.Apellidos) && x.Cliente.Apellidos.Contains(apellidos));
             }
 
-            query = query.Take(pagination.PageSize);
+            
 
-            if (pagination.Page > 1)
-            {
-                query = query.Skip(pagination.Page * pagination.PageSize);
-            }
+            
 
             var clientes = query.ToList();
-
-            return clientes.Select(x => x.Cliente.MapToResponse()).ToList();
+            
+            return new PagedResponse<List<ClienteResponse>>(pagination.Page,
+                pagination.PageSize, 
+                clientes.Select(x => x.Cliente.MapToResponse()).ToList(),
+                _context.ClientesClinicas.Where(x => x.Clinica.ExternalId == clinicaId).Count());
         }
     }
 }
