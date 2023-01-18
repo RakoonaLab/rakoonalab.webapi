@@ -2,7 +2,7 @@
 {
     public class PaginationParameters
     {
-        public PaginationParameters(int? pageSize, int? page)
+        public PaginationParameters( int? page, int? pageSize)
         {
             PageSize = pageSize ?? 10;
             Page = page ?? 1;
