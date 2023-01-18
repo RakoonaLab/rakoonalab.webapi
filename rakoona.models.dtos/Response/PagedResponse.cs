@@ -2,7 +2,16 @@
 {
     public class PagedResponse<T>
     {
-        public int Count { get; set; }
-        public T Items { get; set; }
+        public PagedResponse(int page, int pageSize, T items, int totalItems)
+        {
+            Page= page;
+            PageSize = pageSize;
+            Items = items;
+            TotalItems= totalItems;
+        }
+        public int PageSize { get; }
+        public int Page { get; }
+        public T Items { get; }
+        public int TotalItems { get; }
     }
 }
