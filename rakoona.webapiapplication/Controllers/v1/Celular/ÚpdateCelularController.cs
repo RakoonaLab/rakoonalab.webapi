@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Request.Clientes;
-using rakoona.models.dtos.Response.Consultas;
+using rakoona.models.dtos.Response;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
 using rakoona.webapi.Services;
@@ -27,7 +27,7 @@ namespace rakoona.webapi.Controllers.v1.Celular
 
         [HttpPut]
         [SwaggerOperation(Tags = new[] { "Celular" })]
-        public async Task<ActionResult<ConsultaPreventivaResponse>> Put([FromBody] UpdateCelularRequest request, [FromRoute] string celularId)
+        public async Task<ActionResult<CelularResponse>> Put([FromBody] UpdateCelularRequest request, [FromRoute] string celularId)
         {
             var celular = _context.InformacionDeContacto.FirstOrDefault(x => x.ExternalId == celularId && x.ContactType == "Celular");
 

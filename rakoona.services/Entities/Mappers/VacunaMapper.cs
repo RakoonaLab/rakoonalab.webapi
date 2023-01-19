@@ -1,5 +1,6 @@
 ﻿using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
+using rakoona.services.Config.Helpers;
 using rakoona.services.Entities.Models;
 using rakoona.services.Entities.Models.Consultas;
 using System.Text;
@@ -10,6 +11,9 @@ namespace rakoona.services.Entities.Mappers
     {
         public static Vacunacion CreateFromRequest(this CreateVacunaRequest request, int mascotaId)
         {
+            if (request == null)
+                throw new Exception("");
+
             var now = DateTime.Now;
             Consulta consulta = new()
             {
@@ -17,11 +21,16 @@ namespace rakoona.services.Entities.Mappers
                 MascotaRef = mascotaId,
                 FechaDeCreacion = now,
                 Fecha = now,
-                Peso = request.Peso,
-                Temperatura = request.Temperatura,
                 Observaciones = request.Observaciones,
             };
-            Vacunacion vacuna = new Vacunacion
+
+            if (request.Peso.HasValue)
+                consulta.Peso = request.Peso.Value;
+
+            if (request.Temperatura.HasValue)
+                consulta.Temperatura = request.Temperatura.Value;
+
+            Vacunacion vacuna = new ()
             {
                 Consulta = consulta,
                 ExternalId = Guid.NewGuid().ToString(),
@@ -29,10 +38,11 @@ namespace rakoona.services.Entities.Mappers
                 Fecha = now,
                 Nombre = request.Nombre,
                 Lote = request.Lote,
-                Caducidad = DateTime.Parse(request.Caducidad),
                 Laboratorio = request.Laboratorio
             };
 
+            if (!string.IsNullOrEmpty(request.Caducidad))
+                vacuna.Caducidad = DateTime.Parse(request.Caducidad);
 
             return vacuna;
         }
@@ -48,6 +58,7 @@ namespace rakoona.services.Entities.Mappers
                 Id = entity.ExternalId,
                 Nombre = entity.Nombre,
                 FechaDeCreacion = entity.FechaDeCreacion,
+                FechaDeAplicacion = entity.Fecha.ToShortDateString(),
                 Laboratorio = entity.Laboratorio,
                 Caducidad = entity.Caducidad.Value.ToShortDateString(),
                 Lote = entity.Lote,

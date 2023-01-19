@@ -1,20 +1,20 @@
 ﻿using rakoona.models.dtos.Request.Consultas;
-using rakoona.models.dtos.Response.Consultas;
+using rakoona.models.dtos.Response;
 using rakoona.services.Entities.Models.Consultas;
 
 namespace rakoona.services.Entities.Mappers
 {
     public static class ConsultaBasicaMapper
     {
-        public static Consulta CreateFromRequest(this CreateConsultaBasicaRequest request, int mascotaId)
+        public static Consulta CreateFromRequest(this CreateConsultaRequest request, int mascotaId)
         {
+            var now = DateTime.Now;
             Consulta Consulta = new Consulta
             {
                 ExternalId = Guid.NewGuid().ToString(),
-                FechaDeCreacion = DateTime.Now,
-                Fecha = request.Fecha,
+                FechaDeCreacion = now,
+                Fecha = now,
                 Pulso = request.Pulso,
-                CaracteristicasDelPulso = request.CaracteristicasDelPulso,
                 FrecuenciaRespiratoria = request.FrecuenciaRespiratoria,
                 Peso = request.Peso,
                 RitmoCardiaco = request.RitmoCardiaco,
@@ -43,9 +43,9 @@ namespace rakoona.services.Entities.Mappers
             return consulta;
         }
 
-        public static ConsultaBasicaResponse MapToResponse(this Consulta entity)
+        public static ConsultaResponse MapToResponse(this Consulta entity)
         {
-            ConsultaBasicaResponse response = new ConsultaBasicaResponse
+            ConsultaResponse response = new ()
             {
                 Id = entity.ExternalId,
                 FechaDeCreacion = entity.FechaDeCreacion.Date.ToShortDateString(),

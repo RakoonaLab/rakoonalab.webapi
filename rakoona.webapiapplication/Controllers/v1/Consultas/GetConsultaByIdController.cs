@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using rakoona.models.dtos.Response.Consultas;
+using rakoona.models.dtos.Response;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
 using rakoona.webapi.Services;
@@ -27,7 +27,7 @@ namespace rakoona.webapi.Controllers.v1.Consultas
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Consultas" })]
-        public async Task<ActionResult<ConsultaBasicaResponse>> Get([FromRoute] string consultaId)
+        public async Task<ActionResult<ConsultaResponse>> Get([FromRoute] string consultaId)
         {
 
             var consulta = _context.Consultas.FirstOrDefault(x => x.ExternalId == consultaId);

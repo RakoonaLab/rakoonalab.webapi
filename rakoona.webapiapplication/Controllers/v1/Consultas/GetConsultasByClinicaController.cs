@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using rakoona.models.dtos.Response.Consultas;
+using rakoona.models.dtos.Response;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
 using rakoona.webapi.Services;
@@ -28,7 +28,7 @@ namespace rakoona.webapi.Controllers.v1.Consultas
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Consultas", "Clinica" })]
-        public async Task<ActionResult<List<ConsultaBasicaResponse>>> Get([FromRoute] string clinicaId)
+        public async Task<ActionResult<List<ConsultaResponse>>> Get([FromRoute] string clinicaId)
         {
             var clinica = _context.Clinicas.Single(x => x.ExternalId == clinicaId);
 

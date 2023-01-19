@@ -48,6 +48,7 @@ builder.Services.AddTransient<IDomicilioService, DomicilioService>();
 builder.Services.AddTransient<IMascotaService, MascotaService>();
 builder.Services.AddTransient<IVacunaService, VacunaService>();
 builder.Services.AddTransient<IClienteService, ClienteService>();
+builder.Services.AddTransient<IConsultaService, ConsultaService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>

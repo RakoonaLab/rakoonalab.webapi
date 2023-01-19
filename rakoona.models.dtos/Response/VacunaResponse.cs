@@ -12,5 +12,6 @@
         public double? Peso { get; set; }
         public string? Lote { get; set; }
         public double Temperatura { get; set; }
+        public string? FechaDeAplicacion { get; set; }
     }
 }

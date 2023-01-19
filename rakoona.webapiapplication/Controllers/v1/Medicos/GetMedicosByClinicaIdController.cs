@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
-using Swashbuckle.AspNetCore.Annotations;
-using rakoona.services.Entities.Mappers;
 using rakoona.webapi.Services;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Medicos
 {

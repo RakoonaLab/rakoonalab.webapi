@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using rakoona.models.dtos.Response;
-using rakoona.services.Entities.Mappers;
 using rakoona.services.Context;
-using Swashbuckle.AspNetCore.Annotations;
 using rakoona.services.Entities.Mappers;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Clientes
 {
