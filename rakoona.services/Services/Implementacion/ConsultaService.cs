@@ -36,5 +36,24 @@ namespace rakoona.services.Services.Implementacion
             return consulta.MapToResponse();
         }
 
+        public async Task<bool> DeleteAsync(string consultaId)
+        {
+            if (_context.Consultas == null)
+                throw new Exception("Validar _context.Consultas, es null");
+            if (_context.Mascotas == null)
+                throw new Exception("Validar _context.Mascotas, es null");
+
+            var consulta = await _context.Consultas.SingleAsync(x => x.ExternalId == consultaId);
+
+            if (consulta == null)
+                throw new Exception("consulta no encontrada");
+
+
+            _context.Consultas.Remove(consulta);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
     }
 }
