@@ -17,7 +17,7 @@ namespace rakoona.services.Services.Implementacion
             _context = context;
         }
 
-        public async Task<DomicilioResponse> CrearAsync(CreateDomicilioRequest request, string clienteId)
+        public async Task<DomicilioResponse> CrearByClienteAsync(CreateDomicilioRequest request, string clienteId)
         {
             if (_context.Personas == null)
                 throw new Exception("Validar _context.Personas, es null");
@@ -36,6 +36,32 @@ namespace rakoona.services.Services.Implementacion
             }
 
             var domicilio = request.CreateFromRequest(cliente.Id);
+
+            await _context.Domicilios.AddAsync(domicilio);
+            await _context.SaveChangesAsync();
+
+            return domicilio.MapToResponse();
+        }
+
+        public async Task<DomicilioResponse> CrearByMascotaAsync(CreateDomicilioRequest request, string mascotaId)
+        {
+            if (_context.Mascotas == null)
+                throw new Exception("Validar _context.Mascotas, es null");
+            if (_context.Domicilios == null)
+                throw new Exception("Validar _context.Domicilios, es null");
+
+            var mascota = await _context.Mascotas.SingleAsync(x => x.ExternalId == mascotaId);
+            if (request.Principal)
+            {
+                var domicilioPrincipal = await _context.Domicilios.FirstOrDefaultAsync(x => x.PersonaRef == mascota.DuenioRef && x.Principal);
+                if (domicilioPrincipal != null)
+                {
+                    domicilioPrincipal.Principal = false;
+                    _context.Domicilios.Update(domicilioPrincipal);
+                }
+            }
+
+            var domicilio = request.CreateFromRequest(mascota.DuenioRef);
 
             await _context.Domicilios.AddAsync(domicilio);
             await _context.SaveChangesAsync();
@@ -68,6 +94,23 @@ namespace rakoona.services.Services.Implementacion
             var cliente = await _context.Clientes.SingleAsync(x => x.ExternalId == clienteId);
 
             var domicilio = await _context.Domicilios.FirstOrDefaultAsync(x => x.PersonaRef == cliente.Id && x.Principal);
+
+            if (domicilio == null)
+                return null;
+
+            return domicilio.MapToResponse();
+        }
+
+        public async Task<DomicilioResponse?> GetDomicilioPrincipalByMascotaAsync(string mascotaId)
+        {
+            if (_context.Domicilios == null)
+                throw new Exception("Validar _context.Domicilios, es null");
+            if (_context.Mascotas == null)
+                throw new Exception("Validar _context.Mascotas, es null");
+
+            var mascota = await _context.Mascotas.SingleAsync(x => x.ExternalId == mascotaId);
+
+            var domicilio = await _context.Domicilios.FirstOrDefaultAsync(x => x.PersonaRef == mascota.DuenioRef && x.Principal);
 
             if (domicilio == null)
                 return null;
