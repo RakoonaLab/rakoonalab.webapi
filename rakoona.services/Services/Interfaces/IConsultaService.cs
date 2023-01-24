@@ -6,5 +6,6 @@ namespace rakoona.services.Services.Interfaces
     public interface IConsultaService
     {
         Task<ConsultaResponse> CrearAsync(CreateConsultaRequest request, string mascotaId);
+        Task<bool> DeleteAsync(string consultaId);
     }
 }
