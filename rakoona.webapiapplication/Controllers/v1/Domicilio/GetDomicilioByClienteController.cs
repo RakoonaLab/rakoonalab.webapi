@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Http;
 
 namespace rakoona.webapi.Controllers.v1.Domicilio
 {
@@ -20,12 +21,15 @@ namespace rakoona.webapi.Controllers.v1.Domicilio
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Clientes", "Domicilio" })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<DomicilioResponse>> Get(string clienteId)
         {
             var domicilio = await _domicilioService.GetDomicilioPrincipalByClienteAsync(clienteId);
 
             if (domicilio == null)
-                return NotFound();
+                return NoContent();
 
             return Ok(domicilio);
         }
