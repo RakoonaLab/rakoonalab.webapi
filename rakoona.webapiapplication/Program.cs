@@ -49,7 +49,6 @@ builder.Services.AddTransient<IMascotaService, MascotaService>();
 builder.Services.AddTransient<IVacunaService, VacunaService>();
 builder.Services.AddTransient<IClienteService, ClienteService>();
 builder.Services.AddTransient<IConsultaService, ConsultaService>();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -103,7 +102,6 @@ builder.Services.AddCors(options => options.AddPolicy("AllowOrigin", builder =>
     .WithOrigins("http://localhost:4200")
     .AllowCredentials();
 }));
-
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 var app = builder.Build();
@@ -127,5 +125,4 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();
