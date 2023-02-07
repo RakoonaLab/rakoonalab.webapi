@@ -5,6 +5,8 @@ namespace rakoona.services.Entities.Models
 {
     public class ModelBase
     {
+        private string _id;
+
         [Key]
         [Column("Id")]
         public int Id { get; set; }

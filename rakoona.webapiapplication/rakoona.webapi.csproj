@@ -29,8 +29,4 @@
     <ProjectReference Include="..\rakoona.services\rakoona.services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\v1\ColoresPorMascota\" />
-  </ItemGroup>
-
 </Project>

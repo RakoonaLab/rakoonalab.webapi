@@ -2,20 +2,18 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using rakoona.services.Context;
 using rakoona.services.Entities.Models.Seguridad;
 using rakoona.webapi.Configuration;
 using rakoona.webapi.Configuration.Models;
-using rakoona.services.Context;
 using System.Text;
-using rakoona.services.Services.Interfaces;
-using rakoona.services.Services.Implementacion;
-using rakoona.webapi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 ConfigurationManager configuration = builder.Configuration;
 
 Database.ConfigConnectionString(ref builder);
+Services.ConfigDependencyInjention(ref builder);
 
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -43,13 +41,8 @@ builder.Services.AddAuthentication(options =>
 
 
 builder.Services.AddControllers();
-builder.Services.AddTransient<IUserInfoService, UserInfoService>();
-builder.Services.AddTransient<IDomicilioService, DomicilioService>();
-builder.Services.AddTransient<IMascotaService, MascotaService>();
-builder.Services.AddTransient<IVacunaService, VacunaService>();
-builder.Services.AddTransient<IClienteService, ClienteService>();
-builder.Services.AddTransient<IConsultaService, ConsultaService>();
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
