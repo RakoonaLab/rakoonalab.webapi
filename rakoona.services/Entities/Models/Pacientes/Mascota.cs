@@ -14,7 +14,7 @@ namespace rakoona.services.Entities.Models.Pacientes
         public string? Especie { get; set; }
         public string? Raza { get; set; }
 
-        public List<ColorPorMascota>? Colores { get; set; }
+        public virtual List<ColorPorMascota>? Colores { get; set; }
         public virtual Cliente? Duenio { get; set; }
         public virtual List<Consulta>? Consultas { get; set; }
     }
