@@ -14,5 +14,6 @@
         public string? Raza { get; set; }
         public string? DuenioNombre { get; set; }
         public string? DuenioId { get; set; }
+        public IEnumerable<string>? Colores { get; set; }
     }
 }

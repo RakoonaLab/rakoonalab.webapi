@@ -53,6 +53,7 @@ namespace rakoona.services.Context
             builder.ApplyConfiguration(new VacunacionMap());
             builder.ApplyConfiguration(new ContactoMap());
             builder.ApplyConfiguration(new DomicilioMap());
+            builder.ApplyConfiguration(new ColorPorMascotaMap());
         }
 
         public DbSet<User>? Usuarios { get; set; }
@@ -69,5 +70,6 @@ namespace rakoona.services.Context
         public DbSet<Vacunacion>? Vacunas { get; set; }
         public DbSet<Contacto>? InformacionDeContacto { get; set; }
         public DbSet<Domicilio>? Domicilios { get; set; }
+        public DbSet<ColorPorMascota>? ColoresPorMascotas { get; set; }
     }
 }

@@ -3,42 +3,46 @@ using rakoona.models.dtos.Response;
 using rakoona.services.Config.Helpers;
 using rakoona.services.Entities.Models.Pacientes;
 using System.Globalization;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace rakoona.services.Entities.Mappers
 {
     public static class MascotaMapper
     {
-        public static Mascota CreateFromRequest(this CreatePacienteRequest request, int? clienteId)
+        public static Mascota CreateFromRequest(this CreateMascotaRequest request, int? clienteId)
         {
-            var a = request.DiaNacimiento.IsStringEmpty() ;
-            var b = request.MesNacimiento.IsStringEmpty() ;
-            var c = request.AnioNacimiento.IsStringEmpty() ;
+            var now = DateTime.Now;
 
-            Mascota Paciente = new Mascota
+            Mascota mascota = new Mascota
             {
                 Nombre = request.Nombre,
                 Genero = request.Genero,
                 Especie = request.Especie,
                 Raza = request.Raza,
                 ExternalId = Guid.NewGuid().ToString(),
-                DiaNacimiento = request.DiaNacimiento.IsStringEmpty() ? 0 : request.DiaNacimiento.ToNumber(),
-                MesNacimiento = request.MesNacimiento.IsStringEmpty() ? 0 : request.MesNacimiento.ToNumber(),
-                AnioNacimiento = request.AnioNacimiento.IsStringEmpty() ? 0 : request.AnioNacimiento.ToNumber(),
-                FechaDeCreacion = DateTime.Now
+                DiaNacimiento = string.IsNullOrEmpty(request.DiaNacimiento) ? 0 : request.DiaNacimiento.ToNumber(),
+                MesNacimiento = string.IsNullOrEmpty(request.MesNacimiento) ? 0 : request.MesNacimiento.ToNumber(),
+                AnioNacimiento = string.IsNullOrEmpty(request.AnioNacimiento) ? 0 : request.AnioNacimiento.ToNumber(),
+                FechaDeCreacion = now
             };
+            if (request.Colores != null)
+            {
+                mascota.Colores = new List<ColorPorMascota>();
+                foreach (var color in request.Colores)
+                {
+                    mascota.Colores.Add(new ColorPorMascota { Nombre = color, FechaDeCreacion = now });
+                }
+            }
 
             if (clienteId != null)
-                Paciente.DuenioRef = clienteId.Value;
+                mascota.DuenioRef = clienteId.Value;
 
-            return Paciente;
+            return mascota;
         }
 
         public static MascotaResponse MapToResponse(this Mascota entity)
         {
-            MascotaResponse response = new MascotaResponse
+            MascotaResponse response = new()
             {
                 Id = entity.ExternalId,
                 Nombre = entity.Nombre,
@@ -52,6 +56,7 @@ namespace rakoona.services.Entities.Mappers
                 DuenioNombre= entity.Duenio?.GetNombreCompleto(),
                 DuenioId = entity.Duenio?.ExternalId,
                 FechaDeCreacion = entity.FechaDeCreacion,
+                Colores = entity.Colores?.Select(x=> x.Nombre)
             };
             return response;
         }

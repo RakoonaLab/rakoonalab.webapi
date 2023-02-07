@@ -16,7 +16,7 @@ namespace rakoona.services.Services.Implementacion
             _context = context;
         }
 
-        public async Task<MascotaResponse> CreateAsync(CreatePacienteRequest request, string clienteId)
+        public async Task<MascotaResponse> CreateAsync(CreateMascotaRequest request, string clienteId)
         {
             if (_context.Mascotas == null)
                 throw new Exception("Validar _context.Mascotas, es null");
