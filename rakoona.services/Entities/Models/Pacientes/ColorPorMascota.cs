@@ -5,6 +5,6 @@
         public int MascotaRef { get; set; }
         public string Nombre { get; set; }
 
-        public Mascota? Mascota { get; set; }
+        public virtual Mascota? Mascota { get; set; }
     }
 }
