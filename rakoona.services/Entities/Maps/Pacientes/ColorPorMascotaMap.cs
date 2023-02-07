@@ -8,7 +8,7 @@ namespace rakoona.services.Entities.Maps.Pacientes
     {
         public void Configure(EntityTypeBuilder<ColorPorMascota> builder)
         {
-            builder.ToTable(name: "Macotas");
+            builder.ToTable(name: "ColoresPorMascota");
 
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Id).HasColumnName("Id");
