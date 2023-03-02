@@ -30,7 +30,8 @@ namespace rakoona.services.Services.Implementacion
 
             var clinica = await _context.Clinicas.SingleAsync(x => x.ExternalId == clinicaId);
 
-            var query = _context.ClientesClinicas.Where(x => x.Clinica.ExternalId == clinicaId);
+            var query = _context.ClientesClinicas
+                .Where(x => x.Clinica.ExternalId == clinicaId);
             query = query.Include(x => x.Cliente);
 
             query = query.OrderBy(x => x.Cliente.Nombres);
@@ -53,10 +54,7 @@ namespace rakoona.services.Services.Implementacion
             {
                 var celular = parameters.Celular;
                 query = query.Where(x => x.Cliente.InformacionDeContacto.Any(c => c.ContactType == "Celular" &&
-                                                                            (c.Valor.Contains(celular) ||
-                                                                            c.Valor.StartsWith(celular) ||
-                                                                            c.Valor.EndsWith(celular) ||
-                                                                            c.Valor == celular)));
+                                                                               c.Valor == celular));
             }
 
             if (!string.IsNullOrEmpty(parameters.Nombres))
@@ -70,10 +68,6 @@ namespace rakoona.services.Services.Implementacion
                 var apellidos = parameters.Apellidos;
                 query = query.Where(x => !string.IsNullOrEmpty(x.Cliente.Apellidos) && x.Cliente.Apellidos.Contains(apellidos));
             }
-
-            
-
-            
 
             var clientes = query.ToList();
             

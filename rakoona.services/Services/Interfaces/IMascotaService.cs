@@ -1,4 +1,5 @@
-﻿using rakoona.models.dtos.Request;
+﻿using rakoona.models.dtos.Parameters;
+using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
 
 namespace rakoona.services.Services.Interfaces
@@ -8,7 +9,8 @@ namespace rakoona.services.Services.Interfaces
         Task<MascotaResponse> CreateAsync(CreateMascotaRequest request, string clienteId);
         Task<MascotaResponse> GetAsync(string mascotaId);
         Task<List<MascotaResponse>> GetPorCliente(string clienteId);
-        Task<List<MascotaResponse>> GetPorClinica(string clinicaId);
+        Task<PagedResponse<IList<MascotaResponse>>> GetPorClinica(string clinicaId, SearchMascotaParameters parameters, PaginationParameters pagination);
         Task<bool> DeleteAsync(string mascotaId);
+        Task<bool> CreateImage(FileDetailsRequest request, string mascotaId);
     }
 }

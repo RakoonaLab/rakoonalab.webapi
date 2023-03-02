@@ -1,6 +1,5 @@
 ﻿using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
-using rakoona.services.Config.Helpers;
 using rakoona.services.Entities.Models;
 using rakoona.services.Entities.Models.Consultas;
 using System.Text;

@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using rakoona.models.dtos.Parameters;
 using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
+using rakoona.services.Entities.Models.Personas;
 using rakoona.services.Services.Interfaces;
+using System.Runtime.CompilerServices;
 
 namespace rakoona.services.Services.Implementacion
 {
@@ -70,22 +73,71 @@ namespace rakoona.services.Services.Implementacion
             return mascotas.Select(x => x.MapToResponse()).ToList();
         }
 
-        public async Task<List<MascotaResponse>> GetPorClinica(string clinicaId)
+        public async Task<PagedResponse<IList<MascotaResponse>>> GetPorClinica(string clinicaId, SearchMascotaParameters parameters, PaginationParameters pagination)
         {
             if (_context.Clinicas == null)
                 throw new Exception("Entity set 'ApplicationDbContext.Clinicas' is null.");
+            if (_context.Mascotas == null)
+                throw new Exception("Entity set 'ApplicationDbContext.Mascotas' is null.");
             if (_context.ClientesClinicas == null)
                 throw new Exception("Entity set 'ApplicationDbContext.ClientesClinicas' is null.");
 
-            var clinica = _context.Clinicas.First(x => x.ExternalId == clinicaId);
+            var clinica = await _context.Clinicas.SingleAsync(x => x.ExternalId == clinicaId);
 
-            var mascotas = await _context.ClientesClinicas
+            //var mascotas = await _context.ClientesClinicas
+            //    .Where(x => x.ClinicaId == clinica.Id)
+            //    .SelectMany(c => c.Cliente.Mascotas)
+            //    .Include(x => x.Duenio)
+            //    .ToListAsync();
+
+            //var query = _context.ClientesClinicas
+            //    .Include(x => x.Cliente)
+            //    .ThenInclude(x => x.Mascotas)
+            //    .Where(x => x.Clinica.ExternalId == clinicaId);
+
+            //var query = _context.Mascotas
+            //    .Where(x => x.Duenio.ClienteClinicas.Exists(y=>y.ClinicaId == clinica.Id))
+            //    .Include(x => x.Duenio)
+            //    .AsQueryable();
+
+            var query = _context.ClientesClinicas
                 .Where(x => x.ClinicaId == clinica.Id)
                 .SelectMany(c => c.Cliente.Mascotas)
-                .Include(x => x.Duenio)
-                .ToListAsync();
+                .Include(x => x.Duenio).AsQueryable();
 
-            return mascotas.Select(x => x.MapToResponse()).ToList();
+            
+
+
+            if (pagination.Page > 1)
+            {
+                query = query.Skip(pagination.Page - 1 * pagination.PageSize);
+            }
+            query = query.Take(pagination.PageSize);
+
+            if (!string.IsNullOrEmpty(parameters.Nombre))
+            {
+                var nombres = parameters.Nombre;
+                query = query.Where(x => !string.IsNullOrEmpty(x.Nombre) && x.Nombre.Contains(nombres));
+            }
+
+            if (!string.IsNullOrEmpty(parameters.Especie))
+            {
+                var nombres = parameters.Especie;
+                query = query.Where(x => !string.IsNullOrEmpty(x.Especie) && x.Especie.Contains(nombres));
+            }
+
+            if (!string.IsNullOrEmpty(parameters.Raza))
+            {
+                var nombres = parameters.Raza;
+                query = query.Where(x => !string.IsNullOrEmpty(x.Raza) && x.Raza.Contains(nombres));
+            }
+
+            var mascotas = query.ToList();
+
+            return new PagedResponse<IList<MascotaResponse>>(pagination.Page,
+                pagination.PageSize,
+                mascotas.Select(x => x.MapToResponse()).ToList(),
+                mascotas.Count());
         }
 
         public async Task<bool> DeleteAsync(string mascotaId)
@@ -100,6 +152,32 @@ namespace rakoona.services.Services.Implementacion
 
             _context.Mascotas.Remove(mascota);
             _context.SaveChanges();
+
+            return true;
+        }
+
+        public async Task<bool> CreateImage(FileDetailsRequest request, string mascotaId)
+        {
+            if (_context.ImagenesPorMascotas == null)
+                throw new Exception("Validar _context.ImagenesPorMascotas, es null");
+            if (_context.Mascotas == null)
+                throw new Exception("Validar _context.Mascotas, es null");
+
+            var mascota = await _context.Mascotas
+                .SingleAsync(x => x.ExternalId == mascotaId);
+
+            await _context.ImagenesPorMascotas.AddAsync(new Entities.Models.Pacientes.ImagenPorMascota()
+            {
+                FileData = request.FileData,
+                ExternalId = Guid.NewGuid().ToString(),
+                FechaDeCreacion = DateTime.Now,
+                FileName = request.FileName,
+                FileType = request.FileType,
+                MascotaRef = mascota.Id,
+                Principal = true
+
+            });
+            await _context.SaveChangesAsync();
 
             return true;
         }

@@ -1,6 +1,5 @@
 ﻿using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
-using rakoona.services.Config.Helpers;
 using rakoona.services.Entities.Models.Pacientes;
 using System.Globalization;
 using System.Text;
@@ -20,9 +19,9 @@ namespace rakoona.services.Entities.Mappers
                 Especie = request.Especie,
                 Raza = request.Raza,
                 ExternalId = Guid.NewGuid().ToString(),
-                DiaNacimiento = string.IsNullOrEmpty(request.DiaNacimiento) ? 0 : request.DiaNacimiento.ToNumber(),
-                MesNacimiento = string.IsNullOrEmpty(request.MesNacimiento) ? 0 : request.MesNacimiento.ToNumber(),
-                AnioNacimiento = string.IsNullOrEmpty(request.AnioNacimiento) ? 0 : request.AnioNacimiento.ToNumber(),
+                DiaNacimiento = string.IsNullOrEmpty(request.DiaNacimiento) ? 0 : Int32.Parse(request.DiaNacimiento),
+                MesNacimiento = string.IsNullOrEmpty(request.MesNacimiento) ? 0 : Int32.Parse(request.MesNacimiento),
+                AnioNacimiento = string.IsNullOrEmpty(request.AnioNacimiento) ? 0 : Int32.Parse(request.AnioNacimiento),
                 FechaDeCreacion = now
             };
             if (request.Colores != null)

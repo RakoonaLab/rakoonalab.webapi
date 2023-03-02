@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using rakoona.models.dtos.Parameters;
 using rakoona.models.dtos.Response;
+using rakoona.services.Entities.Models.TiposDeContacto;
 using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Drawing.Printing;
 
 namespace rakoona.webapi.Controllers.v1.Mascotas
 {
@@ -23,9 +27,17 @@ namespace rakoona.webapi.Controllers.v1.Mascotas
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<List<MascotaResponse>>> Get([FromRoute] string clinicaId)
+        public async Task<ActionResult<List<MascotaResponse>>> Get([FromRoute] string clinicaId,
+                                                                   [FromQuery] string? nombre,
+                                                                   [FromQuery] string? raza,
+                                                                   [FromQuery] string? especie,
+                                                                   [FromQuery] int? page,
+                                                                   [FromQuery] int? pagesize)
         {
-            var respuesta = await _mascotaService.GetPorClinica(clinicaId);
+
+            var parameters = new SearchMascotaParameters() { Nombre = nombre, Raza = raza, Especie = especie };
+            var pagination = new PaginationParameters(page, pagesize);
+            var respuesta = await _mascotaService.GetPorClinica(clinicaId, parameters, pagination);
 
             if (respuesta == null)
                 return NotFound();
