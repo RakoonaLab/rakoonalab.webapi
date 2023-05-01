@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
+using rakoona.webapi.Configuration.Helpers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Mascotas
@@ -21,11 +22,17 @@ namespace rakoona.webapi.Controllers.v1.Mascotas
 
         [HttpPost]
         [SwaggerOperation(Tags = new[] { "Mascotas", "Imagenes" })]
+        [DisableFormValueModelBinding]
+        [Consumes("multipart/form-data")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<MascotaResponse>> Post([FromForm] IFormFile formFile, [FromRoute] string mascotaId)
+        public async Task<ActionResult<MascotaResponse>> Post([FromRoute] string mascotaId)
         {
+            if (Request.ContentLength == 0)
+                return BadRequest();
 
+            IFormFile formFile = Request.Form.Files[0];
+            
             var request = new FileDetailsRequest()
             {
                 FileName = formFile.FileName,
