@@ -1,4 +1,7 @@
-﻿using rakoona.services.Services.Implementacion;
+﻿using Microsoft.AspNetCore.Identity;
+using rakoona.services.Context;
+using rakoona.services.Entities.Models.Seguridad;
+using rakoona.services.Services.Implementacion;
 using rakoona.services.Services.Interfaces;
 using rakoona.webapi.Services;
 
@@ -6,7 +9,7 @@ namespace rakoona.webapi.Configuration
 {
     public class Services
     {
-        public static void  ConfigDependencyInjention(ref WebApplicationBuilder builder)
+        public static void ConfigDependencyInjention(ref WebApplicationBuilder builder)
         {
             builder.Services.AddTransient<IUserInfoService, UserInfoService>();
             builder.Services.AddTransient<IDomicilioService, DomicilioService>();
@@ -15,6 +18,11 @@ namespace rakoona.webapi.Configuration
             builder.Services.AddTransient<IClienteService, ClienteService>();
             builder.Services.AddTransient<IConsultaService, ConsultaService>();
             builder.Services.AddTransient<IColoresPorMascotaService, ColoresPorMascotaService>();
+
+
+            builder.Services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
         }
 
     }
