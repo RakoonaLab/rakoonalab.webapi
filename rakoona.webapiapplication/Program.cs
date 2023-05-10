@@ -18,13 +18,16 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSet
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    Database.ApplyMigration(ref app);
-}
-if (app.Environment.IsProduction())
-{  
-}
+//if (app.Environment.IsDevelopment())
+//{
+    
+//}
+//if (app.Environment.IsProduction())
+//{  
+
+//}
+
+Database.ApplyMigration(ref app);
 
 app.UseCors("AllowOrigin");
 app.UseSwagger();
