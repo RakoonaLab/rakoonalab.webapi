@@ -32,6 +32,7 @@ namespace rakoona.webapi.Controllers.v1.Account
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] AuthenticateRequest model)
         {
+            _logger.LogInformation("Login...");
             var user = await _userManager.FindByEmailAsync(model.Email);
 
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
