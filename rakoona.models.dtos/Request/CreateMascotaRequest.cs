@@ -9,6 +9,6 @@
         public string? AnioNacimiento { get; set; }
         public string? Especie { get; set; }
         public string? Raza { get; set; }
-        public List<string>? Colores { get; set; }
+        public string? Colores { get; set; }
     }
 }
