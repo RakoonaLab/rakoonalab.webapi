@@ -1,4 +1,5 @@
-﻿using rakoona.models.dtos.Request;
+﻿using Microsoft.IdentityModel.Tokens;
+using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
 using rakoona.services.Entities.Models.Pacientes;
 using System.Globalization;
@@ -24,12 +25,13 @@ namespace rakoona.services.Entities.Mappers
                 AnioNacimiento = string.IsNullOrEmpty(request.AnioNacimiento) ? 0 : Int32.Parse(request.AnioNacimiento),
                 FechaDeCreacion = now
             };
-            if (request.Colores != null)
+            if (!request.Colores.IsNullOrEmpty() && request.Colores != null)
             {
+                string[] colores = request.Colores.Split(",");
                 mascota.Colores = new List<ColorPorMascota>();
-                foreach (var color in request.Colores)
+                foreach (var color in colores)
                 {
-                    mascota.Colores.Add(new ColorPorMascota { Nombre = color, FechaDeCreacion = now });
+                    mascota.Colores.Add(new ColorPorMascota { ExternalId= Guid.NewGuid().ToString(), Nombre = color, FechaDeCreacion = now });
                 }
             }
 
