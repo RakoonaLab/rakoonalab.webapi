@@ -21,6 +21,7 @@ namespace rakoona.services.Entities.Maps.Pacientes
             builder.Property(c => c.DiaNacimiento).HasColumnName("DiaNacimiento");
             builder.Property(c => c.MesNacimiento).HasColumnName("MesNacimiento");
             builder.Property(c => c.AnioNacimiento).HasColumnName("AnioNacimiento");
+            builder.Property(c => c.prueba).HasColumnName("prueba");
             builder.Property(c => c.DuenioRef).HasColumnName("DuenioRef");
 
             
