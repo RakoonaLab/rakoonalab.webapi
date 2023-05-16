@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Medicos
 {
-    [Route("api/medico/clinica/{clinicaId}")]
+    [Route("api/clinica/{clinicaId}/medico")]
     [Authorize]
     [ApiController]
     public class CreateMedicoController : ControllerBase
@@ -25,7 +25,7 @@ namespace rakoona.webapi.Controllers.v1.Medicos
         }
 
         [HttpPost]
-        [SwaggerOperation(Tags = new[] { "Medicos" })]
+        [SwaggerOperation(Tags = new[] { "Medico", "Clinica" })]
         public async Task<ActionResult<MedicoResponse>> Post([FromBody] CreateMedicoRequest request, [FromRoute] string clinicaId)
         {
             if (_context.Medicos == null)
