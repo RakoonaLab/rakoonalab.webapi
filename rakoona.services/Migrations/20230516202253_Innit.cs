@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace rakoona.services.Migrations
 {
     /// <inheritdoc />
-    public partial class innit : Migration
+    public partial class Innit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -397,7 +397,7 @@ namespace rakoona.services.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaAplicacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Peso = table.Column<double>(type: "float", nullable: true),
                     Temperatura = table.Column<double>(type: "float", nullable: true),
                     RitmoCardiaco = table.Column<int>(type: "int", nullable: true),
@@ -407,6 +407,8 @@ namespace rakoona.services.Migrations
                     Observaciones = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Motivo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Diagnostico = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MedicoRef = table.Column<int>(type: "int", nullable: false),
+                    MedicoId = table.Column<int>(type: "int", nullable: true),
                     MascotaRef = table.Column<int>(type: "int", nullable: false),
                     ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -420,6 +422,11 @@ namespace rakoona.services.Migrations
                         principalTable: "Macotas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Consultas_Personas_MedicoId",
+                        column: x => x.MedicoId,
+                        principalTable: "Personas",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -453,7 +460,6 @@ namespace rakoona.services.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Lote = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Laboratorio = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -546,6 +552,11 @@ namespace rakoona.services.Migrations
                 name: "IX_Consultas_MascotaRef",
                 table: "Consultas",
                 column: "MascotaRef");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Consultas_MedicoId",
+                table: "Consultas",
+                column: "MedicoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Domicilios_PersonaRef",

@@ -24,9 +24,10 @@ namespace rakoona.services.Entities.Maps.Consultas
             builder.Property(c => c.Motivo).HasColumnName("Motivo");
             builder.Property(c => c.Observaciones).HasColumnName("Observaciones");
             builder.Property(c => c.Diagnostico).HasColumnName("Diagnostico");
-            builder.Property(c => c.Fecha).HasColumnName("Fecha");
+            builder.Property(c => c.FechaAplicacion).HasColumnName("FechaAplicacion");
 
             builder.Property(c => c.MascotaRef).HasColumnName("MascotaRef");
+            builder.Property(c => c.MedicoRef).HasColumnName("MedicoRef");
 
             #endregion
 

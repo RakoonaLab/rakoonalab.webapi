@@ -15,5 +15,7 @@
         public string? Motivo { get; set; }
         public string? Diagnostico { get; set; }
         public string? Observaciones { get; set; }
+        public string MedicoId { get; set; }
+        public string Fecha { get; set; }
     }
 }

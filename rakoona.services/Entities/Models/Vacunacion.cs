@@ -4,7 +4,6 @@ namespace rakoona.services.Entities.Models
 {
     public class Vacunacion : ModelBase
     {
-        public DateTime Fecha { get; set; }
         public string Nombre { get; set; }
         public string? Lote { get; set; }
         public string? Laboratorio { get; set; }

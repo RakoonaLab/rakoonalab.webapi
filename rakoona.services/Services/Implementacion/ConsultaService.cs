@@ -22,13 +22,20 @@ namespace rakoona.services.Services.Implementacion
                 throw new Exception("Validar _context.Consultas, es null");
             if (_context.Mascotas == null)
                 throw new Exception("Validar _context.Mascotas, es null");
+            if (_context.Medicos == null)
+                throw new Exception("Validar _context.Medicos, es null");
 
             var mascota = await _context.Mascotas.SingleAsync(x => x.ExternalId == mascotaId);
+
+            var medico = await _context.Medicos.SingleAsync(x => x.ExternalId == mascotaId);
 
             if (mascota == null)
                 throw new Exception("Mascota no encontrada");
 
-            var consulta = request.CreateFromRequest(mascota.Id);
+            if (medico == null)
+                throw new Exception("Medico no encontrado");
+
+            var consulta = request.CreateFromRequest(mascota.Id, medico.Id);
 
             await _context.Consultas.AddAsync(consulta);
             await _context.SaveChangesAsync();

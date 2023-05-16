@@ -268,9 +268,9 @@ namespace rakoona.services.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("ExternalId");
 
-                    b.Property<DateTime>("Fecha")
+                    b.Property<DateTime>("FechaAplicacion")
                         .HasColumnType("datetime2")
-                        .HasColumnName("Fecha");
+                        .HasColumnName("FechaAplicacion");
 
                     b.Property<DateTime>("FechaDeCreacion")
                         .HasColumnType("datetime2")
@@ -283,6 +283,13 @@ namespace rakoona.services.Migrations
                     b.Property<int>("MascotaRef")
                         .HasColumnType("int")
                         .HasColumnName("MascotaRef");
+
+                    b.Property<int?>("MedicoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MedicoRef")
+                        .HasColumnType("int")
+                        .HasColumnName("MedicoRef");
 
                     b.Property<string>("Motivo")
                         .HasColumnType("nvarchar(max)")
@@ -311,6 +318,8 @@ namespace rakoona.services.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("MascotaRef");
+
+                    b.HasIndex("MedicoId");
 
                     b.ToTable("Consultas", (string)null);
                 });
@@ -784,9 +793,6 @@ namespace rakoona.services.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("ExternalId");
 
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("FechaDeCreacion")
                         .HasColumnType("datetime2")
                         .HasColumnName("FechaDeCreacion");
@@ -947,7 +953,13 @@ namespace rakoona.services.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("rakoona.services.Entities.Models.Personas.Medico", "Medico")
+                        .WithMany("Consultas")
+                        .HasForeignKey("MedicoId");
+
                     b.Navigation("Mascota");
+
+                    b.Navigation("Medico");
                 });
 
             modelBuilder.Entity("rakoona.services.Entities.Models.Domicilio", b =>
@@ -1087,6 +1099,8 @@ namespace rakoona.services.Migrations
             modelBuilder.Entity("rakoona.services.Entities.Models.Personas.Medico", b =>
                 {
                     b.Navigation("ClinicaMedicos");
+
+                    b.Navigation("Consultas");
                 });
 #pragma warning restore 612, 618
         }

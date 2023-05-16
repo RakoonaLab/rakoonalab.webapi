@@ -6,14 +6,14 @@ namespace rakoona.services.Entities.Mappers
 {
     public static class ConsultaBasicaMapper
     {
-        public static Consulta CreateFromRequest(this CreateConsultaRequest request, int mascotaId)
+        public static Consulta CreateFromRequest(this CreateConsultaRequest request, int mascotaId, int medicoId)
         {
             var now = DateTime.Now;
             Consulta Consulta = new Consulta
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = now,
-                Fecha = now,
+                FechaAplicacion = DateTime.Parse(request.Fecha),
                 Pulso = request.Pulso,
                 FrecuenciaRespiratoria = request.FrecuenciaRespiratoria,
                 Peso = request.Peso,
@@ -22,14 +22,15 @@ namespace rakoona.services.Entities.Mappers
                 Motivo = request.Motivo,
                 Diagnostico = request.Diagnostico,
                 Observaciones = request.Observaciones,
-                MascotaRef = mascotaId
+                MascotaRef = mascotaId,
+                MedicoRef = medicoId
             };
             return Consulta;
         }
 
         public static Consulta UpdateFromRequest(this UpdateConsultaRequest request, Consulta consulta)
         {
-            consulta.Fecha = request.Fecha;
+            consulta.FechaAplicacion = request.Fecha;
             consulta.Pulso = request.Pulso;
             consulta.CaracteristicasDelPulso = request.CaracteristicasDelPulso;
             consulta.FrecuenciaRespiratoria = request.FrecuenciaRespiratoria;
@@ -45,11 +46,11 @@ namespace rakoona.services.Entities.Mappers
 
         public static ConsultaResponse MapToResponse(this Consulta entity)
         {
-            ConsultaResponse response = new ()
+            ConsultaResponse response = new()
             {
                 Id = entity.ExternalId,
                 FechaDeCreacion = entity.FechaDeCreacion.Date.ToShortDateString(),
-                Fecha = entity.Fecha.Date.ToShortDateString(),
+                Fecha = entity.FechaAplicacion.Date.ToShortDateString(),
                 Pulso = entity.Pulso.HasValue ? entity.Pulso : 0,
                 CaracteristicasDelPulso = entity.CaracteristicasDelPulso,
                 FrecuenciaRespiratoria = entity.FrecuenciaRespiratoria.HasValue ? entity.FrecuenciaRespiratoria : 0,
@@ -69,12 +70,12 @@ namespace rakoona.services.Entities.Mappers
 
         public static ConsultaResponse MapToConsultaResponse(this Consulta entity)
         {
-            ConsultaResponse response = new ()
+            ConsultaResponse response = new()
             {
                 Id = entity.ExternalId,
-                Tipo="Basica",
+                Tipo = "Basica",
                 FechaDeCreacion = entity.FechaDeCreacion.Date.ToShortDateString(),
-                Fecha = entity.Fecha.Date.ToShortDateString(),
+                Fecha = entity.FechaAplicacion.Date.ToShortDateString(),
                 Pulso = entity.Pulso.HasValue ? entity.Pulso : 0,
                 CaracteristicasDelPulso = entity.CaracteristicasDelPulso,
                 FrecuenciaRespiratoria = entity.FrecuenciaRespiratoria.HasValue ? entity.FrecuenciaRespiratoria : 0,

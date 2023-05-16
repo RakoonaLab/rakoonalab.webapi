@@ -19,7 +19,7 @@ namespace rakoona.services.Entities.Mappers
                 ExternalId = Guid.NewGuid().ToString(),
                 MascotaRef = mascotaId,
                 FechaDeCreacion = now,
-                Fecha = now,
+                FechaAplicacion = now,
                 Observaciones = request.Observaciones,
             };
 
@@ -34,7 +34,6 @@ namespace rakoona.services.Entities.Mappers
                 Consulta = consulta,
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = now,
-                Fecha = now,
                 Nombre = request.Nombre,
                 Lote = request.Lote,
                 Laboratorio = request.Laboratorio
@@ -57,7 +56,7 @@ namespace rakoona.services.Entities.Mappers
                 Id = entity.ExternalId,
                 Nombre = entity.Nombre,
                 FechaDeCreacion = entity.FechaDeCreacion,
-                FechaDeAplicacion = entity.Fecha.ToShortDateString(),
+                FechaDeAplicacion = entity.FechaDeCreacion.ToShortDateString(),
                 Laboratorio = entity.Laboratorio,
                 Caducidad = entity.Caducidad.Value.ToShortDateString(),
                 Lote = entity.Lote,
