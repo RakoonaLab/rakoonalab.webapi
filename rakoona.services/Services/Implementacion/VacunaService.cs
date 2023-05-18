@@ -22,13 +22,18 @@ namespace rakoona.services.Services.Implementacion
                 throw new Exception("Validar _context.Vacunas, es null");
             if (_context.Mascotas == null)
                 throw new Exception("Validar _context.Mascotas, es null");
+            if (_context.Medicos == null)
+                throw new Exception("Validar _context.Medicos, es null");
 
             var mascota = await _context.Mascotas.SingleAsync(x => x.ExternalId == mascotaId);
+
+            var medico = await _context.Medicos.SingleAsync(x => x.ExternalId == request.MedicoId);
+
 
             if (mascota == null)
                 throw new Exception("Mascota no encontrada");
 
-            var vacuna = request.CreateFromRequest(mascota.Id);
+            var vacuna = request.CreateFromRequest(mascota.Id, medico.Id);
 
             await _context.Vacunas.AddAsync(vacuna);
             await _context.SaveChangesAsync();
@@ -50,6 +55,7 @@ namespace rakoona.services.Services.Implementacion
 
             var vacunas = await _context.Vacunas.Where(x => x.Consulta.MascotaRef == mascota.Id)
                 .Include(x => x.Consulta)
+                .ThenInclude(m => m.Medico)
                 .ToListAsync();
 
             return vacunas.Select(x => x.MapToResponse()).ToList();
