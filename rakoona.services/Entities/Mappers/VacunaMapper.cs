@@ -8,7 +8,7 @@ namespace rakoona.services.Entities.Mappers
 {
     public static class VacunaMapper
     {
-        public static Vacunacion CreateFromRequest(this CreateVacunaRequest request, int mascotaId)
+        public static Vacunacion CreateFromRequest(this CreateVacunaRequest request, int mascotaId, int medicoId)
         {
             if (request == null)
                 throw new Exception("");
@@ -21,6 +21,7 @@ namespace rakoona.services.Entities.Mappers
                 FechaDeCreacion = now,
                 FechaAplicacion = now,
                 Observaciones = request.Observaciones,
+                MedicoRef = medicoId
             };
 
             if (request.Peso.HasValue)
@@ -29,7 +30,7 @@ namespace rakoona.services.Entities.Mappers
             if (request.Temperatura.HasValue)
                 consulta.Temperatura = request.Temperatura.Value;
 
-            Vacunacion vacuna = new ()
+            Vacunacion vacuna = new()
             {
                 Consulta = consulta,
                 ExternalId = Guid.NewGuid().ToString(),
@@ -56,13 +57,17 @@ namespace rakoona.services.Entities.Mappers
                 Id = entity.ExternalId,
                 Nombre = entity.Nombre,
                 FechaDeCreacion = entity.FechaDeCreacion,
-                FechaDeAplicacion = entity.FechaDeCreacion.ToShortDateString(),
+                Fecha = entity.Consulta?.FechaAplicacion.ToShortDateString(),
                 Laboratorio = entity.Laboratorio,
                 Caducidad = entity.Caducidad.Value.ToShortDateString(),
                 Lote = entity.Lote,
                 Peso = entity.Consulta?.Peso ?? 0,
                 Temperatura = entity.Consulta?.Temperatura ?? 0,
-                Observaciones = entity.Consulta?.Observaciones
+                Observaciones = entity.Consulta?.Observaciones,
+                Motivo = entity.Consulta?.Motivo,
+                MedicoId= entity.Consulta?.Medico?.ExternalId,
+                MedicoNombre = entity.Consulta?.Medico?.Nombres + " " + entity.Consulta?.Medico?.Apellidos
+
             };
             return response;
         }
