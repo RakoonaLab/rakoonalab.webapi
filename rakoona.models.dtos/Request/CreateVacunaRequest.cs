@@ -14,5 +14,7 @@
         public string? Laboratorio { get; set; }
         public string? Caducidad { get; set; }
         public string? Observaciones { get; set; }
+        public string MedicoId { get; set; }
+        public string Fecha { get; set; }
     }
 }
