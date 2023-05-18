@@ -27,7 +27,7 @@ namespace rakoona.services.Services.Implementacion
 
             var mascota = await _context.Mascotas.SingleAsync(x => x.ExternalId == mascotaId);
 
-            var medico = await _context.Medicos.SingleAsync(x => x.ExternalId == mascotaId);
+            var medico = await _context.Medicos.SingleAsync(x => x.ExternalId == request.MedicoId);
 
             if (mascota == null)
                 throw new Exception("Mascota no encontrada");
