@@ -9,11 +9,12 @@
         public string? Edad { get; set; }
         public string? FechaDeNacimiento { get; set; }
         public int? VacunasCount { get; set; }
-        public double? Peso { get; set; }
+        public string? Peso { get; set; }
         public string? Especie { get; set; }
         public string? Raza { get; set; }
         public string? DuenioNombre { get; set; }
         public string? DuenioId { get; set; }
-        public IEnumerable<string>? Colores { get; set; }
+        public string? Colores { get; set; }
+        public string FechaUltimaConsulta { get; set; }
     }
 }
