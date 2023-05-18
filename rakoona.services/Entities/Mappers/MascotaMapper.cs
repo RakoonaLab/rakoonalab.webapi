@@ -31,7 +31,7 @@ namespace rakoona.services.Entities.Mappers
                 mascota.Colores = new List<ColorPorMascota>();
                 foreach (var color in colores)
                 {
-                    mascota.Colores.Add(new ColorPorMascota { ExternalId= Guid.NewGuid().ToString(), Nombre = color, FechaDeCreacion = now });
+                    mascota.Colores.Add(new ColorPorMascota { ExternalId = Guid.NewGuid().ToString(), Nombre = color, FechaDeCreacion = now });
                 }
             }
 
@@ -43,6 +43,28 @@ namespace rakoona.services.Entities.Mappers
 
         public static MascotaResponse MapToResponse(this Mascota entity)
         {
+            string colores = string.Empty;
+            string peso = string.Empty;
+            string ultimaConsulta = string.Empty;
+
+            var consulta = entity.Consultas?.OrderByDescending(x => x.FechaAplicacion).FirstOrDefault();
+            var consultaPeso = entity.Consultas?.OrderByDescending(x => x.FechaAplicacion).Where(x => x.Peso.HasValue).FirstOrDefault();
+            if (consulta != null)
+            {
+                ultimaConsulta = GetFecha(consulta.FechaAplicacion.Date.Day, consulta.FechaAplicacion.Date.Month, consulta.FechaAplicacion.Date.Year);
+            }
+            if (consultaPeso != null)
+            {
+                peso = consultaPeso.Peso.HasValue ? $"{consultaPeso.Peso.Value}Kg, ({GetFecha(consultaPeso.FechaAplicacion.Date.Day, consultaPeso.FechaAplicacion.Date.Month, consultaPeso.FechaAplicacion.Date.Year)})" : string.Empty;
+            }
+
+
+            if (entity.Colores != null)
+            {
+                colores = String.Join(", ", entity.Colores.Select(x => x.Nombre).ToList().ToArray());
+            }
+
+
             MascotaResponse response = new()
             {
                 Id = entity.ExternalId,
@@ -51,18 +73,19 @@ namespace rakoona.services.Entities.Mappers
                 Especie = entity.Especie,
                 Raza = entity.Raza,
                 Edad = GetEdad(entity.AnioNacimiento),
-                FechaDeNacimiento = GetFechaNacimiento(entity.DiaNacimiento, entity.MesNacimiento, entity.AnioNacimiento) ,
+                FechaDeNacimiento = GetFecha(entity.DiaNacimiento, entity.MesNacimiento, entity.AnioNacimiento),
                 VacunasCount = 0,
-                Peso = 0,
-                DuenioNombre= entity.Duenio?.GetNombreCompleto(),
+                Peso = peso,
+                DuenioNombre = entity.Duenio?.GetNombreCompleto(),
                 DuenioId = entity.Duenio?.ExternalId,
                 FechaDeCreacion = entity.FechaDeCreacion,
-                Colores = entity.Colores?.Select(x=> x.Nombre)
+                Colores = colores,
+                FechaUltimaConsulta = ultimaConsulta
             };
             return response;
         }
 
-        private static string GetFechaNacimiento(int? diaNacimiento, int? mesNacimiento, int? anioNacimiento)
+        private static string GetFecha(int? diaNacimiento, int? mesNacimiento, int? anioNacimiento)
         {
             var today = DateTime.Today;
             StringBuilder sb = new StringBuilder();
@@ -87,7 +110,7 @@ namespace rakoona.services.Entities.Mappers
             return anioNacimiento.HasValue && anioNacimiento.Value != 0 ?
                 today.Year - anioNacimiento.Value + " Años" :
                 "";
-            
+
         }
         private static string GetMes(int month)
         {
