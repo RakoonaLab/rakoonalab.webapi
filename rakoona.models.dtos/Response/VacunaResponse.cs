@@ -15,5 +15,9 @@
         public string? Fecha { get; set; }
         public string? MedicoId { get; set; }
         public string? MedicoNombre { get; set; }
+        public string? MascotaId { get; set; }
+        public string? MascotaNombre { get; set; }
+        public string? DuenioId { get; set; }
+        public string DuenioNombre { get; set; }
     }
 }
