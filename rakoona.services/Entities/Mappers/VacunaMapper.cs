@@ -65,9 +65,15 @@ namespace rakoona.services.Entities.Mappers
                 Temperatura = entity.Consulta?.Temperatura ?? 0,
                 Observaciones = entity.Consulta?.Observaciones,
                 Motivo = entity.Consulta?.Motivo,
-                MedicoId= entity.Consulta?.Medico?.ExternalId,
-                MedicoNombre = entity.Consulta?.Medico?.Nombres + " " + entity.Consulta?.Medico?.Apellidos
 
+                MedicoId= entity.Consulta?.Medico?.ExternalId,
+                MedicoNombre = entity.Consulta?.Medico?.Nombres + " " + entity.Consulta?.Medico?.Apellidos,
+
+                MascotaId = entity.Consulta?.Mascota?.ExternalId,
+                MascotaNombre = entity.Consulta?.Mascota?.Nombre,
+
+                DuenioId = entity.Consulta?.Mascota?.Duenio?.ExternalId,
+                DuenioNombre = entity.Consulta?.Mascota?.Duenio? .Nombres + " " + entity.Consulta?.Mascota?.Duenio?.Apellidos,
             };
             return response;
         }
