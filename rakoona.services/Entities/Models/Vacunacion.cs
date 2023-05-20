@@ -11,5 +11,6 @@ namespace rakoona.services.Entities.Models
 
         public int ConsultaRef { get; set; }
         public virtual Consulta? Consulta { get; set; }
+        public DateTime FechaDeAplicacion { get; internal set; }
     }
 }
