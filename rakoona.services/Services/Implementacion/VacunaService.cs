@@ -33,7 +33,7 @@ namespace rakoona.services.Services.Implementacion
             if (mascota == null)
                 throw new Exception("Mascota no encontrada");
 
-            var vacuna = request.CreateFromRequest(mascota.Id, medico.Id);
+            var vacuna = request.CreateFromRequest(mascota.Id, medico);
 
             await _context.Vacunas.AddAsync(vacuna);
             await _context.SaveChangesAsync();
