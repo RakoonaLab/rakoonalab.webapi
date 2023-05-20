@@ -30,6 +30,12 @@ namespace rakoona.services.Entities.Maps.Personas
             builder.HasMany(a => a.Domicilios)
                 .WithOne(b => b.Persona)
                 .HasForeignKey(b => b.PersonaRef);
+
+            builder.HasOne(a => a.MedicoInfo)
+                .WithOne(b => b.PersonaInfo)
+                .HasForeignKey<Medico>(b => b.PersonaRef);
+
+
         }
 
     }
