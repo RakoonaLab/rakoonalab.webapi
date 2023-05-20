@@ -13,8 +13,9 @@ namespace rakoona.services.Entities.Maps
             #region Property 
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Id).HasColumnName("Id");
+
             builder.Property(c => c.ClinicaId).HasColumnName("ClinicaId");
-            builder.Property(c => c.MedicoId).HasColumnName("MedicoId");
+            builder.Property(c => c.MedicoId).HasColumnName("MedicoRef");
 
             #endregion
 
@@ -26,11 +27,13 @@ namespace rakoona.services.Entities.Maps
 
             builder.HasOne(bc => bc.Clinica)
                 .WithMany(c => c.ClinicaMedicos)
-                .HasForeignKey(bc => bc.ClinicaId);
+                .HasForeignKey(bc => bc.ClinicaId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(bc => bc.Medico)
                 .WithMany(c => c.ClinicaMedicos)
-                .HasForeignKey(bc => bc.MedicoId);
+                .HasForeignKey(bc => bc.MedicoId)
+                .OnDelete(DeleteBehavior.NoAction);
             #endregion
         }
 
