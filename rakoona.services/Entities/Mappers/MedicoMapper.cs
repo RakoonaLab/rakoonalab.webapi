@@ -15,36 +15,41 @@ namespace rakoona.services.Entities.Mappers
                 ClinicaId = clinicaId
             };
 
-            Medico medico = new Medico
+            PersonaBase persona = new PersonaBase
             {
-                ExternalId = Guid.NewGuid().ToString(),
-                FechaDeCreacion = DateTime.Now,
                 Nombres = request.Nombres,
                 Apellidos = request.Apellidos,
-                
-
-                ClinicaMedicos = new List<ClinicaMedico> { clinicaMedico }
             };
 
             if (request.Celular != "")
             {
-                medico.InformacionDeContacto = new List<Contacto> {
+                persona.InformacionDeContacto = new List<Contacto> {
                     new Celular { ExternalId = Guid.NewGuid().ToString(), Valor = request.Celular }
                 };
             }
+
+            Medico medico = new Medico
+            {
+                ExternalId = Guid.NewGuid().ToString(),
+                FechaDeCreacion = DateTime.Now,
+                PersonaInfo = persona,
+
+
+                ClinicaMedicos = new List<ClinicaMedico> { clinicaMedico }
+            };
 
             return medico;
         }
 
         public static MedicoResponse MapToResponse(this Medico entity)
         {
-            var celular = entity.InformacionDeContacto?.FirstOrDefault(x => x.ContactType == "Celular")?.Valor;
+            var celular = entity.PersonaInfo?.InformacionDeContacto?.FirstOrDefault(x => x.ContactType == "Celular")?.Valor;
 
             MedicoResponse response = new MedicoResponse
             {
                 Id = entity.ExternalId,
-                Nombres = entity.Nombres,
-                Apellidos = entity.Apellidos,
+                Nombres = entity.PersonaInfo?.Nombres,
+                Apellidos = entity.PersonaInfo?.Apellidos,
                 Celular = celular,
                 FechaDeCreacion = entity.FechaDeCreacion,
             };
