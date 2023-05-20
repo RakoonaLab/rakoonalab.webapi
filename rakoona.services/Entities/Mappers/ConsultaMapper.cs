@@ -1,45 +1,202 @@
 ﻿using rakoona.models.dtos.Request.Consultas;
 using rakoona.models.dtos.Response;
 using rakoona.services.Entities.Models.Consultas;
+using rakoona.services.Entities.Models.Consultas.Mediciones;
 
 namespace rakoona.services.Entities.Mappers
 {
-    public static class ConsultaBasicaMapper
+    public static class ConsultaMapper
     {
         public static Consulta CreateFromRequest(this CreateConsultaRequest request, int mascotaId, int medicoId)
         {
-            var now = DateTime.Now;
-            Consulta Consulta = new Consulta
+            if (request == null)
+                throw new Exception("");
+
+            var creacion = DateTime.Now;
+            var aplicacion = DateTime.Parse(request.Fecha);
+
+
+            Consulta consulta = new Consulta
             {
                 ExternalId = Guid.NewGuid().ToString(),
-                FechaDeCreacion = now,
-                FechaAplicacion = DateTime.Parse(request.Fecha),
-                Pulso = request.Pulso,
-                FrecuenciaRespiratoria = request.FrecuenciaRespiratoria,
-                Peso = request.Peso,
-                RitmoCardiaco = request.RitmoCardiaco,
-                Temperatura = request.Temperatura,
+                FechaDeCreacion = creacion,
+                FechaAplicacion = aplicacion,
                 Motivo = request.Motivo,
                 Diagnostico = request.Diagnostico,
                 Observaciones = request.Observaciones,
                 MascotaRef = mascotaId,
                 MedicoRef = medicoId
             };
-            return Consulta;
+
+            if (request.Pulso.HasValue)
+            {
+                consulta.Pulso = new Pulso
+                {
+                    ExternalId = Guid.NewGuid().ToString(),
+                    Valor = request.Pulso.Value,
+                    FechaDeCreacion = creacion,
+                    FechaAplicacion = aplicacion,
+                    MascotaRef = mascotaId,
+                };
+            }
+            if (request.FrecuenciaRespiratoria.HasValue)
+            {
+                consulta.FrecuenciaRespiratoria = new FrecuenciaRespiratoria
+                {
+                    ExternalId = Guid.NewGuid().ToString(),
+                    Valor = request.FrecuenciaRespiratoria.Value,
+                    FechaDeCreacion = creacion,
+                    FechaAplicacion = aplicacion,
+                    MascotaRef = mascotaId
+
+                };
+            }
+            if (request.Peso.HasValue)
+            {
+                consulta.Peso = new Peso
+                {
+                    ExternalId = Guid.NewGuid().ToString(),
+                    Valor = request.Peso.Value,
+                    FechaDeCreacion = creacion,
+                    FechaAplicacion = aplicacion,
+                    MascotaRef = mascotaId
+
+                };
+            }
+            if (request.RitmoCardiaco.HasValue)
+            {
+                consulta.RitmoCardiaco = new RitmoCardiaco
+                {
+                    ExternalId = Guid.NewGuid().ToString(),
+                    Valor = request.RitmoCardiaco.Value,
+                    FechaDeCreacion = creacion,
+                    FechaAplicacion = aplicacion,
+                    MascotaRef = mascotaId
+
+                };
+            }
+            if (request.Temperatura.HasValue)
+            {
+                consulta.Temperatura = new Temperatura
+                {
+                    ExternalId = Guid.NewGuid().ToString(),
+                    Valor = request.Temperatura.Value,
+                    FechaDeCreacion = creacion,
+                    FechaAplicacion = aplicacion,
+                    MascotaRef = mascotaId
+
+                };
+            }
+
+            return consulta;
         }
 
         public static Consulta UpdateFromRequest(this UpdateConsultaRequest request, Consulta consulta)
         {
-            consulta.FechaAplicacion = request.Fecha;
-            consulta.Pulso = request.Pulso;
-            consulta.CaracteristicasDelPulso = request.CaracteristicasDelPulso;
-            consulta.FrecuenciaRespiratoria = request.FrecuenciaRespiratoria;
-            consulta.Peso = request.Peso;
-            consulta.RitmoCardiaco = request.RitmoCardiaco;
-            consulta.Temperatura = request.Temperatura;
+            var aplicacion = request.Fecha;
+
+            consulta.FechaAplicacion = aplicacion;
             consulta.Motivo = request.Motivo;
             consulta.Diagnostico = request.Diagnostico;
             consulta.Observaciones = request.Observaciones;
+
+            if (request.Pulso.HasValue)
+            {
+                if (consulta.Pulso != null)
+                {
+                    consulta.Pulso.Valor = request.Pulso.Value;
+                    consulta.Pulso.FechaAplicacion = aplicacion;
+                }
+                else
+                {
+                    consulta.Pulso = new Pulso
+                    {
+                        ExternalId = Guid.NewGuid().ToString(),
+                        Valor = request.Pulso.Value,
+                        FechaDeCreacion = consulta.FechaDeCreacion,
+                        FechaAplicacion = aplicacion,
+                        MascotaRef = consulta.MascotaRef
+                    };
+                }
+
+            }
+            if (request.FrecuenciaRespiratoria.HasValue)
+            {
+                if (consulta.FrecuenciaRespiratoria != null)
+                {
+                    consulta.FrecuenciaRespiratoria.Valor = request.FrecuenciaRespiratoria.Value;
+                    consulta.FrecuenciaRespiratoria.FechaAplicacion = aplicacion;
+                }
+                else
+                {
+                    consulta.FrecuenciaRespiratoria = new FrecuenciaRespiratoria
+                    {
+                        ExternalId = Guid.NewGuid().ToString(),
+                        Valor = request.FrecuenciaRespiratoria.Value,
+                        FechaDeCreacion = consulta.FechaDeCreacion,
+                        FechaAplicacion = aplicacion,
+                        MascotaRef = consulta.MascotaRef
+                    };
+                }
+            }
+            if (request.Peso.HasValue)
+            {
+                if (consulta.Peso != null)
+                {
+                    consulta.Peso.Valor = request.Peso.Value;
+                    consulta.Peso.FechaAplicacion = aplicacion;
+                }
+                else
+                {
+                    consulta.Peso = new Peso
+                    {
+                        ExternalId = Guid.NewGuid().ToString(),
+                        Valor = request.Peso.Value,
+                        FechaDeCreacion = consulta.FechaDeCreacion,
+                        FechaAplicacion = aplicacion,
+                        MascotaRef = consulta.MascotaRef
+                    };
+                }
+            }
+            if (request.RitmoCardiaco.HasValue)
+            {
+                if (consulta.RitmoCardiaco != null)
+                {
+                    consulta.RitmoCardiaco.Valor = request.RitmoCardiaco.Value;
+                    consulta.RitmoCardiaco.FechaAplicacion = aplicacion;
+                }
+                else
+                {
+                    consulta.RitmoCardiaco = new RitmoCardiaco
+                    {
+                        ExternalId = Guid.NewGuid().ToString(),
+                        Valor = request.RitmoCardiaco.Value,
+                        FechaDeCreacion = consulta.FechaDeCreacion,
+                        FechaAplicacion = aplicacion,
+                        MascotaRef = consulta.MascotaRef
+                    };
+                }
+            }
+            if (request.Temperatura.HasValue)
+            {
+                if (consulta.Temperatura != null)
+                {
+                    consulta.Temperatura.Valor = request.Temperatura.Value;
+                    consulta.Temperatura.FechaAplicacion = aplicacion;
+                }
+                else
+                {
+                    consulta.Temperatura = new Temperatura
+                    {
+                        ExternalId = Guid.NewGuid().ToString(),
+                        Valor = request.Temperatura.Value,
+                        FechaDeCreacion = consulta.FechaDeCreacion,
+                        FechaAplicacion = aplicacion,
+                        MascotaRef = consulta.MascotaRef
+                    };
+                }
+            }
+
 
             return consulta;
         }
@@ -51,12 +208,6 @@ namespace rakoona.services.Entities.Mappers
                 Id = entity.ExternalId,
                 FechaDeCreacion = entity.FechaDeCreacion.Date.ToShortDateString(),
                 Fecha = entity.FechaAplicacion.Date.ToShortDateString(),
-                Pulso = entity.Pulso.HasValue ? entity.Pulso : 0,
-                CaracteristicasDelPulso = entity.CaracteristicasDelPulso,
-                FrecuenciaRespiratoria = entity.FrecuenciaRespiratoria.HasValue ? entity.FrecuenciaRespiratoria : 0,
-                Peso = entity.Peso.HasValue ? entity.Peso : 0,
-                RitmoCardiaco = entity.RitmoCardiaco.HasValue ? entity.RitmoCardiaco : 0,
-                Temperatura = entity.Temperatura.HasValue ? entity.Temperatura : 0,
                 Motivo = entity.Motivo,
                 Diagnostico = entity.Diagnostico,
                 Observaciones = entity.Observaciones,
@@ -65,6 +216,29 @@ namespace rakoona.services.Entities.Mappers
                 ClienteNombre = entity.Mascota?.Duenio?.GetNombreCompleto(),
                 ClienteId = entity.Mascota?.Duenio?.ExternalId,
             };
+
+
+            if (entity.Pulso != null)
+            {
+                response.Pulso = entity.Pulso?.Valor.Value;
+            }
+            if (entity.FrecuenciaRespiratoria != null)
+            {
+                response.FrecuenciaRespiratoria = entity.FrecuenciaRespiratoria?.Valor.Value;
+            }
+            if (entity.Peso != null)
+            {
+                response.Peso = entity.Peso?.Valor.Value;
+            }
+            if (entity.RitmoCardiaco != null)
+            {
+                response.RitmoCardiaco = entity.RitmoCardiaco?.Valor.Value;
+            }
+            if (entity.Temperatura != null)
+            {
+                response.Temperatura = entity.Temperatura?.Valor.Value;
+            }
+            
             return response;
         }
 
@@ -76,12 +250,6 @@ namespace rakoona.services.Entities.Mappers
                 Tipo = "Basica",
                 FechaDeCreacion = entity.FechaDeCreacion.Date.ToShortDateString(),
                 Fecha = entity.FechaAplicacion.Date.ToShortDateString(),
-                Pulso = entity.Pulso.HasValue ? entity.Pulso : 0,
-                CaracteristicasDelPulso = entity.CaracteristicasDelPulso,
-                FrecuenciaRespiratoria = entity.FrecuenciaRespiratoria.HasValue ? entity.FrecuenciaRespiratoria : 0,
-                Peso = entity.Peso.HasValue ? entity.Peso : 0,
-                RitmoCardiaco = entity.RitmoCardiaco.HasValue ? entity.RitmoCardiaco : 0,
-                Temperatura = entity.Temperatura.HasValue ? entity.Temperatura : 0,
                 Motivo = entity.Motivo,
                 Diagnostico = entity.Diagnostico,
                 Observaciones = entity.Observaciones,
@@ -90,6 +258,28 @@ namespace rakoona.services.Entities.Mappers
                 ClienteNombre = entity.Mascota?.Duenio?.GetNombreCompleto(),
                 ClienteId = entity.Mascota?.Duenio?.ExternalId,
             };
+
+            if (entity.Pulso != null)
+            {
+                response.Pulso = entity.Pulso?.Valor.Value;
+            }
+            if (entity.FrecuenciaRespiratoria != null)
+            {
+                response.FrecuenciaRespiratoria = entity.FrecuenciaRespiratoria?.Valor.Value;
+            }
+            if (entity.Peso != null)
+            {
+                response.Peso = entity.Peso?.Valor.Value;
+            }
+            if (entity.RitmoCardiaco != null)
+            {
+                response.RitmoCardiaco = entity.RitmoCardiaco?.Valor.Value;
+            }
+            if (entity.Temperatura != null)
+            {
+                response.Temperatura = entity.Temperatura?.Valor.Value;
+            }
+
             return response;
         }
     }
