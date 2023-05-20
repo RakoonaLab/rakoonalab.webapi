@@ -16,6 +16,7 @@ namespace rakoona.services.Entities.Maps
             builder.Property(c => c.ExternalId).HasColumnName("ExternalId").HasMaxLength(250);
             builder.Property(c => c.FechaDeCreacion).HasColumnName("FechaDeCreacion");
             builder.Property(c => c.Nombre).HasColumnName("Nombre").HasMaxLength(250);
+
             builder.Property(c => c.UserRef).HasColumnName("UserRef").HasMaxLength(250);
 
             #endregion
