@@ -11,6 +11,7 @@ namespace rakoona.services.Entities.Models.Personas
         public DateTime? FechaDeNacimiento { get; set; }
         public string? UsuarioRef { get; set; }
         public virtual User? User { get; set; }
+        public virtual Medico? MedicoInfo { get; set; }
         public List<Contacto>? InformacionDeContacto { get; set; }
         public List<Domicilio>? Domicilios { get; set; }
 
