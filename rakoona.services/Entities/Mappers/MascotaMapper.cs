@@ -48,14 +48,16 @@ namespace rakoona.services.Entities.Mappers
             string ultimaConsulta = string.Empty;
 
             var consulta = entity.Consultas?.OrderByDescending(x => x.FechaAplicacion).FirstOrDefault();
-            var consultaPeso = entity.Consultas?.OrderByDescending(x => x.FechaAplicacion).Where(x => x.Peso.HasValue).FirstOrDefault();
-            if (consulta != null)
+            
+            var ultimoPeso = entity.Pesos?.OrderByDescending(x => x.FechaAplicacion).FirstOrDefault();
+
+            if (ultimaConsulta != null)
             {
                 ultimaConsulta = GetFecha(consulta.FechaAplicacion.Date.Day, consulta.FechaAplicacion.Date.Month, consulta.FechaAplicacion.Date.Year);
             }
-            if (consultaPeso != null)
+            if (ultimoPeso != null)
             {
-                peso = consultaPeso.Peso.HasValue ? $"{consultaPeso.Peso.Value}Kg, ({GetFecha(consultaPeso.FechaAplicacion.Date.Day, consultaPeso.FechaAplicacion.Date.Month, consultaPeso.FechaAplicacion.Date.Year)})" : string.Empty;
+                peso = ultimoPeso.Valor.HasValue ? $"{ultimoPeso.Valor.Value}Kg, ({GetFecha(ultimoPeso.FechaAplicacion.Date.Day, ultimoPeso.FechaAplicacion.Date.Month, ultimoPeso.FechaAplicacion.Date.Year)})" : string.Empty;
             }
 
 
