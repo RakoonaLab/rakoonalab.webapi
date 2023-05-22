@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
+using rakoona.services.Services.Interfaces;
 using rakoona.webapi.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -13,15 +12,12 @@ namespace rakoona.webapi.Controllers.v1.Consultas
     [ApiController]
     public class GetConsultasByClienteController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private IUserInfoService _userInfo;
+        private readonly IConsultaService _context;
 
         public GetConsultasByClienteController(
-            ApplicationDbContext context,
-            IUserInfoService userInfo
+            IConsultaService context
             )
         {
-            _userInfo = userInfo;
             _context = context;
         }
 
@@ -29,16 +25,12 @@ namespace rakoona.webapi.Controllers.v1.Consultas
         [SwaggerOperation(Tags = new[] { "Consultas", "Clientes" })]
         public async Task<ActionResult<List<ConsultaResponse>>> Get([FromRoute] string clienteId)
         {
-            var cliente = _context.Clientes.Single(x => x.ExternalId == clienteId);
-
-            var consultas = _context.Consultas.Where(x => x.Mascota.DuenioRef == cliente.Id).ToList();
-
+            var consultas = await  _context.GetConsultaByCliente(clienteId);
             if (consultas == null)
             {
-                return NotFound();
+                return NoContent();
             }
-
-            return Ok(consultas.Select(x => x.MapToResponse()).ToList());
+            return Ok(consultas);
         }
 
     }

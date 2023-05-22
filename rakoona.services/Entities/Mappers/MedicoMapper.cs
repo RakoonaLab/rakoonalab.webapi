@@ -6,9 +6,9 @@ using rakoona.services.Entities.Models.TiposDeContacto;
 
 namespace rakoona.services.Entities.Mappers
 {
-    public static class MedicoMapper
+    internal static class MedicoMapper
     {
-        public static Medico CreateFromRequest(this CreateMedicoRequest request, int clinicaId)
+        internal static Medico CreateFromRequest(this CreateMedicoRequest request, int clinicaId)
         {
             ClinicaMedico clinicaMedico = new ClinicaMedico
             {
@@ -17,11 +17,12 @@ namespace rakoona.services.Entities.Mappers
 
             PersonaBase persona = new PersonaBase
             {
+                ExternalId = Guid.NewGuid().ToString(),
                 Nombres = request.Nombres,
                 Apellidos = request.Apellidos,
             };
 
-            if (request.Celular != "")
+            if (!string.IsNullOrEmpty(request.Celular))
             {
                 persona.InformacionDeContacto = new List<Contacto> {
                     new Celular { ExternalId = Guid.NewGuid().ToString(), Valor = request.Celular }
@@ -33,15 +34,13 @@ namespace rakoona.services.Entities.Mappers
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = DateTime.Now,
                 PersonaInfo = persona,
-
-
                 ClinicaMedicos = new List<ClinicaMedico> { clinicaMedico }
             };
 
             return medico;
         }
 
-        public static MedicoResponse MapToResponse(this Medico entity)
+        internal static MedicoResponse MapToResponse(this Medico entity)
         {
             var celular = entity.PersonaInfo?.InformacionDeContacto?.FirstOrDefault(x => x.ContactType == "Celular")?.Valor;
 

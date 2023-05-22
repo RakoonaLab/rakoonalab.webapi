@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
+using rakoona.services.Services.Interfaces;
 using rakoona.webapi.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -14,10 +13,10 @@ namespace rakoona.webapi.Controllers.v1.Clinicas
     [ApiController]
     public class CreateClinicaController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IClinicaService _context;
         private IUserInfoService _userInfo;
         public CreateClinicaController(
-            ApplicationDbContext context,
+            IClinicaService context,
             IUserInfoService userInfo)
         {
             _userInfo = userInfo;
@@ -28,23 +27,12 @@ namespace rakoona.webapi.Controllers.v1.Clinicas
         [SwaggerOperation(Tags = new[] { "Clinica" })]
         public async Task<ActionResult<ClinicaResponse>> Post([FromBody] CreateClinicaRequest request)
         {
-            if (_context.Clinicas == null)
-                return Problem("Entity set 'ApplicationDbContext.Clinicas'  is null.");
-
-            var clinicas = _context.Clinicas.Where(x => x.UserRef == _userInfo.UserId).ToList();
-
-            if (clinicas == null)
+            var clinica = _context.Create(request, _userInfo.UserId);
+            if (clinica == null)
             {
-                return NotFound();
+
             }
-
-            var clinica = request.CreateFromRequest(_userInfo.UserId);
-
-            _context.Clinicas.Add(clinica);
-            await _context.SaveChangesAsync();
-
-            var response = clinica.MapToResponse();
-            return StatusCode(StatusCodes.Status201Created, response);
+            return StatusCode(StatusCodes.Status201Created, clinica);
         }
 
     }

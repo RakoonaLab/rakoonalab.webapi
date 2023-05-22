@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using rakoona.models.dtos.Parameters;
+using rakoona.models.dtos.Request.Clientes;
 using rakoona.models.dtos.Response;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
@@ -16,6 +17,25 @@ namespace rakoona.services.Services.Implementacion
             _context = context;
         }
 
+        public async Task<ClienteResponse> CreateCliente( CreateClienteRequest request,  string clinicaId)
+        {
+            var clinica = _context.Clinicas.SingleAsync(x => x.ExternalId == clinicaId);
+
+            var cliente = request.CreateFromRequest(clinica.Id);
+
+            _context.Clientes.AddAsync(cliente);
+            await _context.SaveChangesAsync();
+
+            return  cliente.MapToResponse();
+        }
+        public async Task<ClienteResponse> GetById(string clienteId)
+        {
+            var cliente = await _context.Clientes.Where(x => x.ExternalId == clienteId)
+                .Include(x => x.InformacionDeContacto)
+                .FirstAsync();
+
+            return cliente.MapToResponse();
+        }
         public async Task<PagedResponse<List<ClienteResponse>>> GetClientesByClinica(string clinicaId, SearchClienteParameters parameters, PaginationParameters pagination)
         {
             if (_context.Clinicas == null)
@@ -75,6 +95,23 @@ namespace rakoona.services.Services.Implementacion
                 pagination.PageSize, 
                 clientes.Select(x => x.Cliente.MapToResponse()).ToList(),
                 _context.ClientesClinicas.Where(x => x.Clinica.ExternalId == clinicaId).Count());
+        }
+
+        public async Task<ClienteResponse> Update( UpdateClienteRequest request, string clienteId)
+        {
+            var cliente = await _context.Clientes.SingleAsync(x => x.ExternalId == clienteId);
+
+            if (cliente == null)
+            {
+                throw new Exception("Validar _context.Clinicas, es null");
+            }
+
+            var clienteUpdated = request.CreateFromRequest(cliente);
+
+            _context.Clientes.Update(clienteUpdated);
+            await _context.SaveChangesAsync();
+
+            return clienteUpdated.MapToResponse();
         }
     }
 }

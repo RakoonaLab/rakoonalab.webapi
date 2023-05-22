@@ -60,5 +60,34 @@ namespace rakoona.services.Services.Implementacion
 
             return vacunas.Select(x => x.MapToResponse()).ToList();
         }
+
+        public async Task<List<VacunaResponse>> GetVacunasByClinica(string clinicaId)
+        {
+            if (_context.Vacunas == null)
+                throw new Exception("Validar _context.Vacunas, es null");
+            if (_context.Clinicas == null)
+                throw new Exception("Validar _context.Clinicas, es null");
+            if (_context.ClientesClinicas == null)
+                throw new Exception("Validar _context.ClientesClinicas, es null");
+
+            var clinica = await _context.Clinicas.SingleAsync(x => x.ExternalId == clinicaId);
+
+            var vacunas = await _context.ClientesClinicas
+                .Where(x => x.ClinicaId == clinica.Id)
+                .SelectMany(c => c.Cliente.Mascotas)
+                .SelectMany(m => m.Consultas)
+                .SelectMany(v => v.Vacunas)
+
+                .Include(c => c.Consulta)
+                .ThenInclude(m => m.Medico)
+
+                .Include(c => c.Consulta)
+                .ThenInclude(c => c.Mascota)
+                .ThenInclude(m => m.Duenio)
+
+                .ToListAsync();
+
+            return  vacunas.Select(x => x.MapToResponse()).ToList();
+        }
     }
 }

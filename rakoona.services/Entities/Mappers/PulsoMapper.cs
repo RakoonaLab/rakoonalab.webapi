@@ -2,9 +2,9 @@
 
 namespace rakoona.services.Entities.Mappers
 {
-    public static class PulsoMapper
+    internal static class PulsoMapper
     {
-        public static MedicionDePulso CreateFromRequest(int valor, int mascotaId, DateTime aplicacion, DateTime creacion)
+        internal static MedicionDePulso CreateFromRequest(int valor, int mascotaId, DateTime aplicacion, DateTime creacion)
         {
             MedicionDePulso pulso = new()
             {

@@ -23,14 +23,13 @@ namespace rakoona.webapi.Controllers.v1.Vacunas
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<List<VacunaResponse>>> Get([FromRoute] string mascotaId)
         {
             var vacunas = await _vacunaService.GetVacunasByMascota(mascotaId);
 
             if (vacunas == null)
-            {
-                return NotFound();
-            }
+                return NoContent();
 
             return Ok(vacunas);
         }

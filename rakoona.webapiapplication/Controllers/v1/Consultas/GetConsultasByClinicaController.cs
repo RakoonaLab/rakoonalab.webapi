@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
-using rakoona.webapi.Services;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Consultas
@@ -14,37 +11,26 @@ namespace rakoona.webapi.Controllers.v1.Consultas
     [ApiController]
     public class GetConsultasByClinicaController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private IUserInfoService _userInfo;
+        private readonly IConsultaService _consultaService;
 
         public GetConsultasByClinicaController(
-            ApplicationDbContext context,
-            IUserInfoService userInfo
+            IConsultaService consultaService
             )
         {
-            _userInfo = userInfo;
-            _context = context;
+            _consultaService = consultaService;
         }
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Consultas", "Clinica" })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<List<ConsultaResponse>>> Get([FromRoute] string clinicaId)
         {
-            var clinica = _context.Clinicas.Single(x => x.ExternalId == clinicaId);
-
-            var consultas = _context.ClientesClinicas
-                .Where(x => x.ClinicaId == clinica.Id)
-                .SelectMany(c => c.Cliente.Mascotas)
-                .SelectMany(m => m.Consultas)
-                .Include(c => c.Mascota).ThenInclude(m => m.Duenio)
-                .ToList();
-
-            if (consultas == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(consultas.Select(x => x.MapToResponse()).ToList());
+            var response = await _consultaService.GetConsultasByClinica(clinicaId);
+            if (response == null)
+                return NoContent();
+            return Ok(response);
         }
 
     }

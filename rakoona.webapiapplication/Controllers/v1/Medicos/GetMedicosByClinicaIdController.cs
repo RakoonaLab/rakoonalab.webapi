@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
-using rakoona.webapi.Services;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Medicos
@@ -13,34 +11,21 @@ namespace rakoona.webapi.Controllers.v1.Medicos
     [ApiController]
     public class GetMedicosByClinicaIdController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private IUserInfoService _userInfo;
+        private readonly IMedicoService _medicoService;
 
         public GetMedicosByClinicaIdController(
-            ApplicationDbContext context,
-            IUserInfoService userInfo
+            IMedicoService medicoService
             )
         {
-            _userInfo = userInfo;
-            _context = context;
+            _medicoService = medicoService;
         }
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Medicos", "Clinica" })]
         public async Task<ActionResult<List<MedicoResponse>>> Get([FromRoute] string clinicaId)
         {
-            if (_context.Clinicas == null)
-            {
-                return NotFound();
-            }
-            var medicos = _context.ClinicasMedicos.Where(x => x.Clinica.UserRef == _userInfo.UserId && x.Clinica.ExternalId == clinicaId).Select(x => x.Medico).ToList();
-
-            if (medicos == null)
-            {
-                return NotFound();
-            }
-
-            return medicos.Select(x => x.MapToResponse()).ToList();
+            var response = await _medicoService.GetMedicosByClinicaId(clinicaId);
+            return StatusCode(StatusCodes.Status200OK, response);
         }
 
     }

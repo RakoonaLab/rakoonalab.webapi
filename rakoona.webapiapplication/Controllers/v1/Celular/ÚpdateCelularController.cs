@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Request.Clientes;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
-using rakoona.webapi.Services;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Celular
@@ -14,33 +12,27 @@ namespace rakoona.webapi.Controllers.v1.Celular
     [ApiController]
     public class ÚpdateCelularController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private IUserInfoService _userInfo;
+        private readonly IInformacionDeContactoService _context;
 
         public ÚpdateCelularController(
-            ApplicationDbContext context,
-            IUserInfoService userInfo)
+            IInformacionDeContactoService context)
         {
-            _userInfo = userInfo;
             _context = context;
         }
 
         [HttpPut]
         [SwaggerOperation(Tags = new[] { "Celular" })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status304NotModified)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<CelularResponse>> Put([FromBody] UpdateCelularRequest request, [FromRoute] string celularId)
         {
-            var celular = _context.InformacionDeContacto.FirstOrDefault(x => x.ExternalId == celularId && x.ContactType == "Celular");
 
+            var celular = await _context.ActualizarAsync(request, celularId);
             if (celular == null)
-                return StatusCode(StatusCodes.Status404NotFound, "contacto no encontrad0");
+                return StatusCode(StatusCodes.Status304NotModified, "contacto no encontrad0");
 
-            var updated = request.UpdateFromRequest(celular);
-
-            _context.Update(updated);
-            await _context.SaveChangesAsync();
-
-            var response = updated.MapToResponse();
-            return StatusCode(StatusCodes.Status201Created, response);
+            return StatusCode(StatusCodes.Status200OK, celular);
         }
 
     }

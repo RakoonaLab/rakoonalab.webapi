@@ -4,8 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using rakoona.models.dtos.Response;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
+using rakoona.services.Entities.Models.Pacientes;
+using rakoona.services.Services.Implementacion;
+using rakoona.services.Services.Interfaces;
 using rakoona.webapi.Services;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Http;
 
 namespace rakoona.webapi.Controllers.v1.Vacunas
 {
@@ -14,45 +18,26 @@ namespace rakoona.webapi.Controllers.v1.Vacunas
     [ApiController]
     public class GetVacunasByClinicaController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private IUserInfoService _userInfo;
+        private readonly IVacunaService _vacunaService;
 
-        public GetVacunasByClinicaController(
-            ApplicationDbContext context,
-            IUserInfoService userInfo
-            )
+        public GetVacunasByClinicaController(IVacunaService vacunaService)
         {
-            _userInfo = userInfo;
-            _context = context;
+            _vacunaService = vacunaService;
         }
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Vacunas", "Clinica" })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<List<VacunaResponse>>> Get([FromRoute] string clinicaId)
         {
-            var clinica = _context.Clinicas.Single(x => x.ExternalId == clinicaId);
-
-            var vacunas = _context.ClientesClinicas
-                .Where(x => x.ClinicaId == clinica.Id)
-                .SelectMany(c => c.Cliente.Mascotas)
-                .SelectMany(m => m.Consultas)
-                .SelectMany(v => v.Vacunas)
-                
-                .Include(c => c.Consulta)
-                .ThenInclude(m=> m.Medico)
-
-                .Include(c => c.Consulta)
-                .ThenInclude(c => c.Mascota)
-                .ThenInclude(m => m.Duenio)
-
-                .ToList();
+            var vacunas = await _vacunaService.GetVacunasByClinica(clinicaId);
 
             if (vacunas == null)
-            {
-                return NotFound();
-            }
+                return NoContent();
 
-            return Ok(vacunas.Select(x => x.MapToResponse()).ToList());
+            return Ok(vacunas);
         }
 
     }

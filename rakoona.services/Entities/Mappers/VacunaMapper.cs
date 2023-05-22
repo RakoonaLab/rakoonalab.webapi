@@ -9,9 +9,9 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace rakoona.services.Entities.Mappers
 {
-    public static class VacunaMapper
+    internal static class VacunaMapper
     {
-        public static Vacunacion CreateFromRequest(this CreateVacunaRequest request, int mascotaId, Medico medico)
+        internal static Vacunacion CreateFromRequest(this CreateVacunaRequest request, int mascotaId, Medico medico)
         {
             if (request == null)
                 throw new Exception("");
@@ -46,7 +46,7 @@ namespace rakoona.services.Entities.Mappers
             return vacuna;
         }
 
-        public static VacunaResponse MapToResponse(this Vacunacion entity)
+        internal static VacunaResponse MapToResponse(this Vacunacion entity)
         {
             var today = DateTime.Today;
             StringBuilder sb = new StringBuilder();

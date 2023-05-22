@@ -2,14 +2,15 @@
 using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
 using rakoona.services.Entities.Models.Pacientes;
+using System.Drawing;
 using System.Globalization;
 using System.Text;
 
 namespace rakoona.services.Entities.Mappers
 {
-    public static class MascotaMapper
+    internal static class MascotaMapper
     {
-        public static Mascota CreateFromRequest(this CreateMascotaRequest request, int? clienteId)
+        internal static Mascota CreateFromRequest(this CreateMascotaRequest request, int? clienteId)
         {
             var now = DateTime.Now;
 
@@ -40,53 +41,41 @@ namespace rakoona.services.Entities.Mappers
 
             return mascota;
         }
-
-        public static MascotaResponse MapToResponse(this Mascota entity)
+        internal static MascotaResponse MapToResponse(this Mascota mascota)
         {
-            string colores = string.Empty;
-            string peso = string.Empty;
-            string ultimaConsulta = string.Empty;
-
-            var consulta = entity.Consultas?.OrderByDescending(x => x.FechaAplicacion).FirstOrDefault();
-            
-            var ultimoPeso = entity.MedicionesDePeso?.OrderByDescending(x => x.FechaAplicacion).FirstOrDefault();
-
-            if (ultimaConsulta != null)
-            {
-                ultimaConsulta = GetFecha(consulta.FechaAplicacion.Date.Day, consulta.FechaAplicacion.Date.Month, consulta.FechaAplicacion.Date.Year);
-            }
-            if (ultimoPeso != null)
-            {
-                peso = $"{ultimoPeso.Valor}Kg, ({GetFecha(ultimoPeso.FechaAplicacion.Date.Day, ultimoPeso.FechaAplicacion.Date.Month, ultimoPeso.FechaAplicacion.Date.Year)})";
-            }
-
-
-            if (entity.Colores != null)
-            {
-                colores = String.Join(", ", entity.Colores.Select(x => x.Nombre).ToList().ToArray());
-            }
-
-
             MascotaResponse response = new()
             {
-                Id = entity.ExternalId,
-                Nombre = entity.Nombre,
-                Genero = entity.Genero,
-                Especie = entity.Especie,
-                Raza = entity.Raza,
-                Edad = GetEdad(entity.AnioNacimiento),
-                FechaDeNacimiento = GetFecha(entity.DiaNacimiento, entity.MesNacimiento, entity.AnioNacimiento),
-                VacunasCount = 0,
-                Peso = peso,
-                DuenioNombre = entity.Duenio?.GetNombreCompleto(),
-                DuenioId = entity.Duenio?.ExternalId,
-                FechaDeCreacion = entity.FechaDeCreacion,
-                Colores = colores,
-                FechaUltimaConsulta = ultimaConsulta
+                Id = mascota.ExternalId,
+                Nombre = mascota.Nombre,
+                Genero = mascota.Genero,
+                Especie = mascota.Especie,
+                Raza = mascota.Raza,
+                Edad = GetEdad(mascota.AnioNacimiento),
+                FechaDeNacimiento = GetFecha(mascota.DiaNacimiento, mascota.MesNacimiento, mascota.AnioNacimiento),
+                DuenioNombre = mascota.Duenio?.GetNombreCompleto(),
+                DuenioId = mascota.Duenio?.ExternalId,
+                FechaDeCreacion = mascota.FechaDeCreacion                
             };
+
+            var consulta = mascota.Consultas?.OrderByDescending(x => x.FechaAplicacion).FirstOrDefault();
+            if (consulta != null)
+            {
+                response.FechaUltimaConsulta = GetFecha(consulta.FechaAplicacion.Date.Day, consulta.FechaAplicacion.Date.Month, consulta.FechaAplicacion.Date.Year);
+            }
+
+            var peso = mascota.MedicionesDePeso?.OrderByDescending(x => x.FechaAplicacion).FirstOrDefault();
+            if (peso != null)
+            {
+                response.Peso = $"{peso.Valor}Kg, ({GetFecha(peso.FechaAplicacion.Date.Day, peso.FechaAplicacion.Date.Month, peso.FechaAplicacion.Date.Year)})";
+            }
+
+            if (mascota.Colores != null)
+            {
+                response.Colores = String.Join(", ", mascota.Colores.Select(x => x.Nombre).ToList().ToArray());
+            }
+
             return response;
         }
-
         private static string GetFecha(int? diaNacimiento, int? mesNacimiento, int? anioNacimiento)
         {
             var today = DateTime.Today;

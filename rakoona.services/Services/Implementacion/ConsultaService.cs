@@ -96,7 +96,75 @@ namespace rakoona.services.Services.Implementacion
             }
             return response;
         }
+        public async Task<ConsultaResponse> GetConsultaById(string consultaId)
+        {
 
+            var consulta =await  _context.Consultas.FirstOrDefaultAsync(x => x.ExternalId == consultaId);
+            return consulta.MapToResponse();
+        }
+        public async Task<List<ConsultaResponse>> GetConsultasByMascota(string mascotaId)
+        {
+            var mascota =await  _context.Mascotas.SingleAsync(x => x.ExternalId == mascotaId);
+            var consultas = await _context.Consultas.Where(x => x.MascotaRef == mascota.Id).ToListAsync();
+            return consultas.Select(x => x.MapToResponse()).ToList();
+        }
+        public async Task<List<ConsultaResponse>> GetConsultasByClinica(string clinicaId)
+        {
+            if (_context.Consultas == null)
+                throw new Exception("Validar _context.Consultas, es null");
+            if (_context.ClientesClinicas == null)
+                throw new Exception("Validar _context.ClientesClinicas, es null");
+            if (_context.Clinicas == null)
+                throw new Exception("Validar _context.Clinicas, es null");
+
+            var clinica = await _context.Clinicas.SingleAsync(x => x.ExternalId == clinicaId);
+
+            var consultas =await  _context.ClientesClinicas
+                .Where(x => x.ClinicaId == clinica.Id)
+                .SelectMany(c => c.Cliente.Mascotas)
+                .SelectMany(m => m.Consultas)
+                .Include(c => c.Mascota).ThenInclude(m => m.Duenio)
+                .ToListAsync();
+
+            return consultas.Select(x => x.MapToResponse()).ToList();
+        }
+        public async Task<List<ConsultaResponse>> GetConsultaByCliente(string clienteId)
+        {
+            if (_context.Consultas == null)
+                throw new Exception("Validar _context.Consultas, es null");
+            if (_context.ClientesClinicas == null)
+                throw new Exception("Validar _context.ClientesClinicas, es null");
+            if (_context.Clinicas == null)
+                throw new Exception("Validar _context.Clinicas, es null");
+            if (_context.Clientes == null)
+                throw new Exception("Validar _context.Clientes, es null");
+
+            var cliente = await _context.Clientes.SingleAsync(x => x.ExternalId == clienteId);
+
+            var consultas = await _context.Consultas.Where(x => x.Mascota.DuenioRef == cliente.Id).ToListAsync();
+
+            return consultas.Select(x => x.MapToResponse()).ToList();
+        }
+        public async Task<ConsultaResponse> Update(UpdateConsultaRequest request, string consultaId)
+        {
+            if (_context.Consultas == null)
+                throw new Exception("Validar _context.Consultas, es null");
+            if (_context.ClientesClinicas == null)
+                throw new Exception("Validar _context.ClientesClinicas, es null");
+            if (_context.Clinicas == null)
+                throw new Exception("Validar _context.Clinicas, es null");
+
+            var consulta = _context.Consultas.FirstOrDefault(x => x.ExternalId == consultaId);
+
+            if (consulta == null)
+                throw new Exception("Consulta No Encontrada");
+
+            var update = request.UpdateFromRequest(consulta);
+
+            await _context.SaveChangesAsync();
+
+            return  consulta.MapToResponse();
+        }
         public async Task<bool> DeleteAsync(string consultaId)
         {
             if (_context.Consultas == null)

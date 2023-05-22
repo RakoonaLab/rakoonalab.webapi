@@ -18,7 +18,7 @@ namespace rakoona.services.Context
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
@@ -63,27 +63,26 @@ namespace rakoona.services.Context
             builder.ApplyConfiguration(new MedicionDeTemperaturaMap());
         }
 
-        public DbSet<User>? Usuarios { get; set; }
-        public DbSet<Consulta>? Consultas { get; set; }
-        public DbSet<Mascota>? Mascotas { get; set; }
-        public DbSet<Medico>? Medicos { get; set; }
-        public DbSet<Cliente>? Clientes { get; set; }
-        public DbSet<PersonaBase>? Personas { get; set; }
-        public DbSet<Clinica>? Clinicas { get; set; }
-        public DbSet<Dosis>? Dosis { get; set; }
-        public DbSet<Receta>? Recetas { get; set; }
-        public DbSet<ClinicaMedico>? ClinicasMedicos { get; set; }
-        public DbSet<ClienteClinica>? ClientesClinicas { get; set; }
-        public DbSet<Vacunacion>? Vacunas { get; set; }
-        public DbSet<Contacto>? InformacionDeContacto { get; set; }
-        public DbSet<Domicilio>? Domicilios { get; set; }
-        public DbSet<ColorPorMascota>? ColoresPorMascotas { get; set; }
-        public DbSet<ImagenPorMascota>? ImagenesPorMascotas { get; set; }
-
-        public DbSet<MedicionDeFrecuenciaRespiratoria>? MedicionDeFrecuenciaRespiratoria { get; set; }
-        public DbSet<MedicionDePeso>? MedicionDePeso { get; set; }
-        public DbSet<MedicionDePulso>? MedicionesDePulso { get; set; }
-        public DbSet<MedicionDeRitmoCardiaco>? MedicionesDeRitmoCardiaco { get; set; }
-        public DbSet<MedicionDeTemperatura>? MedicionesDeTemperatura { get; set; }
+        internal DbSet<User>? Usuarios { get; set; }
+        internal DbSet<Consulta>? Consultas { get; set; }
+        internal DbSet<Mascota>? Mascotas { get; set; }
+        internal DbSet<Medico>? Medicos { get; set; }
+        internal DbSet<Cliente>? Clientes { get; set; }
+        internal DbSet<PersonaBase>? Personas { get; set; }
+        internal DbSet<Clinica>? Clinicas { get; set; }
+        internal DbSet<Dosis>? Dosis { get; set; }
+        internal DbSet<Receta>? Recetas { get; set; }
+        internal DbSet<ClinicaMedico>? ClinicasMedicos { get; set; }
+        internal DbSet<ClienteClinica>? ClientesClinicas { get; set; }
+        internal DbSet<Vacunacion>? Vacunas { get; set; }
+        internal DbSet<Contacto>? InformacionDeContacto { get; set; }
+        internal DbSet<Domicilio>? Domicilios { get; set; }
+        internal DbSet<ColorPorMascota>? ColoresPorMascotas { get; set; }
+        internal DbSet<ImagenPorMascota>? ImagenesPorMascotas { get; set; }
+        internal DbSet<MedicionDeFrecuenciaRespiratoria>? MedicionDeFrecuenciaRespiratoria { get; set; }
+        internal DbSet<MedicionDePeso>? MedicionDePeso { get; set; }
+        internal DbSet<MedicionDePulso>? MedicionesDePulso { get; set; }
+        internal DbSet<MedicionDeRitmoCardiaco>? MedicionesDeRitmoCardiaco { get; set; }
+        internal DbSet<MedicionDeTemperatura>? MedicionesDeTemperatura { get; set; }
     }
 }

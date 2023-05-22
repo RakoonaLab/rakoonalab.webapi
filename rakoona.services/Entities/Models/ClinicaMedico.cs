@@ -8,10 +8,10 @@ namespace rakoona.services.Entities.Models
         public int Id { get; internal set; }
 
         public int ClinicaId { get; set; }
-        public Clinica Clinica { get; set; }
+        public Clinica? Clinica { get; set; }
         
         public int MedicoId { get; set; }
-        public Medico Medico { get; set; }
+        public Medico? Medico { get; set; }
         
     }
 }

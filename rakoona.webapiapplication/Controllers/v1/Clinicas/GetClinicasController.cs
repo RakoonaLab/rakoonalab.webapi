@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
+using rakoona.services.Services.Interfaces;
 using rakoona.webapi.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -13,11 +12,11 @@ namespace rakoona.webapi.Controllers.v1.Clinicas
     [ApiController]
     public class GetClientesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IClinicaService _context;
         private IUserInfoService _userInfo;
 
         public GetClientesController(
-            ApplicationDbContext context,
+            IClinicaService context,
             IUserInfoService userInfo
             )
         {
@@ -29,18 +28,14 @@ namespace rakoona.webapi.Controllers.v1.Clinicas
         [SwaggerOperation(Tags = new[] { "Clinica" })]
         public async Task<ActionResult<List<ClinicaResponse>>> Get()
         {
-            if (_context.Clinicas == null)
-            {
-                return NotFound();
-            }
-            var clinicas = _context.Clinicas.Where(x => x.UserRef == _userInfo.UserId).ToList();
+            var clinicas = _context.GetByUser(_userInfo.UserId);
 
             if (clinicas == null)
             {
                 return NotFound();
             }
 
-            return Ok(clinicas.Select(x => x.MapToResponse()).ToList());
+            return Ok(clinicas);
         }
 
     }

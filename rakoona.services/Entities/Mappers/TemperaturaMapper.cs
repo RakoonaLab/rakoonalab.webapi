@@ -2,9 +2,9 @@
 
 namespace rakoona.services.Entities.Mappers
 {
-    public static class TemperaturaMapper
+    internal static class TemperaturaMapper
     {
-        public static MedicionDeTemperatura CreateFromRequest(double valor, int mascotaId, DateTime aplicacion, DateTime creacion)
+        internal static MedicionDeTemperatura CreateFromRequest(double valor, int mascotaId, DateTime aplicacion, DateTime creacion)
         {
             MedicionDeTemperatura pulso = new()
             {

@@ -28,12 +28,12 @@ namespace rakoona.services.Services.Implementacion
 
             var cliente = await _context.Clientes.SingleAsync(x => x.ExternalId == clienteId);
 
-            var paciente = request.CreateFromRequest(cliente.Id);
+            var mascota = request.CreateFromRequest(cliente.Id);
 
-            await _context.Mascotas.AddAsync(paciente);
+            await _context.Mascotas.AddAsync(mascota);
             await _context.SaveChangesAsync();
 
-            return paciente.MapToResponse();
+            return mascota.MapToResponse();
         }
 
         public async Task<MascotaResponse> GetAsync(string mascotaId)

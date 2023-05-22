@@ -1,6 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using rakoona.services.Context;
 using rakoona.webapi.Configuration;
 using rakoona.webapi.Configuration.Models;
 
@@ -8,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 Database.ConfigConnectionString(ref builder);
 Services.ConfigDependencyInjention(ref builder);
+Identity.Config(ref builder);
 Authentication.Config(ref builder);
 Swagger.Config(ref builder);
 CORS.Config(ref builder);
@@ -18,15 +16,6 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSet
 
 var app = builder.Build();
 
-//if (app.Environment.IsDevelopment())
-//{
-    
-//}
-//if (app.Environment.IsProduction())
-//{  
-
-//}
-
 Database.ApplyMigration(ref app);
 
 app.UseCors("AllowOrigin");
@@ -36,5 +25,4 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();

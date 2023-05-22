@@ -7,9 +7,9 @@ using System.Text;
 
 namespace rakoona.services.Entities.Mappers
 {
-    public static class ClienteMapper
+    internal static class ClienteMapper
     {
-        public static Cliente CreateFromRequest(this CreateClienteRequest request, int clinicaId)
+        internal static Cliente CreateFromRequest(this CreateClienteRequest request, int clinicaId)
         {
             ClienteClinica clienteClinica = new ClienteClinica
             {
@@ -37,7 +37,7 @@ namespace rakoona.services.Entities.Mappers
             return cliente;
         }
 
-        public static Cliente CreateFromRequest(this UpdateClienteRequest request, Cliente cliente)
+        internal static Cliente CreateFromRequest(this UpdateClienteRequest request, Cliente cliente)
         {
             cliente.Nombres = request.Nombres;
             cliente.Apellidos = request.Apellidos;
@@ -45,7 +45,7 @@ namespace rakoona.services.Entities.Mappers
             return cliente;
         }
 
-        public static ClienteResponse MapToResponse(this Cliente entity)
+        internal static ClienteResponse MapToResponse(this Cliente entity)
         {
             var celular = entity.InformacionDeContacto?.FirstOrDefault(x => x.ContactType == "Celular")?.Valor;
             var domicilio = entity.Domicilios?.FirstOrDefault(x => x.Principal);

@@ -5,9 +5,9 @@ using rakoona.services.Entities.Models.Consultas.Mediciones;
 
 namespace rakoona.services.Entities.Mappers
 {
-    public static class ConsultaMapper
+    internal static class ConsultaMapper
     {
-        public static Consulta CreateFromRequest(this CreateConsultaRequest request, int mascotaId, int medicoId)
+        internal static Consulta CreateFromRequest(this CreateConsultaRequest request, int mascotaId, int medicoId)
         {
             if (request == null)
                 throw new Exception("");
@@ -28,7 +28,7 @@ namespace rakoona.services.Entities.Mappers
             };
         }
 
-        public static Consulta UpdateFromRequest(this UpdateConsultaRequest request, Consulta consulta)
+        internal static Consulta UpdateFromRequest(this UpdateConsultaRequest request, Consulta consulta)
         {
             var aplicacion = request.Fecha;
 

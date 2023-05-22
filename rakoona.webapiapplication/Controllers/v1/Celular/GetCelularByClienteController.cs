@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Celular
@@ -12,27 +11,25 @@ namespace rakoona.webapi.Controllers.v1.Celular
     [ApiController]
     public class GetCelularByClienteController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IInformacionDeContactoService _infoContactoService;
 
-        public GetCelularByClienteController(ApplicationDbContext context)
+        public GetCelularByClienteController(IInformacionDeContactoService inforContactoService)
         {
-            _context = context;
+            _infoContactoService = inforContactoService;
         }
 
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "Clientes", "Celular" })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<CelularResponse>> Get(string clienteId)
         {
-            var cliente = _context.Clientes.Single(x => x.ExternalId == clienteId);
+            var response = await _infoContactoService.Get(clienteId);
 
-            var celular = _context.InformacionDeContacto.Where(x => x.PersonaRef == cliente.Id && x.ContactType == "Celular").FirstOrDefault();
-
-            if (celular == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(celular.MapToResponse());
+            if (response == null)
+                return NoContent();
+            return Ok(response);
 
         }
 

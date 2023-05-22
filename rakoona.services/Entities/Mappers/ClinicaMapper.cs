@@ -4,9 +4,9 @@ using rakoona.services.Entities.Models;
 
 namespace rakoona.services.Entities.Mappers
 {
-    public static class ClinicaMapper
+    internal static class ClinicaMapper
     {
-        public static Clinica CreateFromRequest(this CreateClinicaRequest request, string userId)
+        internal static Clinica CreateFromRequest(this CreateClinicaRequest request, string userId)
         {
             Clinica clinica = new Clinica
             {
@@ -18,7 +18,7 @@ namespace rakoona.services.Entities.Mappers
             return clinica;
         }
 
-        public static ClinicaResponse MapToResponse(this Clinica entity)
+        internal static ClinicaResponse MapToResponse(this Clinica entity)
         {
             ClinicaResponse response = new ClinicaResponse
             {

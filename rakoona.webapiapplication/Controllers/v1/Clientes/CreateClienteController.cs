@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Request.Clientes;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
+using rakoona.services.Services.Interfaces;
 using rakoona.webapi.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -14,10 +13,10 @@ namespace rakoona.webapi.Controllers.v1.Clientes
     [ApiController]
     public class CreateClienteController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IClienteService _context;
         private IUserInfoService _userInfo;
         public CreateClienteController(
-            ApplicationDbContext context,
+            IClienteService context,
             IUserInfoService userInfo)
         {
             _userInfo = userInfo;
@@ -28,23 +27,14 @@ namespace rakoona.webapi.Controllers.v1.Clientes
         [SwaggerOperation(Tags = new[] { "Clientes" })]
         public async Task<ActionResult<ClienteResponse>> Post([FromBody] CreateClienteRequest request, [FromRoute] string clinicaId)
         {
-            if (_context.Clientes == null)
-                return Problem("Entity set 'ApplicationDbContext.Clientes'  is null.");
 
-            var clinica = _context.Clinicas.Single(x => x.ExternalId == clinicaId);
-
+            var clinica = await _context.CreateCliente(request, clinicaId);
             if (clinica == null)
             {
                 return NotFound();
             }
 
-            var cliente = request.CreateFromRequest(clinica.Id);
-
-            _context.Clientes.Add(cliente);
-            await _context.SaveChangesAsync();
-
-            var response = cliente.MapToResponse();
-            return StatusCode(StatusCodes.Status201Created, response);
+            return StatusCode(StatusCodes.Status201Created, clinica);
         }
 
     }

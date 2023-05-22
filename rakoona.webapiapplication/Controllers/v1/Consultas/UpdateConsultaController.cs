@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Request.Consultas;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
-using rakoona.webapi.Services;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Consultas
@@ -14,32 +12,27 @@ namespace rakoona.webapi.Controllers.v1.Consultas
     [ApiController]
     public class ÚpdateConsultaController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private IUserInfoService _userInfo;
+        private readonly IConsultaService _service;
 
         public ÚpdateConsultaController(
-            ApplicationDbContext context,
-            IUserInfoService userInfo)
+            IConsultaService service)
         {
-            _userInfo = userInfo;
-            _context = context;
+            _service = service;
         }
 
         [HttpPut]
         [SwaggerOperation(Tags = new[] { "Consultas" })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<ConsultaResponse>> Put([FromBody] UpdateConsultaRequest request, [FromRoute] string consultaId)
         {
-            var consulta = _context.Consultas.FirstOrDefault(x => x.ExternalId == consultaId);
+            var response = await  _service.Update(request, consultaId);
 
-            if (consulta == null)
-                return StatusCode(StatusCodes.Status404NotFound, "Consulta no encontrada");
+            if (response == null)
+                return NoContent();
 
-            var update = request.UpdateFromRequest(consulta);
-
-            await _context.SaveChangesAsync();
-
-            var response = consulta.MapToResponse();
-            return StatusCode(StatusCodes.Status201Created, response);
+            return StatusCode(StatusCodes.Status200OK, response);
         }
 
     }

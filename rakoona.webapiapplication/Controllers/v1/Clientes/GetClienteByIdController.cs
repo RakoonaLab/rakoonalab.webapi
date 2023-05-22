@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Clientes
@@ -13,9 +11,9 @@ namespace rakoona.webapi.Controllers.v1.Clientes
     [ApiController]
     public class GetClienteByIdController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IClienteService _context;
 
-        public GetClienteByIdController(ApplicationDbContext context)
+        public GetClienteByIdController(IClienteService context)
         {
             _context = context;
         }
@@ -25,20 +23,13 @@ namespace rakoona.webapi.Controllers.v1.Clientes
         [SwaggerOperation(Tags = new[] { "Clientes" })]
         public async Task<ActionResult<ClienteResponse>> Get(string clienteId)
         {
-            if (_context.Clientes == null)
-            {
-                return NotFound();
-            }
-            var cliente = _context.Clientes.Where(x => x.ExternalId == clienteId)
-                .Include(x => x.InformacionDeContacto)
-                .First();
-
+            var cliente = await _context.GetById(clienteId);
             if (cliente == null)
             {
                 return NotFound();
             }
 
-            return Ok(cliente.MapToResponse());
+            return Ok(cliente);
         }
 
     }

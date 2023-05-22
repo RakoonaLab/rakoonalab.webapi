@@ -4,9 +4,9 @@ using rakoona.services.Entities.Models;
 
 namespace rakoona.services.Entities.Mappers
 {
-    public static class DomicilioMapper
+    internal static class DomicilioMapper
     {
-        public static Domicilio CreateFromRequest(this CreateDomicilioRequest request, int personaId)
+        internal static Domicilio CreateFromRequest(this CreateDomicilioRequest request, int personaId)
         {
             Domicilio domicilio = new()
             {
@@ -23,7 +23,7 @@ namespace rakoona.services.Entities.Mappers
             return domicilio;
         }
 
-        public static DomicilioResponse MapToResponse(this Domicilio entity)
+        internal static DomicilioResponse MapToResponse(this Domicilio entity)
         {
             DomicilioResponse response = new DomicilioResponse
             {
@@ -37,7 +37,7 @@ namespace rakoona.services.Entities.Mappers
             return response;
         }
 
-        public static Domicilio UpdateFromRequest(this UpdateDomicilioRequest request, Domicilio domicilio)
+        internal static Domicilio UpdateFromRequest(this UpdateDomicilioRequest request, Domicilio domicilio)
         {
             domicilio.Calle = request.Calle;
             domicilio.Colonia = request.Colonia;

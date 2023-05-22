@@ -4,9 +4,9 @@ using rakoona.services.Entities.Models.TiposDeContacto;
 
 namespace rakoona.services.Entities.Mappers
 {
-    public static class CelularMapper
+    internal static class CelularMapper
     {
-        public static CelularResponse MapToResponse(this Contacto entity)
+        internal static CelularResponse MapToResponse(this Contacto entity)
         {
             CelularResponse response = new CelularResponse
             {
@@ -16,7 +16,7 @@ namespace rakoona.services.Entities.Mappers
             return response;
         }
 
-        public static Contacto UpdateFromRequest(this UpdateCelularRequest request, Contacto contacto)
+        internal static Contacto UpdateFromRequest(this UpdateCelularRequest request, Contacto contacto)
         {
             contacto.Valor = request.Valor;
 

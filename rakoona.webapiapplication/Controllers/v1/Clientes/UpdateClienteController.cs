@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Request.Clientes;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
-using rakoona.webapi.Services;
+using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Clientes
@@ -14,13 +12,10 @@ namespace rakoona.webapi.Controllers.v1.Clientes
     [ApiController]
     public class UpdateClienteController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private IUserInfoService _userInfo;
+        private readonly IClienteService _context;
         public UpdateClienteController(
-            ApplicationDbContext context,
-            IUserInfoService userInfo)
+            IClienteService context)
         {
-            _userInfo = userInfo;
             _context = context;
         }
 
@@ -28,20 +23,14 @@ namespace rakoona.webapi.Controllers.v1.Clientes
         [SwaggerOperation(Tags = new[] { "Clientes" })]
         public async Task<ActionResult<ClienteResponse>> Put([FromBody] UpdateClienteRequest request, [FromRoute] string clienteId)
         {
-            var cliente = _context.Clientes.Single(x => x.ExternalId == clienteId);
+            var cliente = await _context.Update(request,clienteId);
 
             if (cliente == null)
             {
                 return NotFound();
             }
 
-            var clienteUpdated = request.CreateFromRequest(cliente);
-
-            _context.Clientes.Update(clienteUpdated);
-            await _context.SaveChangesAsync();
-
-            var response = clienteUpdated.MapToResponse();
-            return StatusCode(StatusCodes.Status201Created, response);
+            return StatusCode(StatusCodes.Status201Created, cliente);
         }
 
     }
