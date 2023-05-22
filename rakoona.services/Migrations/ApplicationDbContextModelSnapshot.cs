@@ -234,7 +234,7 @@ namespace rakoona.services.Migrations
 
                     b.Property<int>("MedicoId")
                         .HasColumnType("int")
-                        .HasColumnName("MedicoId");
+                        .HasColumnName("MedicoRef");
 
                     b.HasKey("Id");
 
@@ -254,10 +254,6 @@ namespace rakoona.services.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CaracteristicasDelPulso")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("CaracteristicasDelPulso");
-
                     b.Property<string>("Diagnostico")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Diagnostico");
@@ -276,16 +272,9 @@ namespace rakoona.services.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("FechaDeCreacion");
 
-                    b.Property<int?>("FrecuenciaRespiratoria")
-                        .HasColumnType("int")
-                        .HasColumnName("FrecuenciaRespiratoria");
-
                     b.Property<int>("MascotaRef")
                         .HasColumnType("int")
                         .HasColumnName("MascotaRef");
-
-                    b.Property<int?>("MedicoId")
-                        .HasColumnType("int");
 
                     b.Property<int>("MedicoRef")
                         .HasColumnType("int")
@@ -299,29 +288,231 @@ namespace rakoona.services.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Observaciones");
 
-                    b.Property<double?>("Peso")
-                        .HasColumnType("float")
-                        .HasColumnName("Peso");
-
-                    b.Property<int?>("Pulso")
-                        .HasColumnType("int")
-                        .HasColumnName("Pulso");
-
-                    b.Property<int?>("RitmoCardiaco")
-                        .HasColumnType("int")
-                        .HasColumnName("RitmoCardiaco");
-
-                    b.Property<double?>("Temperatura")
-                        .HasColumnType("float")
-                        .HasColumnName("Temperatura");
-
                     b.HasKey("Id");
 
                     b.HasIndex("MascotaRef");
 
-                    b.HasIndex("MedicoId");
+                    b.HasIndex("MedicoRef");
 
                     b.ToTable("Consultas", (string)null);
+                });
+
+            modelBuilder.Entity("rakoona.services.Entities.Models.Consultas.Mediciones.MedicionDeFrecuenciaRespiratoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ConsultaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaAplicacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaAplicacion");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<int>("MascotaRef")
+                        .HasColumnType("int")
+                        .HasColumnName("MascotaRef");
+
+                    b.Property<int>("Valor")
+                        .HasColumnType("int")
+                        .HasColumnName("Valor");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConsultaId");
+
+                    b.HasIndex("MascotaRef");
+
+                    b.ToTable("MedicionDeFrecuenciaRespiratoria", (string)null);
+                });
+
+            modelBuilder.Entity("rakoona.services.Entities.Models.Consultas.Mediciones.MedicionDePeso", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ConsultaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaAplicacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaAplicacion");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<int>("MascotaRef")
+                        .HasColumnType("int")
+                        .HasColumnName("MascotaRef");
+
+                    b.Property<double>("Valor")
+                        .HasColumnType("float")
+                        .HasColumnName("Valor");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConsultaId");
+
+                    b.HasIndex("MascotaRef");
+
+                    b.ToTable("MedicionDePeso", (string)null);
+                });
+
+            modelBuilder.Entity("rakoona.services.Entities.Models.Consultas.Mediciones.MedicionDePulso", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Caracteristicas")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ConsultaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaAplicacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaAplicacion");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<int>("MascotaRef")
+                        .HasColumnType("int")
+                        .HasColumnName("MascotaRef");
+
+                    b.Property<int>("Valor")
+                        .HasColumnType("int")
+                        .HasColumnName("Valor");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConsultaId");
+
+                    b.HasIndex("MascotaRef");
+
+                    b.ToTable("MedicionesDePulso", (string)null);
+                });
+
+            modelBuilder.Entity("rakoona.services.Entities.Models.Consultas.Mediciones.MedicionDeRitmoCardiaco", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ConsultaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaAplicacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaAplicacion");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<int>("MascotaRef")
+                        .HasColumnType("int")
+                        .HasColumnName("MascotaRef");
+
+                    b.Property<int>("Valor")
+                        .HasColumnType("int")
+                        .HasColumnName("Valor");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConsultaId");
+
+                    b.HasIndex("MascotaRef");
+
+                    b.ToTable("MedicionesDeRitmoCardiaco", (string)null);
+                });
+
+            modelBuilder.Entity("rakoona.services.Entities.Models.Consultas.Mediciones.MedicionDeTemperatura", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ConsultaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaAplicacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaAplicacion");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<int>("MascotaRef")
+                        .HasColumnType("int")
+                        .HasColumnName("MascotaRef");
+
+                    b.Property<double>("Valor")
+                        .HasColumnType("float")
+                        .HasColumnName("Valor");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConsultaId");
+
+                    b.HasIndex("MascotaRef");
+
+                    b.ToTable("MedicionesDeTemperatura", (string)null);
                 });
 
             modelBuilder.Entity("rakoona.services.Entities.Models.Domicilio", b =>
@@ -564,6 +755,35 @@ namespace rakoona.services.Migrations
                     b.ToTable("Macotas", (string)null);
                 });
 
+            modelBuilder.Entity("rakoona.services.Entities.Models.Personas.Medico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<int>("PersonaRef")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonaRef")
+                        .IsUnique();
+
+                    b.ToTable("Medicos");
+                });
+
             modelBuilder.Entity("rakoona.services.Entities.Models.Personas.PersonaBase", b =>
                 {
                     b.Property<int>("Id")
@@ -793,6 +1013,10 @@ namespace rakoona.services.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("ExternalId");
 
+                    b.Property<DateTime>("FechaDeAplicacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeAplicacion");
+
                     b.Property<DateTime>("FechaDeCreacion")
                         .HasColumnType("datetime2")
                         .HasColumnName("FechaDeCreacion");
@@ -822,13 +1046,6 @@ namespace rakoona.services.Migrations
                     b.HasBaseType("rakoona.services.Entities.Models.Personas.PersonaBase");
 
                     b.HasDiscriminator().HasValue("Cliente");
-                });
-
-            modelBuilder.Entity("rakoona.services.Entities.Models.Personas.Medico", b =>
-                {
-                    b.HasBaseType("rakoona.services.Entities.Models.Personas.PersonaBase");
-
-                    b.HasDiscriminator().HasValue("Medico");
                 });
 
             modelBuilder.Entity("rakoona.services.Entities.Models.TiposDeContacto.Celular", b =>
@@ -931,13 +1148,13 @@ namespace rakoona.services.Migrations
                     b.HasOne("rakoona.services.Entities.Models.Clinica", "Clinica")
                         .WithMany("ClinicaMedicos")
                         .HasForeignKey("ClinicaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("rakoona.services.Entities.Models.Personas.Medico", "Medico")
                         .WithMany("ClinicaMedicos")
                         .HasForeignKey("MedicoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Clinica");
@@ -950,16 +1167,103 @@ namespace rakoona.services.Migrations
                     b.HasOne("rakoona.services.Entities.Models.Pacientes.Mascota", "Mascota")
                         .WithMany("Consultas")
                         .HasForeignKey("MascotaRef")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("rakoona.services.Entities.Models.Personas.Medico", "Medico")
                         .WithMany("Consultas")
-                        .HasForeignKey("MedicoId");
+                        .HasForeignKey("MedicoRef")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Mascota");
 
                     b.Navigation("Medico");
+                });
+
+            modelBuilder.Entity("rakoona.services.Entities.Models.Consultas.Mediciones.MedicionDeFrecuenciaRespiratoria", b =>
+                {
+                    b.HasOne("rakoona.services.Entities.Models.Consultas.Consulta", "Consulta")
+                        .WithMany()
+                        .HasForeignKey("ConsultaId");
+
+                    b.HasOne("rakoona.services.Entities.Models.Pacientes.Mascota", "Mascota")
+                        .WithMany("MedicionesDeFrecuenciaRespiratoria")
+                        .HasForeignKey("MascotaRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Consulta");
+
+                    b.Navigation("Mascota");
+                });
+
+            modelBuilder.Entity("rakoona.services.Entities.Models.Consultas.Mediciones.MedicionDePeso", b =>
+                {
+                    b.HasOne("rakoona.services.Entities.Models.Consultas.Consulta", "Consulta")
+                        .WithMany()
+                        .HasForeignKey("ConsultaId");
+
+                    b.HasOne("rakoona.services.Entities.Models.Pacientes.Mascota", "Mascota")
+                        .WithMany("MedicionesDePeso")
+                        .HasForeignKey("MascotaRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Consulta");
+
+                    b.Navigation("Mascota");
+                });
+
+            modelBuilder.Entity("rakoona.services.Entities.Models.Consultas.Mediciones.MedicionDePulso", b =>
+                {
+                    b.HasOne("rakoona.services.Entities.Models.Consultas.Consulta", "Consulta")
+                        .WithMany()
+                        .HasForeignKey("ConsultaId");
+
+                    b.HasOne("rakoona.services.Entities.Models.Pacientes.Mascota", "Mascota")
+                        .WithMany("MedicionesDePulso")
+                        .HasForeignKey("MascotaRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Consulta");
+
+                    b.Navigation("Mascota");
+                });
+
+            modelBuilder.Entity("rakoona.services.Entities.Models.Consultas.Mediciones.MedicionDeRitmoCardiaco", b =>
+                {
+                    b.HasOne("rakoona.services.Entities.Models.Consultas.Consulta", "Consulta")
+                        .WithMany()
+                        .HasForeignKey("ConsultaId");
+
+                    b.HasOne("rakoona.services.Entities.Models.Pacientes.Mascota", "Mascota")
+                        .WithMany("MedicionesDeRitmoCardiaco")
+                        .HasForeignKey("MascotaRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Consulta");
+
+                    b.Navigation("Mascota");
+                });
+
+            modelBuilder.Entity("rakoona.services.Entities.Models.Consultas.Mediciones.MedicionDeTemperatura", b =>
+                {
+                    b.HasOne("rakoona.services.Entities.Models.Consultas.Consulta", "Consulta")
+                        .WithMany()
+                        .HasForeignKey("ConsultaId");
+
+                    b.HasOne("rakoona.services.Entities.Models.Pacientes.Mascota", "Mascota")
+                        .WithMany("MedicionesDeTemperatura")
+                        .HasForeignKey("MascotaRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Consulta");
+
+                    b.Navigation("Mascota");
                 });
 
             modelBuilder.Entity("rakoona.services.Entities.Models.Domicilio", b =>
@@ -1017,6 +1321,17 @@ namespace rakoona.services.Migrations
                     b.Navigation("Duenio");
                 });
 
+            modelBuilder.Entity("rakoona.services.Entities.Models.Personas.Medico", b =>
+                {
+                    b.HasOne("rakoona.services.Entities.Models.Personas.PersonaBase", "PersonaInfo")
+                        .WithOne("MedicoInfo")
+                        .HasForeignKey("rakoona.services.Entities.Models.Personas.Medico", "PersonaRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PersonaInfo");
+                });
+
             modelBuilder.Entity("rakoona.services.Entities.Models.Personas.PersonaBase", b =>
                 {
                     b.HasOne("rakoona.services.Entities.Models.Seguridad.User", "User")
@@ -1067,6 +1382,23 @@ namespace rakoona.services.Migrations
                     b.Navigation("Consultas");
 
                     b.Navigation("Imagenes");
+
+                    b.Navigation("MedicionesDeFrecuenciaRespiratoria");
+
+                    b.Navigation("MedicionesDePeso");
+
+                    b.Navigation("MedicionesDePulso");
+
+                    b.Navigation("MedicionesDeRitmoCardiaco");
+
+                    b.Navigation("MedicionesDeTemperatura");
+                });
+
+            modelBuilder.Entity("rakoona.services.Entities.Models.Personas.Medico", b =>
+                {
+                    b.Navigation("ClinicaMedicos");
+
+                    b.Navigation("Consultas");
                 });
 
             modelBuilder.Entity("rakoona.services.Entities.Models.Personas.PersonaBase", b =>
@@ -1074,6 +1406,8 @@ namespace rakoona.services.Migrations
                     b.Navigation("Domicilios");
 
                     b.Navigation("InformacionDeContacto");
+
+                    b.Navigation("MedicoInfo");
                 });
 
             modelBuilder.Entity("rakoona.services.Entities.Models.Receta", b =>
@@ -1094,13 +1428,6 @@ namespace rakoona.services.Migrations
                     b.Navigation("ClienteClinicas");
 
                     b.Navigation("Mascotas");
-                });
-
-            modelBuilder.Entity("rakoona.services.Entities.Models.Personas.Medico", b =>
-                {
-                    b.Navigation("ClinicaMedicos");
-
-                    b.Navigation("Consultas");
                 });
 #pragma warning restore 612, 618
         }

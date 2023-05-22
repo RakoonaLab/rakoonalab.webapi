@@ -8,6 +8,7 @@ using rakoona.services.Entities.Maps.Personas;
 using rakoona.services.Entities.Maps.Seguridad;
 using rakoona.services.Entities.Models;
 using rakoona.services.Entities.Models.Consultas;
+using rakoona.services.Entities.Models.Consultas.Mediciones;
 using rakoona.services.Entities.Models.Pacientes;
 using rakoona.services.Entities.Models.Personas;
 using rakoona.services.Entities.Models.Seguridad;
@@ -54,6 +55,12 @@ namespace rakoona.services.Context
             builder.ApplyConfiguration(new DomicilioMap());
             builder.ApplyConfiguration(new ColorPorMascotaMap());
             builder.ApplyConfiguration(new ImagenPorMascotaMap());
+
+            builder.ApplyConfiguration(new MedicionDeFrecuenciaRespiratoriaMap());
+            builder.ApplyConfiguration(new MedicionDePesoMap());
+            builder.ApplyConfiguration(new MedicionDePulsoMap());
+            builder.ApplyConfiguration(new MedicionDeRitmoCardiacoMap());
+            builder.ApplyConfiguration(new MedicionDeTemperaturaMap());
         }
 
         public DbSet<User>? Usuarios { get; set; }
@@ -72,5 +79,11 @@ namespace rakoona.services.Context
         public DbSet<Domicilio>? Domicilios { get; set; }
         public DbSet<ColorPorMascota>? ColoresPorMascotas { get; set; }
         public DbSet<ImagenPorMascota>? ImagenesPorMascotas { get; set; }
+
+        public DbSet<MedicionDeFrecuenciaRespiratoria>? MedicionDeFrecuenciaRespiratoria { get; set; }
+        public DbSet<MedicionDePeso>? MedicionDePeso { get; set; }
+        public DbSet<MedicionDePulso>? MedicionesDePulso { get; set; }
+        public DbSet<MedicionDeRitmoCardiaco>? MedicionesDeRitmoCardiaco { get; set; }
+        public DbSet<MedicionDeTemperatura>? MedicionesDeTemperatura { get; set; }
     }
 }

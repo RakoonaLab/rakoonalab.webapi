@@ -29,66 +29,6 @@ namespace rakoona.services.Entities.Mappers
                 Medico = medico
             };
 
-            if (request.Pulso.HasValue)
-            {
-                consulta.Pulso = new Pulso
-                {
-                    ExternalId = Guid.NewGuid().ToString(),
-                    Valor = request.Pulso.Value,
-                    FechaDeCreacion = creacion,
-                    FechaAplicacion = aplicacion,
-                    MascotaRef = mascotaId,
-                };
-            }
-            if (request.FrecuenciaRespiratoria.HasValue)
-            {
-                consulta.FrecuenciaRespiratoria = new FrecuenciaRespiratoria
-                {
-                    ExternalId = Guid.NewGuid().ToString(),
-                    Valor = request.FrecuenciaRespiratoria.Value,
-                    FechaDeCreacion = creacion,
-                    FechaAplicacion = aplicacion,
-                    MascotaRef = mascotaId
-
-                };
-            }
-            if (request.Peso.HasValue)
-            {
-                consulta.Peso = new Peso
-                {
-                    ExternalId = Guid.NewGuid().ToString(),
-                    Valor = request.Peso.Value,
-                    FechaDeCreacion = creacion,
-                    FechaAplicacion = aplicacion,
-                    MascotaRef = mascotaId
-
-                };
-            }
-            if (request.RitmoCardiaco.HasValue)
-            {
-                consulta.RitmoCardiaco = new RitmoCardiaco
-                {
-                    ExternalId = Guid.NewGuid().ToString(),
-                    Valor = request.RitmoCardiaco.Value,
-                    FechaDeCreacion = creacion,
-                    FechaAplicacion = aplicacion,
-                    MascotaRef = mascotaId
-
-                };
-            }
-            if (request.Temperatura.HasValue)
-            {
-                consulta.Temperatura = new Temperatura
-                {
-                    ExternalId = Guid.NewGuid().ToString(),
-                    Valor = request.Temperatura.Value,
-                    FechaDeCreacion = creacion,
-                    FechaAplicacion = aplicacion,
-                    MascotaRef = mascotaId
-
-                };
-            }
-
             Vacunacion vacuna = new()
             {
                 Consulta = consulta,
@@ -129,33 +69,7 @@ namespace rakoona.services.Entities.Mappers
                 DuenioId = entity.Consulta?.Mascota?.Duenio?.ExternalId,
                 DuenioNombre = entity.Consulta?.Mascota?.Duenio? .Nombres + " " + entity.Consulta?.Mascota?.Duenio?.Apellidos,
             };
-            if (entity.Caducidad.HasValue)
-            {
-                response.Caducidad = entity.Caducidad.Value.ToShortDateString();
-            }
-            if (entity.Consulta?.Peso != null )
-            {
-                response.Peso = entity.Consulta?.Peso?.Valor.Value;
-            }
-            if (entity.Consulta?.Temperatura != null)
-            {
-                response.Temperatura = entity.Consulta?.Temperatura?.Valor.Value;
-            }
-            if (entity.Consulta?.Pulso != null)
-            {
-                response.Pulso = entity.Consulta?.Pulso?.Valor.Value;
-            }
-            if (entity.Consulta?.RitmoCardiaco != null)
-            {
-                response.RitmoCardiaco = entity.Consulta?.RitmoCardiaco?.Valor.Value;
-            }
-            if (entity.Consulta?.FrecuenciaRespiratoria != null)
-            {
-                response.FrecuenciaRespiratoria = entity.Consulta?.FrecuenciaRespiratoria?.Valor.Value;
-            }
-
-
-
+        
             return response;
         }
 

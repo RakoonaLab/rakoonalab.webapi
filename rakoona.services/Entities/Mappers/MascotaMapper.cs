@@ -49,7 +49,7 @@ namespace rakoona.services.Entities.Mappers
 
             var consulta = entity.Consultas?.OrderByDescending(x => x.FechaAplicacion).FirstOrDefault();
             
-            var ultimoPeso = entity.Pesos?.OrderByDescending(x => x.FechaAplicacion).FirstOrDefault();
+            var ultimoPeso = entity.MedicionesDePeso?.OrderByDescending(x => x.FechaAplicacion).FirstOrDefault();
 
             if (ultimaConsulta != null)
             {
@@ -57,7 +57,7 @@ namespace rakoona.services.Entities.Mappers
             }
             if (ultimoPeso != null)
             {
-                peso = ultimoPeso.Valor.HasValue ? $"{ultimoPeso.Valor.Value}Kg, ({GetFecha(ultimoPeso.FechaAplicacion.Date.Day, ultimoPeso.FechaAplicacion.Date.Month, ultimoPeso.FechaAplicacion.Date.Year)})" : string.Empty;
+                peso = $"{ultimoPeso.Valor}Kg, ({GetFecha(ultimoPeso.FechaAplicacion.Date.Day, ultimoPeso.FechaAplicacion.Date.Month, ultimoPeso.FechaAplicacion.Date.Year)})";
             }
 
 

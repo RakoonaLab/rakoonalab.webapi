@@ -23,13 +23,7 @@ namespace rakoona.services.Entities.Maps.Consultas
 
             builder.Property(c => c.MascotaRef).HasColumnName("MascotaRef");
             builder.Property(c => c.MedicoRef).HasColumnName("MedicoRef");
-            builder.Property(c => c.PesoRef).HasColumnName("PesoRef");
-            builder.Property(c => c.TemperaturaRef).HasColumnName("TemperaturaRef");
-            builder.Property(c => c.PulsoRef).HasColumnName("PulsoRef");
-            builder.Property(c => c.RitmoCardiacoRef).HasColumnName("RitmoCardiacoRef");
-            builder.Property(c => c.FrecuenciaRespiratoriaRef).HasColumnName("FrecuenciaRespiratoriaRef");
-
-
+            
             #endregion
 
 
@@ -43,26 +37,6 @@ namespace rakoona.services.Entities.Maps.Consultas
                     .WithMany(b => b.Consultas)
                     .HasForeignKey(b => b.MedicoRef)
                     .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasOne(a => a.Peso)
-                    .WithOne(b => b.Consulta)
-                    .HasForeignKey<Consulta>(b => b.PesoRef);
-
-            builder.HasOne(a => a.Temperatura)
-                    .WithOne(b => b.Consulta)
-                    .HasForeignKey<Consulta>(b => b.TemperaturaRef);
-
-            builder.HasOne(a => a.Pulso)
-                    .WithOne(b => b.Consulta)
-                    .HasForeignKey<Consulta>(b => b.PulsoRef);
-
-            builder.HasOne(a => a.RitmoCardiaco)
-                    .WithOne(b => b.Consulta)
-                    .HasForeignKey<Consulta>(b => b.RitmoCardiacoRef);
-
-            builder.HasOne(a => a.FrecuenciaRespiratoria)
-                    .WithOne(b => b.Consulta)
-                    .HasForeignKey<Consulta>(b => b.FrecuenciaRespiratoriaRef);
 
             #endregion
 

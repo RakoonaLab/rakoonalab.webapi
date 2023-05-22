@@ -1,12 +1,11 @@
-﻿using rakoona.services.Entities.Models.Consultas;
-using rakoona.services.Entities.Models.Pacientes;
+﻿using rakoona.services.Entities.Models.Pacientes;
 
 namespace rakoona.services.Entities.Models.Consultas.Mediciones
 {
-    public class Peso : ModelBase
+    public class MedicionDeFrecuenciaRespiratoria : ModelBase
     {
         public DateTime FechaAplicacion { get; set; }
-        public double? Valor { get; set; }
+        public int Valor { get; set; }
 
 
         public int MascotaRef { get; set; }

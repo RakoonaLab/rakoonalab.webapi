@@ -2,9 +2,9 @@
 {
     public class ConsultaResponse : IResponse
     {
-        public string Id { get; set; }
-        public string FechaDeCreacion { get; set; }
-        public string Fecha { get; set; }
+        public string? Id { get; set; }
+        public string? FechaDeCreacion { get; set; }
+        public string? Fecha { get; set; }
         public int? Pulso { get; set; }
         public string? CaracteristicasDelPulso { get; set; }
         public int? FrecuenciaRespiratoria { get; set; }
@@ -18,6 +18,5 @@
         public string? MascotaId { get; set; }
         public string? ClienteNombre { get; set; }
         public string? ClienteId { get; set; }
-        public string Tipo { get; set; }
     }
 }

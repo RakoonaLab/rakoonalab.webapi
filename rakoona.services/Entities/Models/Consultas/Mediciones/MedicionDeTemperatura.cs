@@ -3,10 +3,10 @@ using rakoona.services.Entities.Models.Pacientes;
 
 namespace rakoona.services.Entities.Models.Consultas.Mediciones
 {
-    public class Temperatura : ModelBase
+    public class MedicionDeTemperatura : ModelBase
     {
         public DateTime FechaAplicacion { get; set; }
-        public double? Valor { get; set; }
+        public double Valor { get; set; }
 
 
         public int MascotaRef { get; set; }

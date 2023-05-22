@@ -37,10 +37,64 @@ namespace rakoona.services.Services.Implementacion
 
             var consulta = request.CreateFromRequest(mascota.Id, medico.Id);
 
+            if (request.Pulso.HasValue)
+            {
+                if (_context.MedicionesDePulso == null)
+                    throw new Exception("Validar _context.MedicionesDePulso, es null");
+
+                var pulso = PulsoMapper.CreateFromRequest(request.Pulso.Value, mascota.Id, consulta.FechaAplicacion, consulta.FechaDeCreacion);
+                await _context.MedicionesDePulso.AddAsync(pulso);
+            }
+            if (request.Temperatura.HasValue)
+            {
+                if (_context.MedicionesDeTemperatura == null)
+                    throw new Exception("Validar _context.MedicionesDeTemperatura, es null");
+
+                var temperatura = TemperaturaMapper.CreateFromRequest(request.Temperatura.Value, mascota.Id, consulta.FechaAplicacion, consulta.FechaDeCreacion);
+                await _context.MedicionesDeTemperatura.AddAsync(temperatura);
+            }
+            if (request.Peso.HasValue)
+            {
+                if (_context.MedicionDePeso == null)
+                    throw new Exception("Validar _context.MedicionesDePeso, es null");
+
+                var temperatura = PesoMapper.CreateFromRequest(request.Peso.Value, mascota.Id, consulta.FechaAplicacion, consulta.FechaDeCreacion);
+                await _context.MedicionDePeso.AddAsync(temperatura);
+            }
+            if (request.RitmoCardiaco.HasValue)
+            {
+                if (_context.MedicionesDeRitmoCardiaco == null)
+                    throw new Exception("Validar _context.MedicionesDeRitmoCardiaco, es null");
+
+                var temperatura = RitmoCardiacoMapper.CreateFromRequest(request.RitmoCardiaco.Value, mascota.Id, consulta.FechaAplicacion, consulta.FechaDeCreacion);
+                await _context.MedicionesDeRitmoCardiaco.AddAsync(temperatura);
+            }
+            if (request.FrecuenciaRespiratoria.HasValue)
+            {
+                if (_context.MedicionDeFrecuenciaRespiratoria == null)
+                    throw new Exception("Validar _context.MedicionesDeFrecuenciaRespiratoria, es null");
+
+                var temperatura = FrecuenciaRespiratoriaMapper.CreateFromRequest(request.FrecuenciaRespiratoria.Value, mascota.Id, consulta.FechaAplicacion, consulta.FechaDeCreacion);
+                await _context.MedicionDeFrecuenciaRespiratoria.AddAsync(temperatura);
+            }
+
             await _context.Consultas.AddAsync(consulta);
             await _context.SaveChangesAsync();
 
-            return consulta.MapToResponse();
+            var response = consulta.MapToResponse();
+            if (response != null) {
+                if (request.Pulso.HasValue)
+                    response.Pulso = request.Pulso.Value;
+                if (request.Temperatura.HasValue)
+                    response.Temperatura = request.Temperatura.Value;
+                if (request.Peso.HasValue)
+                    response.Peso = request.Peso.Value;
+                if (request.RitmoCardiaco.HasValue)
+                    response.RitmoCardiaco = request.RitmoCardiaco.Value;
+                if (request.FrecuenciaRespiratoria.HasValue)
+                    response.FrecuenciaRespiratoria = request.RitmoCardiaco.Value;
+            }
+            return response;
         }
 
         public async Task<bool> DeleteAsync(string consultaId)
