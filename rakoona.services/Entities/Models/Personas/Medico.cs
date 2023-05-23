@@ -9,5 +9,6 @@ namespace rakoona.services.Entities.Models.Personas
 
         public ICollection<ClinicaMedico>? ClinicaMedicos { get; set; }
         public ICollection<Consulta>? Consultas { get; set; }
+        public ICollection<Vacunacion>? Vacunas { get; set; }
     }
 }
