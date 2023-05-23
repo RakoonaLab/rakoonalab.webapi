@@ -33,7 +33,7 @@ namespace rakoona.services.Services.Implementacion
             if (mascota == null)
                 throw new Exception("Mascota no encontrada");
 
-            var vacuna = request.CreateFromRequest(mascota.Id, medico);
+            var vacuna = request.CreateFromRequest(mascota.Id, medico.Id);
 
             await _context.Vacunas.AddAsync(vacuna);
             await _context.SaveChangesAsync();
@@ -53,14 +53,29 @@ namespace rakoona.services.Services.Implementacion
             if (mascota == null)
                 throw new Exception("Mascota no encontrada");
 
-            var vacunas = await _context.Vacunas.Where(x => x.Consulta.MascotaRef == mascota.Id)
-                .Include(x => x.Consulta)
-                .ThenInclude(m => m.Medico)
+            var vacunas = await _context.Vacunas.Where(x => x.MascotaRef == mascota.Id)
+
+                .Include(m => m.Medico)
+                .Include(c => c.Mascota)
+                .ThenInclude(m => m.Duenio)
                 .ToListAsync();
 
             return vacunas.Select(x => x.MapToResponse()).ToList();
         }
+        public async Task<List<VacunaResponse>> GetVacunasByCliente(string clienteId)
+        {
+            var vacunas = await _context.Clientes
+                .Where(x => x.ExternalId == clienteId)
+                .SelectMany(x=> x.Mascotas)
+                .SelectMany(v => v.Vacunas)
 
+                .Include(m => m.Medico)
+                .Include(c => c.Mascota)
+                .ThenInclude(m => m.Duenio)
+                .ToListAsync();
+
+            return vacunas.Select(x => x.MapToResponse()).ToList();
+        }
         public async Task<List<VacunaResponse>> GetVacunasByClinica(string clinicaId)
         {
             if (_context.Vacunas == null)
@@ -75,16 +90,11 @@ namespace rakoona.services.Services.Implementacion
             var vacunas = await _context.ClientesClinicas
                 .Where(x => x.ClinicaId == clinica.Id)
                 .SelectMany(c => c.Cliente.Mascotas)
-                .SelectMany(m => m.Consultas)
                 .SelectMany(v => v.Vacunas)
 
-                .Include(c => c.Consulta)
-                .ThenInclude(m => m.Medico)
-
-                .Include(c => c.Consulta)
-                .ThenInclude(c => c.Mascota)
+                .Include(m => m.Medico)
+                .Include(c => c.Mascota)
                 .ThenInclude(m => m.Duenio)
-
                 .ToListAsync();
 
             return  vacunas.Select(x => x.MapToResponse()).ToList();
