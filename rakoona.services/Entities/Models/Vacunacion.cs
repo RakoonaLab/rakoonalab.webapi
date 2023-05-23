@@ -1,16 +1,20 @@
-﻿using rakoona.services.Entities.Models.Consultas;
+﻿using rakoona.services.Entities.Models.Pacientes;
+using rakoona.services.Entities.Models.Personas;
 
 namespace rakoona.services.Entities.Models
 {
-    public class Vacunacion : ModelBase
+    public class Vacunacion : AplicacionBase
     {
         public string Nombre { get; set; }
         public string? Lote { get; set; }
         public string? Laboratorio { get; set; }
         public DateTime? Caducidad { get; set; }
 
-        public int ConsultaRef { get; set; }
-        public virtual Consulta? Consulta { get; set; }
-        public DateTime FechaDeAplicacion { get; internal set; }
+
+        public int MedicoRef { get; set; }
+        public virtual Medico? Medico { get; set; }
+
+        public int MascotaRef { get; set; }
+        public virtual Mascota? Mascota { get; set; }
     }
 }
