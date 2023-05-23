@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
 using rakoona.services.Context;
@@ -24,14 +25,10 @@ namespace rakoona.webapi.Controllers.v1.Celular
         [SwaggerOperation(Tags = new[] { "Celular" })]
         public async Task<ActionResult<CelularResponse>> Get(string celularId)
         {
-            var celular = await _context.GetCelularById(celularId);
-
-            if (celular == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(celular);
+            var response = await _context.GetCelularById(celularId);
+            if (response == null)
+                return NoContent();
+            return Ok(response);
 
         }
 
