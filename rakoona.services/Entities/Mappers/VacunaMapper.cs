@@ -11,7 +11,7 @@ namespace rakoona.services.Entities.Mappers
 {
     internal static class VacunaMapper
     {
-        internal static Vacunacion CreateFromRequest(this CreateVacunaRequest request, int mascotaId, Medico medico)
+        internal static Vacunacion CreateFromRequest(this CreateVacunaRequest request, int mascotaId, int medicoId)
         {
             if (request == null)
                 throw new Exception("");
@@ -19,25 +19,16 @@ namespace rakoona.services.Entities.Mappers
             var creacion = DateTime.Now;
             var aplicacion = DateTime.Parse(request.Fecha);
 
-            Consulta consulta = new()
-            {
-                ExternalId = Guid.NewGuid().ToString(),
-                MascotaRef = mascotaId,
-                FechaDeCreacion = creacion,
-                FechaAplicacion = aplicacion,
-                Observaciones = request.Observaciones,
-                Medico = medico
-            };
-
             Vacunacion vacuna = new()
             {
-                Consulta = consulta,
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = creacion,
-                FechaDeAplicacion = aplicacion,
+                FechaAplicacion = aplicacion,
                 Nombre = request.Nombre,
                 Lote = request.Lote,
-                Laboratorio = request.Laboratorio
+                Laboratorio = request.Laboratorio,
+                MascotaRef = mascotaId,
+                MedicoRef = medicoId
             };
 
             if (!string.IsNullOrEmpty(request.Caducidad))
@@ -57,17 +48,15 @@ namespace rakoona.services.Entities.Mappers
                 Id = entity.ExternalId,
                 Nombre = entity.Nombre,
                 FechaDeCreacion = entity.FechaDeCreacion,
-                Fecha = entity.Consulta?.FechaAplicacion.ToShortDateString(),
+                Fecha = entity.FechaAplicacion.ToShortDateString(),
                 Laboratorio = entity.Laboratorio,
                 Lote = entity.Lote,
-                Observaciones = entity.Consulta?.Observaciones,
-                Motivo = entity.Consulta?.Motivo,
-                MedicoId= entity.Consulta?.Medico?.ExternalId,
-                MedicoNombre = entity.Consulta?.Medico?.PersonaInfo?.Nombres + " " + entity.Consulta?.Medico?.PersonaInfo?.Apellidos,
-                MascotaId = entity.Consulta?.Mascota?.ExternalId,
-                MascotaNombre = entity.Consulta?.Mascota?.Nombre,
-                DuenioId = entity.Consulta?.Mascota?.Duenio?.ExternalId,
-                DuenioNombre = entity.Consulta?.Mascota?.Duenio? .Nombres + " " + entity.Consulta?.Mascota?.Duenio?.Apellidos,
+                MedicoId= entity.Medico?.ExternalId,
+                MedicoNombre = entity.Medico?.PersonaInfo?.Nombres + " " + entity.Medico?.PersonaInfo?.Apellidos,
+                MascotaId = entity.Mascota?.ExternalId,
+                MascotaNombre = entity.Mascota?.Nombre,
+                DuenioId = entity.Mascota?.Duenio?.ExternalId,
+                DuenioNombre = entity.Mascota?.Duenio? .Nombres + " " + entity.Mascota?.Duenio?.Apellidos,
             };
         
             return response;
