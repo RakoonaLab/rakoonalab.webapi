@@ -18,7 +18,7 @@ namespace rakoona.services.Context
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
-        ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
