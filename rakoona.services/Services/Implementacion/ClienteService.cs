@@ -19,11 +19,11 @@ namespace rakoona.services.Services.Implementacion
 
         public async Task<ClienteResponse> CreateCliente( CreateClienteRequest request,  string clinicaId)
         {
-            var clinica = _context.Clinicas.SingleAsync(x => x.ExternalId == clinicaId);
+            var clinica = await _context.Clinicas.SingleAsync(x => x.ExternalId == clinicaId);
 
             var cliente = request.CreateFromRequest(clinica.Id);
 
-            _context.Clientes.AddAsync(cliente);
+            await _context.Clientes.AddAsync(cliente);
             await _context.SaveChangesAsync();
 
             return  cliente.MapToResponse();
