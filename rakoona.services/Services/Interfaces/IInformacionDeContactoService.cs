@@ -5,7 +5,7 @@ namespace rakoona.services.Services.Interfaces
 {
     public interface IInformacionDeContactoService
     {
-        Task<CelularResponse> Get(string clienteId);
+        Task<CelularResponse> GetCelularByCliente(string clienteId);
         Task<CelularResponse?> ActualizarAsync(UpdateCelularRequest request, string celularId);
         Task<CelularResponse> GetCelularById(string celularId);
     }
