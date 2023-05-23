@@ -25,7 +25,7 @@ namespace rakoona.webapi.Controllers.v1.Celular
         [ProducesDefaultResponseType]
         public async Task<ActionResult<CelularResponse>> Get(string clienteId)
         {
-            var response = await _infoContactoService.Get(clienteId);
+            var response = await _infoContactoService.GetCelularByCliente(clienteId);
 
             if (response == null)
                 return NoContent();
