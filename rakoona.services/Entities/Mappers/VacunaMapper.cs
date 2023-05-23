@@ -1,11 +1,7 @@
 ﻿using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
 using rakoona.services.Entities.Models;
-using rakoona.services.Entities.Models.Consultas;
-using rakoona.services.Entities.Models.Consultas.Mediciones;
-using rakoona.services.Entities.Models.Personas;
 using System.Text;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace rakoona.services.Entities.Mappers
 {
