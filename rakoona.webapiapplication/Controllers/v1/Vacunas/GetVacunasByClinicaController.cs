@@ -1,15 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
-using rakoona.services.Entities.Models.Pacientes;
-using rakoona.services.Services.Implementacion;
 using rakoona.services.Services.Interfaces;
-using rakoona.webapi.Services;
 using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.AspNetCore.Http;
 
 namespace rakoona.webapi.Controllers.v1.Vacunas
 {
