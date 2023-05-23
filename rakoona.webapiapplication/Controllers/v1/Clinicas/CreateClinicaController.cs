@@ -27,7 +27,7 @@ namespace rakoona.webapi.Controllers.v1.Clinicas
         [SwaggerOperation(Tags = new[] { "Clinica" })]
         public async Task<ActionResult<ClinicaResponse>> Post([FromBody] CreateClinicaRequest request)
         {
-            var clinica = _context.Create(request, _userInfo.UserId);
+            var clinica = await _context.Create(request, _userInfo.UserId);
             if (clinica == null)
             {
 
