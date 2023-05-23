@@ -30,7 +30,7 @@ namespace rakoona.webapiapplication.Configuration.Helpers
                 var UserToken = new UserTokens();
 
                 if (model == null) throw new ArgumentException(nameof(model));
-                // Get secret key
+                // GetCelularByCliente secret key
                 var key = System.Text.Encoding.ASCII.GetBytes(jwtSettings.IssuerSigningKey);
                 Guid Id = Guid.Empty;
                 DateTime expireTime = DateTime.UtcNow.AddDays(1);
