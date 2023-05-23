@@ -16,7 +16,7 @@ namespace rakoona.services.Services.Implementacion
             _context = context;
         }
 
-        public async Task<CelularResponse> Get(string clienteId)
+        public async Task<CelularResponse> GetCelularByCliente(string clienteId)
         {
             if (_context.Clinicas == null)
                 throw new Exception("Validar _context.Clinicas, es null");
