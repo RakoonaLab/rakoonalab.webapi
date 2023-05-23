@@ -51,6 +51,7 @@ namespace rakoona.services.Entities.Mappers
                 Fecha = entity.FechaAplicacion.ToShortDateString(),
                 Laboratorio = entity.Laboratorio,
                 Lote = entity.Lote,
+                Caducidad = entity.Caducidad.Value.ToShortDateString(),
                 MedicoId= entity.Medico?.ExternalId,
                 MedicoNombre = entity.Medico?.PersonaInfo?.Nombres + " " + entity.Medico?.PersonaInfo?.Apellidos,
                 MascotaId = entity.Mascota?.ExternalId,
