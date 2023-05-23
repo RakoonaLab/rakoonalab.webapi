@@ -15,28 +15,26 @@ namespace rakoona.services.Entities.Maps
             builder.Property(c => c.Id).HasColumnName("Id");
             builder.Property(c => c.ExternalId).HasColumnName("ExternalId").HasMaxLength(250);
             builder.Property(c => c.FechaDeCreacion).HasColumnName("FechaDeCreacion");
-            builder.Property(c => c.FechaDeAplicacion).HasColumnName("FechaDeAplicacion");
-
+            builder.Property(c => c.FechaAplicacion).HasColumnName("FechaAplicacion");
             builder.Property(c => c.Nombre).HasColumnName("Nombre");
             builder.Property(c => c.Lote).HasColumnName("Lote");
             builder.Property(c => c.Caducidad).HasColumnName("Caducidad");
             builder.Property(c => c.Laboratorio).HasColumnName("Laboratorio");
 
+            builder.Property(c => c.MascotaRef).HasColumnName("MascotaRef");
+            builder.Property(c => c.MedicoRef).HasColumnName("MedicoRef");
+
             #endregion
 
-            #region Discriminator
-
-            #endregion
-
-            #region HasOne
-            builder.HasOne(a => a.Consulta)
+            builder.HasOne(a => a.Mascota)
                     .WithMany(b => b.Vacunas)
-                    .HasForeignKey(b => b.ConsultaRef)
-                    .OnDelete(DeleteBehavior.Cascade);
-            #endregion
+                    .HasForeignKey(b => b.MascotaRef)
+                    .OnDelete(DeleteBehavior.Restrict);
 
-
+            builder.HasOne(a => a.Medico)
+                    .WithMany(b => b.Vacunas)
+                    .HasForeignKey(b => b.MedicoRef)
+                    .OnDelete(DeleteBehavior.NoAction);
         }
-
     }
 }
