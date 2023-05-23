@@ -1004,18 +1004,15 @@ namespace rakoona.services.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("Caducidad");
 
-                    b.Property<int>("ConsultaRef")
-                        .HasColumnType("int");
-
                     b.Property<string>("ExternalId")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("ExternalId");
 
-                    b.Property<DateTime>("FechaDeAplicacion")
+                    b.Property<DateTime>("FechaAplicacion")
                         .HasColumnType("datetime2")
-                        .HasColumnName("FechaDeAplicacion");
+                        .HasColumnName("FechaAplicacion");
 
                     b.Property<DateTime>("FechaDeCreacion")
                         .HasColumnType("datetime2")
@@ -1029,6 +1026,14 @@ namespace rakoona.services.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Lote");
 
+                    b.Property<int>("MascotaRef")
+                        .HasColumnType("int")
+                        .HasColumnName("MascotaRef");
+
+                    b.Property<int>("MedicoRef")
+                        .HasColumnType("int")
+                        .HasColumnName("MedicoRef");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -1036,7 +1041,9 @@ namespace rakoona.services.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConsultaRef");
+                    b.HasIndex("MascotaRef");
+
+                    b.HasIndex("MedicoRef");
 
                     b.ToTable("Vacunaciones", (string)null);
                 });
@@ -1354,13 +1361,21 @@ namespace rakoona.services.Migrations
 
             modelBuilder.Entity("rakoona.services.Entities.Models.Vacunacion", b =>
                 {
-                    b.HasOne("rakoona.services.Entities.Models.Consultas.Consulta", "Consulta")
+                    b.HasOne("rakoona.services.Entities.Models.Pacientes.Mascota", "Mascota")
                         .WithMany("Vacunas")
-                        .HasForeignKey("ConsultaRef")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("MascotaRef")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Consulta");
+                    b.HasOne("rakoona.services.Entities.Models.Personas.Medico", "Medico")
+                        .WithMany("Vacunas")
+                        .HasForeignKey("MedicoRef")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Mascota");
+
+                    b.Navigation("Medico");
                 });
 
             modelBuilder.Entity("rakoona.services.Entities.Models.Clinica", b =>
@@ -1368,11 +1383,6 @@ namespace rakoona.services.Migrations
                     b.Navigation("ClienteClinicas");
 
                     b.Navigation("ClinicaMedicos");
-                });
-
-            modelBuilder.Entity("rakoona.services.Entities.Models.Consultas.Consulta", b =>
-                {
-                    b.Navigation("Vacunas");
                 });
 
             modelBuilder.Entity("rakoona.services.Entities.Models.Pacientes.Mascota", b =>
@@ -1392,6 +1402,8 @@ namespace rakoona.services.Migrations
                     b.Navigation("MedicionesDeRitmoCardiaco");
 
                     b.Navigation("MedicionesDeTemperatura");
+
+                    b.Navigation("Vacunas");
                 });
 
             modelBuilder.Entity("rakoona.services.Entities.Models.Personas.Medico", b =>
@@ -1399,6 +1411,8 @@ namespace rakoona.services.Migrations
                     b.Navigation("ClinicaMedicos");
 
                     b.Navigation("Consultas");
+
+                    b.Navigation("Vacunas");
                 });
 
             modelBuilder.Entity("rakoona.services.Entities.Models.Personas.PersonaBase", b =>
