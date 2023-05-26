@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using rakoona.models.dtos.Parameters;
 using rakoona.models.dtos.Response;
-using rakoona.services.Entities.Models.TiposDeContacto;
 using rakoona.services.Services.Interfaces;
+using rakoona.webapi.Configuration.Swagger;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Drawing.Printing;
 
 namespace rakoona.webapi.Controllers.v1.Mascotas
 {
@@ -23,7 +21,10 @@ namespace rakoona.webapi.Controllers.v1.Mascotas
         }
 
         [HttpGet]
-        [SwaggerOperation(Tags = new[] { "Mascotas", "Clinica" })]
+        [SwaggerOperation(Tags = new[] {
+            SwaggerOperationTagsConstant.Mascotas,
+            SwaggerOperationTagsConstant.Clinica,
+        })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
