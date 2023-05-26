@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
+using rakoona.webapi.Configuration.Swagger;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Clinicas
@@ -19,7 +20,7 @@ namespace rakoona.webapi.Controllers.v1.Clinicas
         }
 
         [HttpGet]
-        [SwaggerOperation(Tags = new[] { "Clinica" })]
+        [SwaggerOperation(Tags = new[] { SwaggerOperationTagsConstant.Clinica })]
         public async Task<ActionResult<ClinicaResponse>> Get([FromRoute] string clinicaId)
         {
             
