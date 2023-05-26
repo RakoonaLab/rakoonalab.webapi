@@ -4,6 +4,7 @@ using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Http;
+using rakoona.webapi.Configuration.Swagger;
 
 namespace rakoona.webapi.Controllers.v1.Mascotas
 {
@@ -20,7 +21,7 @@ namespace rakoona.webapi.Controllers.v1.Mascotas
         }
 
         [HttpGet]
-        [SwaggerOperation(Tags = new[] { "Mascotas" })]
+        [SwaggerOperation(Tags = new[] { SwaggerOperationTagsConstant.Mascotas })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
