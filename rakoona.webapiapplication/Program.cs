@@ -1,5 +1,6 @@
 using rakoona.webapi.Configuration;
 using rakoona.webapi.Configuration.Models;
+using rakoona.webapi.Configuration.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
