@@ -25,5 +25,6 @@ namespace rakoona.services.Entities.Models.Pacientes
         public virtual List<MedicionDeRitmoCardiaco>? MedicionesDeRitmoCardiaco { get; set; }
         public virtual List<MedicionDeTemperatura>? MedicionesDeTemperatura { get; set; }
         public virtual List<MedicionDeFrecuenciaRespiratoria>? MedicionesDeFrecuenciaRespiratoria { get; set; }
+        public virtual List<Cita>? Citas { get; set; }
     }
 }
