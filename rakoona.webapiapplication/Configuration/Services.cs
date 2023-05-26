@@ -17,6 +17,9 @@ namespace rakoona.webapi.Configuration
             builder.Services.AddTransient<IMascotaService, MascotaService>();
             builder.Services.AddTransient<IMedicoService, MedicoService>();
             builder.Services.AddTransient<IVacunaService, VacunaService>();
+            builder.Services.AddTransient<ICitaService, CitaService>();
+
+
             builder.Services.AddTransient<IUserInfoService, UserInfoService>();
         }
     }
