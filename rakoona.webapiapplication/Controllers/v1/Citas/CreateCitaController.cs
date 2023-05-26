@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
+using rakoona.webapi.Configuration.Swagger;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Citas
@@ -20,7 +21,7 @@ namespace rakoona.webapi.Controllers.v1.Citas
         }
 
         [HttpPost]
-        [SwaggerOperation(Tags = new[] { "Cita" })]
+        [SwaggerOperation(Tags = new[] { SwaggerOperationTagsConstant.Citas, SwaggerOperationTagsConstant.Citas })]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<CitaResponse>> Post([FromBody] CreateCitaRequest request, [FromQuery] string mascotaId)
