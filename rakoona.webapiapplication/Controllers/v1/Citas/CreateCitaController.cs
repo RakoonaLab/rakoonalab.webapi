@@ -1,0 +1,37 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using rakoona.models.dtos.Request;
+using rakoona.models.dtos.Response;
+using rakoona.services.Services.Interfaces;
+using Swashbuckle.AspNetCore.Annotations;
+
+namespace rakoona.webapi.Controllers.v1.Citas
+{
+    [Route("api/mascota/{mascotaId}/cita")]
+    [Authorize]
+    [ApiController]
+    public class CreateCitaController : ControllerBase
+    {
+        private readonly ICitaService _context;
+        public CreateCitaController(
+            ICitaService context)
+        {
+            _context = context;
+        }
+
+        [HttpPost]
+        [SwaggerOperation(Tags = new[] { "Cita" })]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<CitaResponse>> Post([FromBody] CreateCitaRequest request, [FromQuery] string mascotaId)
+        {
+            var cita = await _context.Create(request, mascotaId);
+            if (cita == null)
+            {
+
+            }
+            return StatusCode(StatusCodes.Status201Created, cita);
+        }
+
+    }
+}
