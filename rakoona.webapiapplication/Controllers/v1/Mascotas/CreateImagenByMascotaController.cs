@@ -4,6 +4,7 @@ using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
 using rakoona.webapi.Configuration.Helpers;
+using rakoona.webapi.Configuration.Swagger;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Mascotas
@@ -21,7 +22,7 @@ namespace rakoona.webapi.Controllers.v1.Mascotas
         }
 
         [HttpPost]
-        [SwaggerOperation(Tags = new[] { "Mascotas", "Imagenes" })]
+        [SwaggerOperation(Tags = new[] { SwaggerOperationTagsConstant.Citas, "Imagenes" })]
         [DisableFormValueModelBinding]
         [Consumes("multipart/form-data")]
         [ProducesResponseType(StatusCodes.Status201Created)]
