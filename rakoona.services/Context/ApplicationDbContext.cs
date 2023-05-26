@@ -61,6 +61,7 @@ namespace rakoona.services.Context
             builder.ApplyConfiguration(new MedicionDePulsoMap());
             builder.ApplyConfiguration(new MedicionDeRitmoCardiacoMap());
             builder.ApplyConfiguration(new MedicionDeTemperaturaMap());
+            builder.ApplyConfiguration(new CitaMap());
         }
 
         internal DbSet<User>? Usuarios { get; set; }
@@ -84,5 +85,6 @@ namespace rakoona.services.Context
         internal DbSet<MedicionDePulso>? MedicionesDePulso { get; set; }
         internal DbSet<MedicionDeRitmoCardiaco>? MedicionesDeRitmoCardiaco { get; set; }
         internal DbSet<MedicionDeTemperatura>? MedicionesDeTemperatura { get; set; }
+        internal DbSet<Cita>? Citas { get; set; }
     }
 }
