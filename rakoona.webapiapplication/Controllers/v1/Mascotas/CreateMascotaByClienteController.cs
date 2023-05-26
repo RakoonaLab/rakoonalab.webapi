@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
+using rakoona.webapi.Configuration.Swagger;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Mascotas
@@ -20,7 +21,7 @@ namespace rakoona.webapi.Controllers.v1.Mascotas
         }
 
         [HttpPost]
-        [SwaggerOperation(Tags = new[] { "Mascotas" })]
+        [SwaggerOperation(Tags = new[] { SwaggerOperationTagsConstant.Mascotas })]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<MascotaResponse>> Post([FromBody] CreateMascotaRequest request, [FromRoute] string clienteId)
