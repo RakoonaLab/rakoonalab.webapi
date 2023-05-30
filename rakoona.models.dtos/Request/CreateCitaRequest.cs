@@ -2,7 +2,7 @@
 {
     public class CreateCitaRequest
     {
-        public DateTime Fecha { get; set; }
+        public string Fecha { get; set; }
         public string Comentarios { get; set; }
     }
 }

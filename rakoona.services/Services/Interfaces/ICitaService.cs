@@ -6,5 +6,6 @@ namespace rakoona.services.Services.Interfaces
     public interface ICitaService
     {
         Task<CitaResponse> Create(CreateCitaRequest request, string mascotaId);
+        Task<List<CitaResponse>> GetCitasByClinica(string clinicaId);
     }
 }

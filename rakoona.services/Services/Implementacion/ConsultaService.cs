@@ -82,7 +82,8 @@ namespace rakoona.services.Services.Implementacion
             await _context.SaveChangesAsync();
 
             var response = consulta.MapToResponse();
-            if (response != null) {
+            if (response != null)
+            {
                 if (request.Pulso.HasValue)
                     response.Pulso = request.Pulso.Value;
                 if (request.Temperatura.HasValue)
@@ -99,13 +100,22 @@ namespace rakoona.services.Services.Implementacion
         public async Task<ConsultaResponse> GetConsultaById(string consultaId)
         {
 
-            var consulta =await  _context.Consultas.FirstOrDefaultAsync(x => x.ExternalId == consultaId);
+            var consulta = await _context.Consultas.FirstOrDefaultAsync(x => x.ExternalId == consultaId);
+            if (consulta != null)
+            {
+                var peso = await _context.MedicionDePeso.Where(x => x.FechaDeCreacion == consulta.FechaDeCreacion).FirstOrDefaultAsync();
+                var frecRes = await _context.MedicionDeFrecuenciaRespiratoria.Where(x => x.FechaDeCreacion == consulta.FechaDeCreacion).FirstOrDefaultAsync();
+                var pulso = await _context.MedicionesDePulso.Where(x => x.FechaDeCreacion == consulta.FechaDeCreacion).FirstOrDefaultAsync();
+                var retCard = await _context.MedicionesDeRitmoCardiaco.Where(x => x.FechaDeCreacion == consulta.FechaDeCreacion).FirstOrDefaultAsync();
+                var temp = await _context.MedicionesDeTemperatura.Where(x => x.FechaDeCreacion == consulta.FechaDeCreacion).FirstOrDefaultAsync();
+            }
             return consulta.MapToResponse();
         }
         public async Task<List<ConsultaResponse>> GetConsultasByMascota(string mascotaId)
         {
-            var mascota =await  _context.Mascotas.SingleAsync(x => x.ExternalId == mascotaId);
+            var mascota = await _context.Mascotas.SingleAsync(x => x.ExternalId == mascotaId);
             var consultas = await _context.Consultas.Where(x => x.MascotaRef == mascota.Id).ToListAsync();
+            
             return consultas.Select(x => x.MapToResponse()).ToList();
         }
         public async Task<List<ConsultaResponse>> GetConsultasByClinica(string clinicaId)
@@ -119,7 +129,7 @@ namespace rakoona.services.Services.Implementacion
 
             var clinica = await _context.Clinicas.SingleAsync(x => x.ExternalId == clinicaId);
 
-            var consultas =await  _context.ClientesClinicas
+            var consultas = await _context.ClientesClinicas
                 .Where(x => x.ClinicaId == clinica.Id)
                 .SelectMany(c => c.Cliente.Mascotas)
                 .SelectMany(m => m.Consultas)
@@ -163,7 +173,7 @@ namespace rakoona.services.Services.Implementacion
 
             await _context.SaveChangesAsync();
 
-            return  consulta.MapToResponse();
+            return consulta.MapToResponse();
         }
         public async Task<bool> DeleteAsync(string consultaId)
         {
