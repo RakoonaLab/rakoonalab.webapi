@@ -7,7 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rakoona.webapi", "rakoona.w
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rakoona.services", "rakoona.services\rakoona.services.csproj", "{4602FE6D-B55A-47B7-A0AD-13438F942B1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rakoona.models.dtos", "rakoona.models.dtos\rakoona.models.dtos.csproj", "{82C48733-952A-40D1-8CB0-FC89A4C57C2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rakoona.models.dtos", "rakoona.models.dtos\rakoona.models.dtos.csproj", "{82C48733-952A-40D1-8CB0-FC89A4C57C2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{EA806965-0A93-42EC-B904-B6CD3E0A77E0}"
+	ProjectSection(SolutionItems) = preProject
+		bitbucket-pipelines.yml = bitbucket-pipelines.yml
+		heroku.yml = heroku.yml
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
