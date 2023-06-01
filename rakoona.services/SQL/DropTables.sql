@@ -1,0 +1,31 @@
+USE RakoonaDB;
+
+DROP TABLE dbo.__EFMigrationsHistory;
+DROP TABLE dbo.AspNetRoleClaims;
+DROP TABLE dbo.AspNetRoles;
+DROP TABLE dbo.AspNetUserClaims;
+DROP TABLE dbo.AspNetUserLogins
+DROP TABLE dbo.AspNetUserRoles;
+DROP TABLE dbo.AspNetUsers;
+DROP TABLE dbo.AspNetUserTokens;
+DROP TABLE dbo.Consultas;
+DROP TABLE dbo.Citas;
+DROP TABLE dbo.ClienteClinica;
+DROP TABLE dbo.ClinicaMedicos;
+DROP TABLE dbo.Clinicas;
+DROP TABLE dbo.ColoresPorMascota;
+DROP TABLE dbo.Consultas;
+DROP TABLE dbo.Domicilios;
+DROP TABLE dbo.Dosis;
+DROP TABLE dbo.ImagenesPorMascota;
+DROP TABLE dbo.InformacionDeContacto;
+DROP TABLE dbo.Macotas;
+DROP TABLE dbo.MedicionDeFrecuenciaRespiratoria;
+DROP TABLE dbo.MedicionDePeso;
+DROP TABLE dbo.MedicionesDePulso;
+DROP TABLE dbo.MedicionesDeRitmoCardiaco;
+DROP TABLE dbo.MedicionesDeTemperatura;
+DROP TABLE dbo.Medicos;
+DROP TABLE dbo.Personas;
+DROP TABLE dbo.Recetas;
+DROP TABLE dbo.Vacunaciones;
