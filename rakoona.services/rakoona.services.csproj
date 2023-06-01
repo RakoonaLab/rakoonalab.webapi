@@ -21,4 +21,8 @@
     <ProjectReference Include="..\rakoona.models.dtos\rakoona.models.dtos.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="SQL\" />
+  </ItemGroup>
+
 </Project>
