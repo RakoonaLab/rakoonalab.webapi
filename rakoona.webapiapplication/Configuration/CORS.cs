@@ -2,17 +2,31 @@
 {
     public class CORS
     {
-        public static void Config(ref WebApplicationBuilder builder) {
-            var site = builder.Environment.IsDevelopment() ? "http://localhost:4200" : "https://rakoona-aca32.firebaseapp.com/";
-
-            builder.Services.AddCors(options => options.AddPolicy("AllowOrigin", builder =>
+        public static void Config(ref WebApplicationBuilder builder)
+        {
+            if (builder.Environment.IsDevelopment())
             {
-                builder
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .WithOrigins(site)
-                .AllowCredentials();
-            }));
+                builder.Services.AddCors(options => options.AddPolicy("AllowOrigin", builder =>
+                {
+                    builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithOrigins("http://localhost:4200")
+                    .AllowCredentials();
+                }));
+            }
+            else
+            {
+                builder.Services.AddCors(options => options.AddPolicy("AllowOrigin", builder =>
+                {
+                    builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithOrigins("https://rakoona-aca32.firebaseapp.com/",
+                                    "https://rakoona-aca32.web.app/")
+                    .AllowCredentials();
+                }));
+            }
         }
     }
 }
