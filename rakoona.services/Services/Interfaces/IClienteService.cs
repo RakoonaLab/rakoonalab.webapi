@@ -10,6 +10,7 @@ namespace rakoona.services.Services.Interfaces
         Task<PagedResponse<List<ClienteResponse>>> GetClientesByClinica(string clinicaId,
                                                         SearchClienteParameters parameters,
                                                         PaginationParameters pagination);
+        Task<int> GetContadorClientesByClinica(string clinicaId);
         Task<ClienteResponse> GetById(string clienteId);
         Task<ClienteResponse> Update(UpdateClienteRequest request, string clienteId);
     }
