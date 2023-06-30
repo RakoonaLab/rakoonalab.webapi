@@ -10,6 +10,7 @@ namespace rakoona.services.Services.Interfaces
         Task<MascotaResponse> GetAsync(string mascotaId);
         Task<List<MascotaResponse>> GetPorCliente(string clienteId);
         Task<PagedResponse<IList<MascotaResponse>>> GetPorClinica(string clinicaId, SearchMascotaParameters parameters, PaginationParameters pagination);
+        Task<int> GetContadorDeMascotasPorClinica(string clinicaId);
         Task<bool> DeleteAsync(string mascotaId);
         Task<bool> CreateImage(FileDetailsRequest request, string mascotaId);
     }
