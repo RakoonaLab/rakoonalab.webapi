@@ -17,7 +17,7 @@ namespace rakoona.services.Services.Implementacion
             _context = context;
         }
 
-        public async Task<ClienteResponse> CreateCliente( CreateClienteRequest request,  string clinicaId)
+        public async Task<ClienteResponse> CreateCliente(CreateClienteRequest request, string clinicaId)
         {
             var clinica = await _context.Clinicas.SingleAsync(x => x.ExternalId == clinicaId);
 
@@ -26,7 +26,7 @@ namespace rakoona.services.Services.Implementacion
             await _context.Clientes.AddAsync(cliente);
             await _context.SaveChangesAsync();
 
-            return  cliente.MapToResponse();
+            return cliente.MapToResponse();
         }
         public async Task<ClienteResponse> GetById(string clienteId)
         {
@@ -57,7 +57,7 @@ namespace rakoona.services.Services.Implementacion
             query = query.OrderBy(x => x.Cliente.Nombres);
             if (pagination.Page > 1)
             {
-                query = query.Skip(pagination.Page-1 * pagination.PageSize);
+                query = query.Skip(pagination.Page - 1 * pagination.PageSize);
             }
             query = query.Take(pagination.PageSize);
 
@@ -90,14 +90,35 @@ namespace rakoona.services.Services.Implementacion
             }
 
             var clientes = query.ToList();
-            
+
             return new PagedResponse<List<ClienteResponse>>(pagination.Page,
-                pagination.PageSize, 
+                pagination.PageSize,
                 clientes.Select(x => x.Cliente.MapToResponse()).ToList(),
                 _context.ClientesClinicas.Where(x => x.Clinica.ExternalId == clinicaId).Count());
         }
 
-        public async Task<ClienteResponse> Update( UpdateClienteRequest request, string clienteId)
+        public async Task<int> GetContadorClientesByClinica(string clinicaId)
+        {
+            if (_context.Clinicas == null)
+                throw new Exception("Validar _context.Clinicas, es null");
+            if (_context.ClientesClinicas == null)
+                throw new Exception("Validar _context.ClientesClinicas, es null");
+            if (_context.InformacionDeContacto == null)
+                throw new Exception("Validar _context.InformacionDeContacto, es null");
+            if (_context.Clientes == null)
+                throw new Exception("Validar _context.Clientes, es null");
+
+
+            var clinica = await _context.Clinicas.SingleAsync(x => x.ExternalId == clinicaId);
+
+            var query = _context.ClientesClinicas
+                .Where(x => x.Clinica.ExternalId == clinicaId)
+                .Include(x => x.Cliente);
+
+            return query.Count();
+        }
+
+        public async Task<ClienteResponse> Update(UpdateClienteRequest request, string clienteId)
         {
             var cliente = await _context.Clientes.SingleAsync(x => x.ExternalId == clienteId);
 
