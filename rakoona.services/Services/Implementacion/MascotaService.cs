@@ -142,6 +142,24 @@ namespace rakoona.services.Services.Implementacion
                 mascotas.Count());
         }
 
+        public async Task<int> GetContadorDeMascotasPorClinica(string clinicaId)
+        {
+            if (_context.Clinicas == null)
+                throw new Exception("Entity set 'ApplicationDbContext.Clinicas' is null.");
+            if (_context.Mascotas == null)
+                throw new Exception("Entity set 'ApplicationDbContext.Mascotas' is null.");
+            if (_context.ClientesClinicas == null)
+                throw new Exception("Entity set 'ApplicationDbContext.ClientesClinicas' is null.");
+
+            var clinica = await _context.Clinicas.SingleAsync(x => x.ExternalId == clinicaId);
+
+            var query = _context.ClientesClinicas
+                .Where(x => x.ClinicaId == clinica.Id)
+                .SelectMany(c => c.Cliente.Mascotas);
+
+            return query.Count();
+        }
+
         public async Task<bool> DeleteAsync(string mascotaId)
         {
             if (_context.Mascotas == null)
