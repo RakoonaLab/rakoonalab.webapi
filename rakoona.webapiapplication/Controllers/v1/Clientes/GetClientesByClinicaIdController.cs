@@ -4,7 +4,6 @@ using rakoona.models.dtos.Parameters;
 using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Drawing.Printing;
 
 namespace rakoona.webapi.Controllers.v1.Clientes
 {
