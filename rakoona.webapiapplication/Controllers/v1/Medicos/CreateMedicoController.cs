@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
+using rakoona.webapi.Configuration.Swagger;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Medicos
@@ -20,7 +21,10 @@ namespace rakoona.webapi.Controllers.v1.Medicos
         }
 
         [HttpPost]
-        [SwaggerOperation(Tags = new[] { "Medico", "Clinica" })]
+        [SwaggerOperation(Tags = new[] { 
+            SwaggerOperationTagsConstant.Medicos, 
+            SwaggerOperationTagsConstant.Clinica 
+        })]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<MedicoResponse>> Post([FromBody] CreateMedicoRequest request, [FromRoute] string clinicaId)
