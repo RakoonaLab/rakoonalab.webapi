@@ -1,5 +1,4 @@
-﻿using rakoona.services.Entities.Models.Consultas;
-using rakoona.services.Entities.Models.Pacientes;
+﻿using rakoona.services.Entities.Models.Pacientes;
 
 namespace rakoona.services.Entities.Models.Consultas.Mediciones
 {
