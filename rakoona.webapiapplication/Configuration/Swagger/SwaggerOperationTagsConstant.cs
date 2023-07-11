@@ -8,6 +8,6 @@
         internal const string Mascotas = "Mascotas";
         internal const string Medicos = "Medicos";
         internal const string Vacunas = "Vacunas";
-        
+        internal const string Peso = "Peso";
     }
 }
