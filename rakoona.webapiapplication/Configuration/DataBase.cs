@@ -18,7 +18,7 @@ namespace rakoona.webapi.Configuration
             {
                 builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.json");
 
-                var connectionString = builder.Configuration.GetConnectionString("SqlConnection");
+                var connectionString = builder.Configuration.GetConnectionString("AzureSqlConnection");
                 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
             }
         }
