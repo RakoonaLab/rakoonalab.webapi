@@ -18,7 +18,9 @@ namespace rakoona.services.Services.Implementacion
 
         public async Task<ClinicaResponse> Create(CreateClinicaRequest request, string userId)
         {
-            var clinica = request.CreateFromRequest(userId);
+            var organizacionUsuario = await _context.UsuarioOrganizacion.Where(x => x.UserRef == userId).Include(x=> x.Organizacion).FirstOrDefaultAsync();
+
+            var clinica = request.CreateFromRequest(organizacionUsuario.Organizacion.Id);
 
             await _context.Clinicas.AddAsync(clinica);
             await _context.SaveChangesAsync();
