@@ -55,13 +55,14 @@ namespace rakoona.services.Context
             builder.ApplyConfiguration(new DomicilioMap());
             builder.ApplyConfiguration(new ColorPorMascotaMap());
             builder.ApplyConfiguration(new ImagenPorMascotaMap());
-
             builder.ApplyConfiguration(new MedicionDeFrecuenciaRespiratoriaMap());
             builder.ApplyConfiguration(new MedicionDePesoMap());
             builder.ApplyConfiguration(new MedicionDePulsoMap());
             builder.ApplyConfiguration(new MedicionDeRitmoCardiacoMap());
             builder.ApplyConfiguration(new MedicionDeTemperaturaMap());
             builder.ApplyConfiguration(new CitaMap());
+            builder.ApplyConfiguration(new UsuarioOrganizacionMap());
+            builder.ApplyConfiguration(new OrganizacionMap());
         }
 
         internal DbSet<User>? Usuarios { get; set; }
@@ -86,5 +87,7 @@ namespace rakoona.services.Context
         internal DbSet<MedicionDeRitmoCardiaco>? MedicionesDeRitmoCardiaco { get; set; }
         internal DbSet<MedicionDeTemperatura>? MedicionesDeTemperatura { get; set; }
         internal DbSet<Cita>? Citas { get; set; }
+        internal DbSet<Organizacion>? Organizacion { get; set; }
+        internal DbSet<UsuarioOrganizacion>? UsuarioOrganizacion { get; set; }
     }
 }

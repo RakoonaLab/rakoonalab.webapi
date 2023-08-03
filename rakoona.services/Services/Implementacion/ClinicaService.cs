@@ -34,7 +34,7 @@ namespace rakoona.services.Services.Implementacion
         }
         public async Task<List<ClinicaResponse>> GetByUser(string userId)
         {
-            var clinicas = await _context.Clinicas.Where(x => x.UserRef == userId).ToListAsync();
+            var clinicas = await _context.Clinicas.Where(x => x.Organizacion.UsuarioOrganizacion.UserRef == userId).ToListAsync();
 
             return clinicas.Select(x => x.MapToResponse()).ToList();
         }

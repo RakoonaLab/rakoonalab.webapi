@@ -6,14 +6,14 @@ namespace rakoona.services.Entities.Mappers
 {
     internal static class ClinicaMapper
     {
-        internal static Clinica CreateFromRequest(this CreateClinicaRequest request, string userId)
+        internal static Clinica CreateFromRequest(this CreateClinicaRequest request, string organizacionId)
         {
             Clinica clinica = new Clinica
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 Nombre = request.Nombre,
                 FechaDeCreacion = DateTime.Now,
-                UserRef = userId
+                OrganizacionRef = organizacionId
             };
             return clinica;
         }

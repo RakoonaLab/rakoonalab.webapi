@@ -4,34 +4,27 @@ using rakoona.services.Entities.Models;
 
 namespace rakoona.services.Entities.Maps
 {
-    public class ClinicaMap : IEntityTypeConfiguration<Clinica>
+    public class UsuarioOrganizacionMap : IEntityTypeConfiguration<UsuarioOrganizacion>
     {
-        public void Configure(EntityTypeBuilder<Clinica> builder)
+        public void Configure(EntityTypeBuilder<UsuarioOrganizacion> builder)
         {
-            builder.ToTable(name: "Clinicas");
+            builder.ToTable(name: "UsuarioOrganizacion");
 
             #region Property 
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Id).HasColumnName("Id");
             builder.Property(c => c.ExternalId).HasColumnName("ExternalId").HasMaxLength(250);
             builder.Property(c => c.FechaDeCreacion).HasColumnName("FechaDeCreacion");
-            builder.Property(c => c.Nombre).HasColumnName("Nombre").HasMaxLength(250);
-
-            builder.Property(c => c.OrganizacionRef).HasColumnName("OrganizacionRef").HasMaxLength(250);
-
+            
             #endregion
-
-            #region Discriminator
-
-            #endregion
-
-            #region HasOne
 
             builder.HasOne(a => a.Organizacion)
-                    .WithMany(b => b.Clinicas)
-                    .HasForeignKey(b => b.OrganizacionRef);
+                    .WithOne(b => b.UsuarioOrganizacion)
+                    .HasForeignKey<UsuarioOrganizacion>(b => b.OrganizacionRef);
 
-            #endregion
+            builder.HasOne(a => a.Usuario)
+                    .WithOne(b => b.UsuarioOrganizacion)
+                    .HasForeignKey<UsuarioOrganizacion>(b => b.UserRef);
         }
 
     }
