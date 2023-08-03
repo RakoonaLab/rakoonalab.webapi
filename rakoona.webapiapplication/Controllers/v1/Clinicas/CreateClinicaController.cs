@@ -14,21 +14,21 @@ namespace rakoona.webapi.Controllers.v1.Clinicas
     [ApiController]
     public class CreateClinicaController : ControllerBase
     {
-        private readonly IClinicaService _context;
+        private readonly IClinicaService _clinicaService;
         private IUserInfoService _userInfo;
         public CreateClinicaController(
             IClinicaService context,
             IUserInfoService userInfo)
         {
             _userInfo = userInfo;
-            _context = context;
+            _clinicaService = context;
         }
 
         [HttpPost]
         [SwaggerOperation(Tags = new[] { SwaggerOperationTagsConstant.Clinica })]
         public async Task<ActionResult<ClinicaResponse>> Post([FromBody] CreateClinicaRequest request)
         {
-            var clinica = await _context.Create(request, _userInfo.UserId);
+            var clinica = await _clinicaService.Create(request, _userInfo.UserId);
             if (clinica == null)
             {
 
