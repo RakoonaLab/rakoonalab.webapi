@@ -4,7 +4,7 @@ namespace rakoona.services.Entities.Models
 {
     public class Clinica : ModelBase
     {
-        public string OrganizacionRef { get; set; }
+        public int OrganizacionRef { get; set; }
         public virtual Organizacion Organizacion { get; set; }
 
         public string Nombre { get; set; }
