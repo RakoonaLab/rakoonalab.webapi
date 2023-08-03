@@ -6,7 +6,7 @@ namespace rakoona.services.Entities.Mappers
 {
     internal static class ClinicaMapper
     {
-        internal static Clinica CreateFromRequest(this CreateClinicaRequest request, string organizacionId)
+        internal static Clinica CreateFromRequest(this CreateClinicaRequest request, int organizacionId)
         {
             Clinica clinica = new Clinica
             {
