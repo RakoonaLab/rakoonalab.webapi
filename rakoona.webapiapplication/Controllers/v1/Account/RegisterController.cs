@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol;
 using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
+using rakoona.services.Entities.Models;
 using rakoona.services.Entities.Models.Seguridad;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -32,7 +33,8 @@ namespace rakoona.webapi.Controllers.v1.Account
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Email
+                UserName = model.Email,
+                 UsuarioOrganizacion = new UsuarioOrganizacion() { Organizacion = new Organizacion() }
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
