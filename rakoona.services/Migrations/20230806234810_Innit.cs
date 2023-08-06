@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace rakoona.services.Migrations
 {
     /// <inheritdoc />
-    public partial class innit : Migration
+    public partial class Innit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,6 +48,20 @@ namespace rakoona.services.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Organizaciones",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Organizaciones", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,28 +186,6 @@ namespace rakoona.services.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Clinicas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserRef = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Clinicas", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Clinicas_AspNetUsers_UserRef",
-                        column: x => x.UserRef,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Personas",
                 columns: table => new
                 {
@@ -218,6 +210,56 @@ namespace rakoona.services.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Clinicas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrganizacionRef = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clinicas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Clinicas_Organizaciones_OrganizacionRef",
+                        column: x => x.OrganizacionRef,
+                        principalTable: "Organizaciones",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UsuarioOrganizacion",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserRef = table.Column<string>(type: "nvarchar(250)", nullable: false),
+                    OrganizacionRef = table.Column<int>(type: "int", nullable: false),
+                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsuarioOrganizacion", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UsuarioOrganizacion_AspNetUsers_UserRef",
+                        column: x => x.UserRef,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UsuarioOrganizacion_Organizaciones_OrganizacionRef",
+                        column: x => x.OrganizacionRef,
+                        principalTable: "Organizaciones",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Dosis",
                 columns: table => new
                 {
@@ -235,32 +277,6 @@ namespace rakoona.services.Migrations
                         name: "FK_Dosis_Recetas_RecetaRef",
                         column: x => x.RecetaRef,
                         principalTable: "Recetas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ClienteClinica",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClinicaId = table.Column<int>(type: "int", nullable: false),
-                    ClienteId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClienteClinica", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ClienteClinica_Clinicas_ClinicaId",
-                        column: x => x.ClinicaId,
-                        principalTable: "Clinicas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ClienteClinica_Personas_ClienteId",
-                        column: x => x.ClienteId,
-                        principalTable: "Personas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -359,6 +375,32 @@ namespace rakoona.services.Migrations
                     table.ForeignKey(
                         name: "FK_Medicos_Personas_PersonaRef",
                         column: x => x.PersonaRef,
+                        principalTable: "Personas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClienteClinica",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClinicaId = table.Column<int>(type: "int", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClienteClinica", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ClienteClinica_Clinicas_ClinicaId",
+                        column: x => x.ClinicaId,
+                        principalTable: "Clinicas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClienteClinica_Personas_ClienteId",
+                        column: x => x.ClienteId,
                         principalTable: "Personas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -731,9 +773,9 @@ namespace rakoona.services.Migrations
                 column: "MedicoRef");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clinicas_UserRef",
+                name: "IX_Clinicas_OrganizacionRef",
                 table: "Clinicas",
-                column: "UserRef");
+                column: "OrganizacionRef");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ColoresPorMascota_MascotaRef",
@@ -839,6 +881,18 @@ namespace rakoona.services.Migrations
                 filter: "[UsuarioRef] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UsuarioOrganizacion_OrganizacionRef",
+                table: "UsuarioOrganizacion",
+                column: "OrganizacionRef",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UsuarioOrganizacion_UserRef",
+                table: "UsuarioOrganizacion",
+                column: "UserRef",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Vacunaciones_MascotaRef",
                 table: "Vacunaciones",
                 column: "MascotaRef");
@@ -907,6 +961,9 @@ namespace rakoona.services.Migrations
                 name: "MedicionesDeTemperatura");
 
             migrationBuilder.DropTable(
+                name: "UsuarioOrganizacion");
+
+            migrationBuilder.DropTable(
                 name: "Vacunaciones");
 
             migrationBuilder.DropTable(
@@ -920,6 +977,9 @@ namespace rakoona.services.Migrations
 
             migrationBuilder.DropTable(
                 name: "Consultas");
+
+            migrationBuilder.DropTable(
+                name: "Organizaciones");
 
             migrationBuilder.DropTable(
                 name: "Macotas");

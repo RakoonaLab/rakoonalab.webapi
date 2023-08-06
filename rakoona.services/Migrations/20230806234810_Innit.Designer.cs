@@ -12,8 +12,8 @@ using rakoona.services.Context;
 namespace rakoona.services.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230729180229_innit")]
-    partial class innit
+    [Migration("20230806234810_Innit")]
+    partial class Innit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -209,15 +209,13 @@ namespace rakoona.services.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("Nombre");
 
-                    b.Property<string>("UserRef")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)")
-                        .HasColumnName("UserRef");
+                    b.Property<int>("OrganizacionRef")
+                        .HasColumnType("int")
+                        .HasColumnName("OrganizacionRef");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserRef");
+                    b.HasIndex("OrganizacionRef");
 
                     b.ToTable("Clinicas", (string)null);
                 });
@@ -655,6 +653,30 @@ namespace rakoona.services.Migrations
                     b.ToTable("Dosis", (string)null);
                 });
 
+            modelBuilder.Entity("rakoona.services.Entities.Models.Organizacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Organizaciones", (string)null);
+                });
+
             modelBuilder.Entity("rakoona.services.Entities.Models.Pacientes.ColorPorMascota", b =>
                 {
                     b.Property<int>("Id")
@@ -1033,6 +1055,43 @@ namespace rakoona.services.Migrations
                     b.UseTphMappingStrategy();
                 });
 
+            modelBuilder.Entity("rakoona.services.Entities.Models.UsuarioOrganizacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<int>("OrganizacionRef")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserRef")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizacionRef")
+                        .IsUnique();
+
+                    b.HasIndex("UserRef")
+                        .IsUnique();
+
+                    b.ToTable("UsuarioOrganizacion", (string)null);
+                });
+
             modelBuilder.Entity("rakoona.services.Entities.Models.Vacunacion", b =>
                 {
                     b.Property<int>("Id")
@@ -1183,13 +1242,13 @@ namespace rakoona.services.Migrations
 
             modelBuilder.Entity("rakoona.services.Entities.Models.Clinica", b =>
                 {
-                    b.HasOne("rakoona.services.Entities.Models.Seguridad.User", "Usuario")
+                    b.HasOne("rakoona.services.Entities.Models.Organizacion", "Organizacion")
                         .WithMany("Clinicas")
-                        .HasForeignKey("UserRef")
+                        .HasForeignKey("OrganizacionRef")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Usuario");
+                    b.Navigation("Organizacion");
                 });
 
             modelBuilder.Entity("rakoona.services.Entities.Models.ClinicaMedico", b =>
@@ -1412,6 +1471,25 @@ namespace rakoona.services.Migrations
                     b.Navigation("Persona");
                 });
 
+            modelBuilder.Entity("rakoona.services.Entities.Models.UsuarioOrganizacion", b =>
+                {
+                    b.HasOne("rakoona.services.Entities.Models.Organizacion", "Organizacion")
+                        .WithOne("UsuarioOrganizacion")
+                        .HasForeignKey("rakoona.services.Entities.Models.UsuarioOrganizacion", "OrganizacionRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("rakoona.services.Entities.Models.Seguridad.User", "Usuario")
+                        .WithOne("UsuarioOrganizacion")
+                        .HasForeignKey("rakoona.services.Entities.Models.UsuarioOrganizacion", "UserRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organizacion");
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("rakoona.services.Entities.Models.Vacunacion", b =>
                 {
                     b.HasOne("rakoona.services.Entities.Models.Pacientes.Mascota", "Mascota")
@@ -1436,6 +1514,14 @@ namespace rakoona.services.Migrations
                     b.Navigation("ClienteClinicas");
 
                     b.Navigation("ClinicaMedicos");
+                });
+
+            modelBuilder.Entity("rakoona.services.Entities.Models.Organizacion", b =>
+                {
+                    b.Navigation("Clinicas");
+
+                    b.Navigation("UsuarioOrganizacion")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("rakoona.services.Entities.Models.Pacientes.Mascota", b =>
@@ -1486,9 +1572,10 @@ namespace rakoona.services.Migrations
 
             modelBuilder.Entity("rakoona.services.Entities.Models.Seguridad.User", b =>
                 {
-                    b.Navigation("Clinicas");
-
                     b.Navigation("Persona")
+                        .IsRequired();
+
+                    b.Navigation("UsuarioOrganizacion")
                         .IsRequired();
                 });
 
