@@ -7,7 +7,7 @@ namespace rakoona.services.Entities.Models
         public string UserRef { get; set; }
         public virtual User Usuario { get; set; }
 
-        public string OrganizacionRef { get; set; }
+        public int OrganizacionRef { get; set; }
         public virtual Organizacion Organizacion { get; set; }
     }
 }
