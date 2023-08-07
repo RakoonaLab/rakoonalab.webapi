@@ -11,7 +11,7 @@
                     builder
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .WithOrigins("http://localhost:4200")
+                    .SetIsOriginAllowed(origin => true)
                     .AllowCredentials();
                 }));
             }
@@ -22,8 +22,7 @@
                     builder
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .WithOrigins("https://rakoona-aca32.firebaseapp.com/",
-                                    "https://rakoona-aca32.web.app/")
+                    .SetIsOriginAllowed(origin => true)
                     .AllowCredentials();
                 }));
             }
