@@ -6,7 +6,7 @@ using rakoona.services.Services.Interfaces;
 using rakoona.webapi.Configuration.Swagger;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace rakoona.webapi.Controllers.v1.Mascotas.PesoPorMascota
+namespace rakoona.webapi.Controllers.v1.Mascotas.Peso
 {
     [Route("api/mascota/{mascotaId}/peso")]
     [Authorize]

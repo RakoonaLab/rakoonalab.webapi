@@ -2,7 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using rakoona.webapi.Configuration.Models;
 
-namespace rakoona.webapiapplication.Configuration.Extensions
+namespace rakoona.webapi.Configuration.Extensions
 {
     public static class AddJWTTokenServicesExtensions
     {
@@ -12,13 +12,15 @@ namespace rakoona.webapiapplication.Configuration.Extensions
             var bindJwtSettings = new JwtSettings();
             Configuration.Bind("JsonWebTokenKeys", bindJwtSettings);
             Services.AddSingleton(bindJwtSettings);
-            Services.AddAuthentication(options => {
+            Services.AddAuthentication(options =>
+            {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options => {
+            }).AddJwtBearer(options =>
+            {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
-                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuerSigningKey = bindJwtSettings.ValidateIssuerSigningKey,
                     IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(bindJwtSettings.IssuerSigningKey)),

@@ -3,7 +3,7 @@ using rakoona.webapi.Configuration.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace rakoona.webapiapplication.Configuration.Helpers
+namespace rakoona.webapi.Configuration.Helpers
 {
     public static class JwtHelpers
     {
@@ -21,7 +21,7 @@ namespace rakoona.webapiapplication.Configuration.Helpers
         public static IEnumerable<Claim> GetClaims(this UserTokens userAccounts, out Guid Id)
         {
             Id = Guid.NewGuid();
-            return GetClaims(userAccounts, Id);
+            return userAccounts.GetClaims(Id);
         }
         public static UserTokens GenTokenkey(UserTokens model, JwtSettings jwtSettings)
         {
@@ -35,7 +35,7 @@ namespace rakoona.webapiapplication.Configuration.Helpers
                 Guid Id = Guid.Empty;
                 DateTime expireTime = DateTime.UtcNow.AddDays(1);
                 UserToken.Validaty = expireTime.TimeOfDay;
-                var JWToken = new JwtSecurityToken(issuer: jwtSettings.ValidIssuer, audience: jwtSettings.ValidAudience, claims: GetClaims(model, out Id), notBefore: new DateTimeOffset(DateTime.Now).DateTime, expires: new DateTimeOffset(expireTime).DateTime, signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256));
+                var JWToken = new JwtSecurityToken(issuer: jwtSettings.ValidIssuer, audience: jwtSettings.ValidAudience, claims: model.GetClaims(out Id), notBefore: new DateTimeOffset(DateTime.Now).DateTime, expires: new DateTimeOffset(expireTime).DateTime, signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256));
                 UserToken.Token = new JwtSecurityTokenHandler().WriteToken(JWToken);
                 UserToken.UserName = model.UserName;
                 UserToken.Id = model.Id;

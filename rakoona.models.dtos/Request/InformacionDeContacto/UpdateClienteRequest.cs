@@ -1,4 +1,4 @@
-﻿namespace rakoona.models.dtos.Request.Clientes
+﻿namespace rakoona.models.dtos.Request.InformacionDeContacto
 {
     public class UpdateCelularRequest
     {

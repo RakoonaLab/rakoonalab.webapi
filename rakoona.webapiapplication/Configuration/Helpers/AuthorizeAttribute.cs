@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using rakoona.services.Entities.Models.Seguridad;
 
-namespace rakoona.webapiapplication.Configuration.Helpers
+namespace rakoona.webapi.Configuration.Helpers
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter

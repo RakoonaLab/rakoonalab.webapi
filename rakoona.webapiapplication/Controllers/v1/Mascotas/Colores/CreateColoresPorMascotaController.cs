@@ -5,7 +5,7 @@ using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace rakoona.webapi.Controllers.v1.Mascotas.ColoresPorMascota
+namespace rakoona.webapi.Controllers.v1.Mascotas.Colores
 {
     [Route("api/mascota/{mascotaId}/colores")]
     [Authorize]

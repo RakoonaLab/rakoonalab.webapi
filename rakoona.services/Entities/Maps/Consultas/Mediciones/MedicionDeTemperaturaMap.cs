@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using rakoona.services.Entities.Models.Consultas.Mediciones;
 
-namespace rakoona.services.Entities.Maps.Consultas
+namespace rakoona.services.Entities.Maps.Consultas.Mediciones
 {
     public class MedicionDeTemperaturaMap : IEntityTypeConfiguration<MedicionDeTemperatura>
     {
