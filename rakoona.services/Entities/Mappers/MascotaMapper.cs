@@ -2,7 +2,6 @@
 using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
 using rakoona.services.Entities.Models.Pacientes;
-using System.Drawing;
 using System.Globalization;
 using System.Text;
 
@@ -54,7 +53,7 @@ namespace rakoona.services.Entities.Mappers
                 FechaDeNacimiento = GetFecha(mascota.DiaNacimiento, mascota.MesNacimiento, mascota.AnioNacimiento),
                 DuenioNombre = mascota.Duenio?.GetNombreCompleto(),
                 DuenioId = mascota.Duenio?.ExternalId,
-                FechaDeCreacion = mascota.FechaDeCreacion                
+                FechaDeCreacion = mascota.FechaDeCreacion
             };
 
             var consulta = mascota.Consultas?.OrderByDescending(x => x.FechaAplicacion).FirstOrDefault();

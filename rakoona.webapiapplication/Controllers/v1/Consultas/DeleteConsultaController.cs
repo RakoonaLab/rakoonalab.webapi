@@ -16,7 +16,7 @@ namespace rakoona.webapi.Controllers.v1.Consultas
         public DeleteConsultaController(
             IConsultaService consultaService)
         {
-            _consultaService= consultaService;
+            _consultaService = consultaService;
         }
 
         [HttpDelete]

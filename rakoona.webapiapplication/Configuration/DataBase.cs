@@ -5,7 +5,7 @@ namespace rakoona.webapi.Configuration
 {
     public class Database
     {
-        public static void  ConfigConnectionString(ref WebApplicationBuilder builder)
+        public static void ConfigConnectionString(ref WebApplicationBuilder builder)
         {
             if (builder.Environment.IsDevelopment())
             {

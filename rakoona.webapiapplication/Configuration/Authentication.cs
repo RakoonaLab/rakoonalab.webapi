@@ -1,11 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using rakoona.services.Context;
-using rakoona.services.Entities.Models.Seguridad;
-using rakoona.services.Services.Implementacion;
-using rakoona.services.Services.Interfaces;
-using rakoona.webapi.Services;
 using System.Text;
 
 namespace rakoona.webapi.Configuration

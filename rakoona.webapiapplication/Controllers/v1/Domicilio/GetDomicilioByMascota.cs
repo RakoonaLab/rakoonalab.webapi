@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.AspNetCore.Http;
 
 namespace rakoona.webapi.Controllers.v1.Domicilio
 {

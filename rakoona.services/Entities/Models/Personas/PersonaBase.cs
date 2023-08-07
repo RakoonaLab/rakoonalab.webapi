@@ -1,6 +1,5 @@
 ﻿using rakoona.services.Entities.Models.Seguridad;
 using rakoona.services.Entities.Models.TiposDeContacto;
-using System.Text;
 
 namespace rakoona.services.Entities.Models.Personas
 {

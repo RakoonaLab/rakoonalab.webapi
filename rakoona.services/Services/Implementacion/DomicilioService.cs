@@ -3,7 +3,6 @@ using rakoona.models.dtos.Request.Domicilio;
 using rakoona.models.dtos.Response;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
-using rakoona.services.Entities.Models.Personas;
 using rakoona.services.Services.Interfaces;
 
 namespace rakoona.services.Services.Implementacion

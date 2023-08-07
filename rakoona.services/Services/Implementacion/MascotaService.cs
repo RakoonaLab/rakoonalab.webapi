@@ -4,9 +4,7 @@ using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
 using rakoona.services.Context;
 using rakoona.services.Entities.Mappers;
-using rakoona.services.Entities.Models.Personas;
 using rakoona.services.Services.Interfaces;
-using System.Runtime.CompilerServices;
 
 namespace rakoona.services.Services.Implementacion
 {
@@ -43,8 +41,8 @@ namespace rakoona.services.Services.Implementacion
 
             var mascota = await _context.Mascotas.Where(x => x.ExternalId == mascotaId)
                 .Include(x => x.Duenio)
-                .Include(x=> x.Colores)
-                .Include(x=> x.Consultas)
+                .Include(x => x.Colores)
+                .Include(x => x.Consultas)
                 .FirstOrDefaultAsync();
 
             if (mascota == null)
@@ -107,7 +105,7 @@ namespace rakoona.services.Services.Implementacion
                 .SelectMany(c => c.Cliente.Mascotas)
                 .Include(x => x.Duenio).AsQueryable();
 
-            
+
 
 
             if (pagination.Page > 1)

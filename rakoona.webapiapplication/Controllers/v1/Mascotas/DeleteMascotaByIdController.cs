@@ -24,12 +24,12 @@ namespace rakoona.webapi.Controllers.v1.Mascotas
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        
+
         public async Task<ActionResult<MascotaResponse>> Delete([FromRoute] string mascotaId)
         {
             var respuesta = await _mascotaService.DeleteAsync(mascotaId);
-            
-            return respuesta ? StatusCode(StatusCodes.Status204NoContent): NotFound();
+
+            return respuesta ? StatusCode(StatusCodes.Status204NoContent) : NotFound();
         }
 
     }

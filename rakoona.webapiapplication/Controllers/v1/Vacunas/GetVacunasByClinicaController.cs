@@ -20,9 +20,9 @@ namespace rakoona.webapi.Controllers.v1.Vacunas
         }
 
         [HttpGet]
-        [SwaggerOperation(Tags = new[] { 
-            SwaggerOperationTagsConstant.Vacunas, 
-            SwaggerOperationTagsConstant.Clinica 
+        [SwaggerOperation(Tags = new[] {
+            SwaggerOperationTagsConstant.Vacunas,
+            SwaggerOperationTagsConstant.Clinica
         })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

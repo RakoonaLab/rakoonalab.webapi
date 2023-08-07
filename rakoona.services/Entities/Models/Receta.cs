@@ -1,6 +1,4 @@
-﻿using rakoona.services.Entities.Models.Consultas;
-
-namespace rakoona.services.Entities.Models
+﻿namespace rakoona.services.Entities.Models
 {
     public class Receta : ModelBase
     {

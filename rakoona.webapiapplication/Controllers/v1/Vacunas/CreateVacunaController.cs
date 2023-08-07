@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Vacunas
 {
-    [Route("api/mascota/{mascotaId}/vacuna")] 
+    [Route("api/mascota/{mascotaId}/vacuna")]
     [Authorize]
     [ApiController]
     public class CreateVacunaController : ControllerBase
@@ -21,9 +21,9 @@ namespace rakoona.webapi.Controllers.v1.Vacunas
         }
 
         [HttpPost]
-        [SwaggerOperation(Tags = new[] { 
-            SwaggerOperationTagsConstant.Vacunas, 
-            SwaggerOperationTagsConstant.Mascotas 
+        [SwaggerOperation(Tags = new[] {
+            SwaggerOperationTagsConstant.Vacunas,
+            SwaggerOperationTagsConstant.Mascotas
         })]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

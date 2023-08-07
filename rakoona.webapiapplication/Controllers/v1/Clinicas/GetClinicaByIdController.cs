@@ -23,7 +23,7 @@ namespace rakoona.webapi.Controllers.v1.Clinicas
         [SwaggerOperation(Tags = new[] { SwaggerOperationTagsConstant.Clinica })]
         public async Task<ActionResult<ClinicaResponse>> Get([FromRoute] string clinicaId)
         {
-            
+
             var clinica = await _context.GetById(clinicaId);
 
             if (clinica == null)

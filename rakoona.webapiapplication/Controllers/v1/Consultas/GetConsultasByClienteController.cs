@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
-using rakoona.webapi.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Consultas
@@ -25,7 +24,7 @@ namespace rakoona.webapi.Controllers.v1.Consultas
         [SwaggerOperation(Tags = new[] { "Consultas", "Clientes" })]
         public async Task<ActionResult<List<ConsultaResponse>>> Get([FromRoute] string clienteId)
         {
-            var consultas = await  _context.GetConsultaByCliente(clienteId);
+            var consultas = await _context.GetConsultaByCliente(clienteId);
             if (consultas == null)
             {
                 return NoContent();

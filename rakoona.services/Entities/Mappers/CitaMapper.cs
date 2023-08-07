@@ -1,12 +1,7 @@
 ﻿using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
-using rakoona.services.Entities.Models;
 using rakoona.services.Entities.Models.Consultas;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace rakoona.services.Entities.Mappers
 {

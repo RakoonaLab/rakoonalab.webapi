@@ -8,9 +8,9 @@ namespace rakoona.services.Entities.Models
 
         public int ClinicaId { get; set; }
         public Clinica Clinica { get; set; }
-        
+
         public int ClienteId { get; set; }
         public Cliente Cliente { get; set; }
-        
+
     }
 }

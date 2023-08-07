@@ -6,6 +6,6 @@ namespace rakoona.services.Entities.Models.Personas
     {
         public List<Mascota> Mascotas { get; set; }
         public List<ClienteClinica> ClienteClinicas { get; set; }
-        
+
     }
 }

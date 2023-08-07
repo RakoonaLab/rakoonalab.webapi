@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
 using rakoona.services.Services.Interfaces;
-using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.AspNetCore.Http;
 using rakoona.webapi.Configuration.Swagger;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Mascotas
 {

@@ -28,7 +28,7 @@ namespace rakoona.webapi.Controllers.v1.Mascotas
         {
             var respuesta = await _mascotaService.CreateAsync(request, clienteId);
             if (respuesta == null)
-                return  NotFound();
+                return NotFound();
 
             return StatusCode(StatusCodes.Status201Created, respuesta);
         }

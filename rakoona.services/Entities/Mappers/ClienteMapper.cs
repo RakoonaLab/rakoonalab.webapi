@@ -3,7 +3,6 @@ using rakoona.models.dtos.Response;
 using rakoona.services.Entities.Models;
 using rakoona.services.Entities.Models.Personas;
 using rakoona.services.Entities.Models.TiposDeContacto;
-using System.Text;
 
 namespace rakoona.services.Entities.Mappers
 {

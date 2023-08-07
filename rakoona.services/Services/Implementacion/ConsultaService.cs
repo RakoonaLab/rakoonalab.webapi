@@ -115,7 +115,7 @@ namespace rakoona.services.Services.Implementacion
         {
             var mascota = await _context.Mascotas.SingleAsync(x => x.ExternalId == mascotaId);
             var consultas = await _context.Consultas.Where(x => x.MascotaRef == mascota.Id).ToListAsync();
-            
+
             return consultas.Select(x => x.MapToResponse()).ToList();
         }
         public async Task<List<ConsultaResponse>> GetConsultasByClinica(string clinicaId)

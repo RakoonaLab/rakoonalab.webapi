@@ -33,7 +33,7 @@ namespace rakoona.webapi.Controllers.v1.Mascotas
                 return BadRequest();
 
             IFormFile formFile = Request.Form.Files[0];
-            
+
             var request = new FileDetailsRequest()
             {
                 FileName = formFile.FileName,

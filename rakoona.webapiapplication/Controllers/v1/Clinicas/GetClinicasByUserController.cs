@@ -33,7 +33,7 @@ namespace rakoona.webapi.Controllers.v1.Clinicas
 
             if (clinicas == null)
                 return NoContent();
-            
+
             return Ok(clinicas);
         }
 

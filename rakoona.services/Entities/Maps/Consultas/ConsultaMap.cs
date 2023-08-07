@@ -26,7 +26,7 @@ namespace rakoona.services.Entities.Maps.Consultas
             #endregion
 
 
-            
+
             builder.HasOne(a => a.Mascota)
                     .WithMany(b => b.Consultas)
                     .HasForeignKey(b => b.MascotaRef)
@@ -37,9 +37,9 @@ namespace rakoona.services.Entities.Maps.Consultas
                     .HasForeignKey(b => b.MedicoRef)
                     .OnDelete(DeleteBehavior.NoAction);
 
-            
 
-            
+
+
         }
 
     }

@@ -1,7 +1,6 @@
 ﻿using rakoona.models.dtos.Request.Consultas;
 using rakoona.models.dtos.Response;
 using rakoona.services.Entities.Models.Consultas;
-using rakoona.services.Entities.Models.Consultas.Mediciones;
 
 namespace rakoona.services.Entities.Mappers
 {

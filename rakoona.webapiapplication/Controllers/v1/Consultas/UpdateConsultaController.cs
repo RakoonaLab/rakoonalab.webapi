@@ -27,7 +27,7 @@ namespace rakoona.webapi.Controllers.v1.Consultas
         [ProducesDefaultResponseType]
         public async Task<ActionResult<ConsultaResponse>> Put([FromBody] UpdateConsultaRequest request, [FromRoute] string consultaId)
         {
-            var response = await  _service.Update(request, consultaId);
+            var response = await _service.Update(request, consultaId);
 
             if (response == null)
                 return NoContent();

@@ -11,18 +11,18 @@ namespace rakoona.webapi.Controllers.Health
     {
         public GetHealthStatusController()
         {
-            
+
         }
 
         [HttpGet]
-        [SwaggerOperation(Tags = new[] { 
-            "Health" 
+        [SwaggerOperation(Tags = new[] {
+            "Health"
         })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
         public ActionResult Get()
         {
-            
+
 
             return Ok();
         }

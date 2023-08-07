@@ -1,9 +1,6 @@
-﻿using Azure;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Response;
-using rakoona.services.Context;
-using rakoona.services.Entities.Mappers;
 using rakoona.services.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 

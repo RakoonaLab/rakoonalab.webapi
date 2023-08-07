@@ -23,7 +23,7 @@ namespace rakoona.services.Entities.Maps.Pacientes
             builder.Property(c => c.AnioNacimiento).HasColumnName("AnioNacimiento");
             builder.Property(c => c.DuenioRef).HasColumnName("DuenioRef");
 
-            
+
             builder.HasOne(a => a.Duenio)
                    .WithMany(b => b.Mascotas)
                    .HasForeignKey(b => b.DuenioRef);

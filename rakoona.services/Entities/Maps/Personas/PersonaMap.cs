@@ -18,7 +18,7 @@ namespace rakoona.services.Entities.Maps.Personas
             builder.Property(c => c.Apellidos).HasColumnName("Apellidos");
             builder.Property(c => c.FechaDeNacimiento).HasColumnName("FechaDeNacimiento");
 
-            
+
             builder.HasOne(a => a.User)
                 .WithOne(b => b.Persona)
                 .HasForeignKey<PersonaBase>(b => b.UsuarioRef);

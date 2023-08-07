@@ -21,9 +21,9 @@ namespace rakoona.webapi.Controllers.v1.Medicos
         }
 
         [HttpPost]
-        [SwaggerOperation(Tags = new[] { 
-            SwaggerOperationTagsConstant.Medicos, 
-            SwaggerOperationTagsConstant.Clinica 
+        [SwaggerOperation(Tags = new[] {
+            SwaggerOperationTagsConstant.Medicos,
+            SwaggerOperationTagsConstant.Clinica
         })]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesDefaultResponseType]

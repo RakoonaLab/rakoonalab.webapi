@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using rakoona.services.Entities.Models;
 using rakoona.services.Entities.Models.TiposDeContacto;
 
 namespace rakoona.services.Entities.Maps.TiposDeContacto

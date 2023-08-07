@@ -56,7 +56,7 @@ namespace rakoona.services.Services.Implementacion
             var vacunas = await _context.Vacunas.Where(x => x.MascotaRef == mascota.Id)
 
                 .Include(m => m.Medico)
-                .ThenInclude(x=> x.PersonaInfo)
+                .ThenInclude(x => x.PersonaInfo)
                 .Include(c => c.Mascota)
                 .ThenInclude(m => m.Duenio)
                 .ToListAsync();
@@ -67,7 +67,7 @@ namespace rakoona.services.Services.Implementacion
         {
             var vacunas = await _context.Clientes
                 .Where(x => x.ExternalId == clienteId)
-                .SelectMany(x=> x.Mascotas)
+                .SelectMany(x => x.Mascotas)
                 .SelectMany(v => v.Vacunas)
 
                 .Include(m => m.Medico)
@@ -100,7 +100,7 @@ namespace rakoona.services.Services.Implementacion
                 .ThenInclude(m => m.Duenio)
                 .ToListAsync();
 
-            return  vacunas.Select(x => x.MapToResponse()).ToList();
+            return vacunas.Select(x => x.MapToResponse()).ToList();
         }
     }
 }

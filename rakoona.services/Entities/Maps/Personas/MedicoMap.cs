@@ -1,11 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using rakoona.services.Entities.Models.Personas;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace rakoona.services.Entities.Maps.Personas
 {
@@ -19,7 +14,7 @@ namespace rakoona.services.Entities.Maps.Personas
             builder.Property(c => c.Id).HasColumnName("Id");
             builder.Property(c => c.ExternalId).HasColumnName("ExternalId").HasMaxLength(250);
             builder.Property(c => c.FechaDeCreacion).HasColumnName("FechaDeCreacion");
-            
+
             builder.Property(c => c.PersonaRef).HasColumnName("PersonaRef");
 
 

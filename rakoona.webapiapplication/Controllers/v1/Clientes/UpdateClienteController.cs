@@ -23,7 +23,7 @@ namespace rakoona.webapi.Controllers.v1.Clientes
         [SwaggerOperation(Tags = new[] { "Clientes" })]
         public async Task<ActionResult<ClienteResponse>> Put([FromBody] UpdateClienteRequest request, [FromRoute] string clienteId)
         {
-            var cliente = await _context.Update(request,clienteId);
+            var cliente = await _context.Update(request, clienteId);
 
             if (cliente == null)
             {

@@ -25,7 +25,7 @@ namespace rakoona.services.Entities.Maps
             #endregion
 
             #region Discriminator
-            
+
             #endregion
 
             #region HasOne

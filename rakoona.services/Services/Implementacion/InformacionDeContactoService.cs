@@ -45,7 +45,7 @@ namespace rakoona.services.Services.Implementacion
             if (celular == null)
                 return null;
 
-            
+
             var updated = request.UpdateFromRequest(celular);
 
             _context.Update(updated);

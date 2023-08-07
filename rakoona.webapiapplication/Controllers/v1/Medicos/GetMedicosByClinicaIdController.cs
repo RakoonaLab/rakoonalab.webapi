@@ -22,9 +22,9 @@ namespace rakoona.webapi.Controllers.v1.Medicos
         }
 
         [HttpGet]
-        [SwaggerOperation(Tags = new[] { 
-            SwaggerOperationTagsConstant.Medicos, 
-            SwaggerOperationTagsConstant.Clinica 
+        [SwaggerOperation(Tags = new[] {
+            SwaggerOperationTagsConstant.Medicos,
+            SwaggerOperationTagsConstant.Clinica
         })]
         public async Task<ActionResult<List<MedicoResponse>>> Get([FromRoute] string clinicaId)
         {

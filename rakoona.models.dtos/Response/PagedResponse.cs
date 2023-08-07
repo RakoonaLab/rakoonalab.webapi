@@ -4,10 +4,10 @@
     {
         public PagedResponse(int page, int pageSize, T items, int totalItems)
         {
-            Page= page;
+            Page = page;
             PageSize = pageSize;
             Items = items;
-            TotalItems= totalItems;
+            TotalItems = totalItems;
         }
         public int PageSize { get; }
         public int Page { get; }
