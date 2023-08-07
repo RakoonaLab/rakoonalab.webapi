@@ -34,7 +34,14 @@ namespace rakoona.webapi.Controllers.v1.Account
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Email,
-                 UsuarioOrganizacion = new UsuarioOrganizacion() { Organizacion = new Organizacion() }
+                UsuarioOrganizacion = new UsuarioOrganizacion()
+                {
+                    ExternalId = Guid.NewGuid().ToString(),
+                    Organizacion = new Organizacion()
+                    {
+                        ExternalId = Guid.NewGuid().ToString()
+                    }
+                }
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
