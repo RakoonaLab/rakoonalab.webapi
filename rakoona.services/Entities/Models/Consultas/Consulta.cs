@@ -14,7 +14,7 @@ namespace rakoona.services.Entities.Models.Consultas
         public int MedicoRef { get; set; }
         public virtual Medico? Medico { get; set; }
 
-        public int MascotaRef { get; set; }
-        public virtual Mascota? Mascota { get; set; }
+        public int CartillaRef { get; set; }
+        public virtual Cartilla? Cartilla { get; set; }
     }
 }

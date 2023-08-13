@@ -16,10 +16,12 @@ namespace rakoona.services.Entities.Models.Pacientes
         public string? Raza { get; set; }
 
         public virtual Cliente? Duenio { get; set; }
+        public virtual Cartilla Cartilla { get; set; }
+
         public virtual List<ColorPorMascota>? Colores { get; set; }
         public virtual List<ImagenPorMascota>? Imagenes { get; set; }
-        public virtual List<Consulta>? Consultas { get; set; }
-        public virtual List<Vacunacion>? Vacunas { get; set; }
+
+        
         public virtual List<MedicionDePeso>? MedicionesDePeso { get; set; }
         public virtual List<MedicionDePulso>? MedicionesDePulso { get; set; }
         public virtual List<MedicionDeRitmoCardiaco>? MedicionesDeRitmoCardiaco { get; set; }

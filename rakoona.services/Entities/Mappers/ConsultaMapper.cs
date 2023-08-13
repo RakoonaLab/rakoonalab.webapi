@@ -6,7 +6,7 @@ namespace rakoona.services.Entities.Mappers
 {
     internal static class ConsultaMapper
     {
-        internal static Consulta CreateFromRequest(this CreateConsultaRequest request, int mascotaId, int medicoId)
+        internal static Consulta CreateFromRequest(this CreateConsultaRequest request, int cartillaId, int medicoId)
         {
             if (request == null)
                 throw new Exception("");
@@ -22,7 +22,7 @@ namespace rakoona.services.Entities.Mappers
                 Motivo = request.Motivo,
                 Diagnostico = request.Diagnostico,
                 Observaciones = request.Observaciones,
-                MascotaRef = mascotaId,
+                CartillaRef = cartillaId,
                 MedicoRef = medicoId
             };
         }
@@ -49,10 +49,10 @@ namespace rakoona.services.Entities.Mappers
                 Motivo = consulta.Motivo,
                 Diagnostico = consulta.Diagnostico,
                 Observaciones = consulta.Observaciones,
-                MascotaNombre = consulta.Mascota?.Nombre,
-                MascotaId = consulta.Mascota?.ExternalId,
-                ClienteNombre = consulta.Mascota?.Duenio?.GetNombreCompleto(),
-                ClienteId = consulta.Mascota?.Duenio?.ExternalId,
+                MascotaNombre = consulta.Cartilla.Mascota?.Nombre,
+                MascotaId = consulta.Cartilla.Mascota?.ExternalId,
+                ClienteNombre = consulta.Cartilla.Mascota?.Duenio?.GetNombreCompleto(),
+                ClienteId = consulta.Cartilla.Mascota?.Duenio?.ExternalId,
             };
         }
     }

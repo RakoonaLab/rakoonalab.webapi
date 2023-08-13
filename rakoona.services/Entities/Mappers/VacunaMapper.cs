@@ -7,7 +7,7 @@ namespace rakoona.services.Entities.Mappers
 {
     internal static class VacunaMapper
     {
-        internal static Vacunacion CreateFromRequest(this CreateVacunaRequest request, int mascotaId, int medicoId)
+        internal static Vacunacion CreateFromRequest(this CreateVacunaRequest request, int cartillaId, int medicoId)
         {
             if (request == null)
                 throw new Exception("");
@@ -23,7 +23,7 @@ namespace rakoona.services.Entities.Mappers
                 Nombre = request.Nombre,
                 Lote = request.Lote,
                 Laboratorio = request.Laboratorio,
-                MascotaRef = mascotaId,
+                CartillaRef = cartillaId,
                 MedicoRef = medicoId
             };
 
@@ -50,10 +50,10 @@ namespace rakoona.services.Entities.Mappers
                 Caducidad = entity.Caducidad.Value.ToShortDateString(),
                 MedicoId = entity.Medico?.ExternalId,
                 MedicoNombre = entity.Medico?.PersonaInfo?.Nombres + " " + entity.Medico?.PersonaInfo?.Apellidos,
-                MascotaId = entity.Mascota?.ExternalId,
-                MascotaNombre = entity.Mascota?.Nombre,
-                DuenioId = entity.Mascota?.Duenio?.ExternalId,
-                DuenioNombre = entity.Mascota?.Duenio?.Nombres + " " + entity.Mascota?.Duenio?.Apellidos,
+                MascotaId = entity.Cartilla.Mascota?.ExternalId,
+                MascotaNombre = entity.Cartilla.Mascota?.Nombre,
+                DuenioId = entity.Cartilla.Mascota?.Duenio?.ExternalId,
+                DuenioNombre = entity.Cartilla.Mascota?.Duenio?.Nombres + " " + entity.Cartilla.Mascota?.Duenio?.Apellidos,
             };
 
             return response;

@@ -56,7 +56,7 @@ namespace rakoona.services.Entities.Mappers
                 FechaDeCreacion = mascota.FechaDeCreacion
             };
 
-            var consulta = mascota.Consultas?.OrderByDescending(x => x.FechaAplicacion).FirstOrDefault();
+            var consulta = mascota.Cartilla?.Consultas?.OrderByDescending(x => x.FechaAplicacion).FirstOrDefault();
             if (consulta != null)
             {
                 response.FechaUltimaConsulta = GetFecha(consulta.FechaAplicacion.Date.Day, consulta.FechaAplicacion.Date.Month, consulta.FechaAplicacion.Date.Year);

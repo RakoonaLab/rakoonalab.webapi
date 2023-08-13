@@ -25,7 +25,7 @@ namespace rakoona.services.Services.Implementacion
             if (_context.Medicos == null)
                 throw new Exception("Validar _context.Medicos, es null");
 
-            var mascota = await _context.Mascotas.SingleAsync(x => x.ExternalId == mascotaId);
+            var mascota = await _context.Mascotas.Include(x=> x.Cartilla).SingleAsync(x => x.ExternalId == mascotaId);
 
             var medico = await _context.Medicos.SingleAsync(x => x.ExternalId == request.MedicoId);
 
@@ -35,7 +35,7 @@ namespace rakoona.services.Services.Implementacion
             if (medico == null)
                 throw new Exception("Medico no encontrado");
 
-            var consulta = request.CreateFromRequest(mascota.Id, medico.Id);
+            var consulta = request.CreateFromRequest(mascota.Cartilla.Id, medico.Id);
 
             if (request.Pulso.HasValue)
             {
@@ -114,9 +114,12 @@ namespace rakoona.services.Services.Implementacion
         public async Task<List<ConsultaResponse>> GetConsultasByMascota(string mascotaId)
         {
             var mascota = await _context.Mascotas.SingleAsync(x => x.ExternalId == mascotaId);
-            var consultas = await _context.Consultas.Where(x => x.MascotaRef == mascota.Id).ToListAsync();
 
-            return consultas.Select(x => x.MapToResponse()).ToList();
+            var cartilla = await _context.Cartilla.Where(x => x.MascotaRef == mascota.Id)
+                .Include(x => x.Consultas)
+                .FirstOrDefaultAsync();
+
+            return cartilla.Consultas.Select(x => x.MapToResponse()).ToList();
         }
         public async Task<List<ConsultaResponse>> GetConsultasByClinica(string clinicaId)
         {
@@ -129,12 +132,16 @@ namespace rakoona.services.Services.Implementacion
 
             var clinica = await _context.Clinicas.SingleAsync(x => x.ExternalId == clinicaId);
 
-            var consultas = await _context.ClientesClinicas
+            var clienteClinica = await _context.ClientesClinicas
                 .Where(x => x.ClinicaId == clinica.Id)
-                .SelectMany(c => c.Cliente.Mascotas)
-                .SelectMany(m => m.Consultas)
-                .Include(c => c.Mascota).ThenInclude(m => m.Duenio)
+                .Include(c => c.Cliente)
+                    .ThenInclude(c=> c.Mascotas)
+                        .ThenInclude(c=> c.Cartilla)
+                            .ThenInclude(c=> c.Consultas)
+                .Include(c => c.Cliente.Mascotas).ThenInclude(m => m.Duenio)
                 .ToListAsync();
+
+            var consultas = clienteClinica.SelectMany(x => x.Cliente.Mascotas.SelectMany(m => m.Cartilla.Consultas)).ToList();
 
             return consultas.Select(x => x.MapToResponse()).ToList();
         }
@@ -151,7 +158,7 @@ namespace rakoona.services.Services.Implementacion
 
             var cliente = await _context.Clientes.SingleAsync(x => x.ExternalId == clienteId);
 
-            var consultas = await _context.Consultas.Where(x => x.Mascota.DuenioRef == cliente.Id).ToListAsync();
+            var consultas = await _context.Consultas.Where(x => x.Cartilla.Mascota.DuenioRef == cliente.Id).ToListAsync();
 
             return consultas.Select(x => x.MapToResponse()).ToList();
         }

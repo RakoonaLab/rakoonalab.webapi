@@ -20,27 +20,22 @@ namespace rakoona.services.Entities.Maps.Consultas
             builder.Property(c => c.Observaciones).HasColumnName("Observaciones");
             builder.Property(c => c.Diagnostico).HasColumnName("Diagnostico");
 
-            builder.Property(c => c.MascotaRef).HasColumnName("MascotaRef");
+            builder.Property(c => c.CartillaRef).HasColumnName("CartillaRef");
             builder.Property(c => c.MedicoRef).HasColumnName("MedicoRef");
 
             #endregion
 
 
 
-            builder.HasOne(a => a.Mascota)
+            builder.HasOne(a => a.Cartilla)
                     .WithMany(b => b.Consultas)
-                    .HasForeignKey(b => b.MascotaRef)
+                    .HasForeignKey(b => b.CartillaRef)
                     .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(a => a.Medico)
                     .WithMany(b => b.Consultas)
                     .HasForeignKey(b => b.MedicoRef)
                     .OnDelete(DeleteBehavior.NoAction);
-
-
-
-
         }
-
     }
 }

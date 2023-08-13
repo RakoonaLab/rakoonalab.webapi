@@ -65,6 +65,7 @@ namespace rakoona.services.Context
             builder.ApplyConfiguration(new CitaMap());
             builder.ApplyConfiguration(new UsuarioOrganizacionMap());
             builder.ApplyConfiguration(new OrganizacionMap());
+            builder.ApplyConfiguration(new CartillaMap());
         }
 
         internal DbSet<User>? Usuarios { get; set; }
@@ -91,5 +92,6 @@ namespace rakoona.services.Context
         internal DbSet<Cita>? Citas { get; set; }
         internal DbSet<Organizacion>? Organizacion { get; set; }
         internal DbSet<UsuarioOrganizacion>? UsuarioOrganizacion { get; set; }
+        internal DbSet<Cartilla>? Cartilla { get; set; }
     }
 }

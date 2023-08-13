@@ -42,7 +42,8 @@ namespace rakoona.services.Services.Implementacion
             var mascota = await _context.Mascotas.Where(x => x.ExternalId == mascotaId)
                 .Include(x => x.Duenio)
                 .Include(x => x.Colores)
-                .Include(x => x.Consultas)
+                .Include(x => x.Cartilla)
+                    .ThenInclude(x => x.Consultas)
                 .FirstOrDefaultAsync();
 
             if (mascota == null)
