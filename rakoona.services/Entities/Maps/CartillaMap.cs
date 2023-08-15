@@ -14,7 +14,7 @@ namespace rakoona.services.Entities.Maps.Pacientes
             builder.Property(c => c.Id).HasColumnName("Id");
             builder.Property(c => c.ExternalId).HasColumnName("ExternalId").HasMaxLength(250);
             builder.Property(c => c.FechaDeCreacion).HasColumnName("FechaDeCreacion");
-
+            builder.Property(c => c.MascotaRef).HasColumnName("MascotaRef");
 
             builder.HasOne(a => a.Mascota)
                    .WithOne(b => b.Cartilla)
