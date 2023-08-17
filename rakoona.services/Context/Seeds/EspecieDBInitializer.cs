@@ -11,9 +11,11 @@ namespace rakoona.core.Context.Seeds
             {
                 return new Especie
                 {
-                    Genero = GeneroDBInitializer.Felis,
-                    ClaseAnimal = ClaseAnimalDBInitializer.Mamiferos,
-                    Orden = OrdenAnimalDBInitializer.Carnivoro,
+                    Id = 1,
+                    FechaDeCreacion = DateTime.Now,
+                    GeneroRef = GeneroDBInitializer.Felis.Id,
+                    ClaseAnimalRef = ClaseAnimalDBInitializer.Mamiferos.Id,
+                    OrdenAnimalRef = OrdenAnimalDBInitializer.Carnivoro.Id,
                     ExternalId = Guid.NewGuid().ToString(),
                     NombreCorto = "Gato"
                 };
@@ -25,9 +27,11 @@ namespace rakoona.core.Context.Seeds
             {
                 return new Especie
                 {
-                    Genero = GeneroDBInitializer.Canis,
-                    Orden = OrdenAnimalDBInitializer.Carnivoro,
-                    ClaseAnimal = ClaseAnimalDBInitializer.Mamiferos,
+                    Id = 2,
+                    FechaDeCreacion = DateTime.Now,
+                    GeneroRef = GeneroDBInitializer.Canis.Id,
+                    OrdenAnimalRef = OrdenAnimalDBInitializer.Carnivoro.Id,
+                    ClaseAnimalRef = ClaseAnimalDBInitializer.Mamiferos.Id,
                     ExternalId = Guid.NewGuid().ToString(),
                     NombreCorto = "Perro"
                 };
@@ -39,9 +43,11 @@ namespace rakoona.core.Context.Seeds
             {
                 return new Especie
                 {
-                    Genero = GeneroDBInitializer.Mustela,
-                    Orden = OrdenAnimalDBInitializer.Carnivoro,
-                    ClaseAnimal = ClaseAnimalDBInitializer.Mamiferos,
+                    Id = 3,
+                    FechaDeCreacion = DateTime.Now,
+                    GeneroRef = GeneroDBInitializer.Mustela.Id,
+                    OrdenAnimalRef = OrdenAnimalDBInitializer.Carnivoro.Id,
+                    ClaseAnimalRef = ClaseAnimalDBInitializer.Mamiferos.Id,
                     ExternalId = Guid.NewGuid().ToString(),
                     NombreCorto = "Hurón"
                 };

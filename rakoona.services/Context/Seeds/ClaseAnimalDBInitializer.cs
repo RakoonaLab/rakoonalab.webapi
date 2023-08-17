@@ -5,7 +5,7 @@ namespace rakoona.core.Context.Seeds
 {
     public static class ClaseAnimalDBInitializer
     {
-        public static ClaseDeAnimales Mamiferos { get { return new ClaseDeAnimales { ExternalId = Guid.NewGuid().ToString(), Nombre = "Mamiforo" }; } }
+        public static ClaseDeAnimales Mamiferos { get { return new ClaseDeAnimales { Id = 1, FechaDeCreacion = DateTime.Now, ExternalId = Guid.NewGuid().ToString(), Nombre = "Mamiforo" }; } }
 
         internal static void Seed(ModelBuilder builder)
         {

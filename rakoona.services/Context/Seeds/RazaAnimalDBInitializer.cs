@@ -11,7 +11,9 @@ namespace rakoona.core.Context.Seeds
             {
                 return new RazaAnimal
                 {
-                    Especie = EspecieDBInitializer.Perro,
+                    Id = 1,
+                    FechaDeCreacion = DateTime.Now,
+                    EspecieRef = EspecieDBInitializer.Perro.Id,
                     ExternalId = Guid.NewGuid().ToString(),
                     NombreColoquial = "Affenpinscher"
                 };
@@ -23,7 +25,9 @@ namespace rakoona.core.Context.Seeds
             {
                 return new RazaAnimal
                 {
-                    Especie = EspecieDBInitializer.Perro,
+                    Id = 2,
+                    FechaDeCreacion = DateTime.Now,
+                    EspecieRef = EspecieDBInitializer.Perro.Id,
                     ExternalId = Guid.NewGuid().ToString(),
                     NombreColoquial = "Afgano"
                 };
@@ -35,7 +39,9 @@ namespace rakoona.core.Context.Seeds
             {
                 return new RazaAnimal
                 {
-                    Especie = EspecieDBInitializer.Perro,
+                    Id = 3,
+                    FechaDeCreacion = DateTime.Now,
+                    EspecieRef = EspecieDBInitializer.Perro.Id,
                     ExternalId = Guid.NewGuid().ToString(),
                     NombreColoquial = "Akita"
                 };

@@ -6,7 +6,7 @@ namespace rakoona.services.Entities.Models.Pacientes
 {
     public class RazaAnimal : ModelBase
     {
-        public string NombreCientifico { get; set; }
+        public string? NombreCientifico { get; set; }
         public string NombreColoquial { get; set; }
 
 
@@ -26,6 +26,8 @@ namespace rakoona.services.Entities.Models.Pacientes
             builder.Property(c => c.ExternalId).HasColumnName("ExternalId").HasMaxLength(250);
             builder.Property(c => c.FechaDeCreacion).HasColumnName("FechaDeCreacion");
             builder.Property(c => c.EspecieRef).HasColumnName("EspecieRef");
+            builder.Property(c => c.NombreCientifico).HasColumnName("NombreCientifico").IsRequired(false);
+            builder.Property(c => c.NombreColoquial).HasColumnName("NombreColoquial");
 
             builder.HasOne(x => x.Especie)
                 .WithMany(x => x.Razas)
