@@ -39,7 +39,5 @@ namespace rakoona.core.Entities.Models.Seguridad
             #endregion
 
         }
-
-
     }
 }
