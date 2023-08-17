@@ -5,7 +5,6 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace rakoona.webapi.Controllers.Health
 {
     [Route("api/health")]
-    [Authorize]
     [ApiController]
     public class GetHealthStatusController : ControllerBase
     {
