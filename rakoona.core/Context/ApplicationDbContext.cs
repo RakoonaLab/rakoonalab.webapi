@@ -6,7 +6,6 @@ using rakoona.core.Entities.Maps;
 using rakoona.core.Entities.Maps.Consultas;
 using rakoona.core.Entities.Maps.Consultas.Mediciones;
 using rakoona.core.Entities.Maps.Pacientes;
-using rakoona.core.Entities.Maps.Personas;
 using rakoona.core.Entities.Maps.TiposDeContacto;
 using rakoona.core.Entities.Models;
 using rakoona.core.Entities.Models.Consultas;
@@ -72,7 +71,7 @@ namespace rakoona.core.Context
         internal DbSet<Mascota>? Mascotas { get; set; }
         internal DbSet<Medico>? Medicos { get; set; }
         internal DbSet<Cliente>? Clientes { get; set; }
-        internal DbSet<PersonaBase>? Personas { get; set; }
+        internal DbSet<Persona>? Personas { get; set; }
         internal DbSet<Clinica>? Clinicas { get; set; }
         internal DbSet<Dosis>? Dosis { get; set; }
         internal DbSet<Receta>? Recetas { get; set; }

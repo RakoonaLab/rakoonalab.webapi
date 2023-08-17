@@ -5,7 +5,7 @@ using rakoona.core.Entities.Models.TiposDeContacto;
 
 namespace rakoona.core.Entities.Models.Personas
 {
-    public class PersonaBase : ModelBase
+    public class Persona : ModelBase
     {
         public string? Nombres { get; set; }
         public string? Apellidos { get; set; }
@@ -24,9 +24,9 @@ namespace rakoona.core.Entities.Models.Personas
         }
     }
 
-    public class PersonaMap : IEntityTypeConfiguration<PersonaBase>
+    public class PersonaMap : IEntityTypeConfiguration<Persona>
     {
-        public void Configure(EntityTypeBuilder<PersonaBase> builder)
+        public void Configure(EntityTypeBuilder<Persona> builder)
         {
             builder.ToTable(name: "Personas");
 
@@ -41,7 +41,7 @@ namespace rakoona.core.Entities.Models.Personas
 
             builder.HasOne(a => a.User)
                 .WithOne(b => b.Persona)
-                .HasForeignKey<PersonaBase>(b => b.UsuarioRef);
+                .HasForeignKey<Persona>(b => b.UsuarioRef);
 
             builder.HasMany(a => a.InformacionDeContacto)
                 .WithOne(b => b.Persona)

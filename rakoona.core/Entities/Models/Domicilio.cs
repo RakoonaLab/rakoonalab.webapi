@@ -12,7 +12,7 @@ namespace rakoona.core.Entities.Models
         public bool Principal { get; set; }
 
         public int PersonaRef { get; set; }
-        public PersonaBase Persona { get; set; }
+        public Persona Persona { get; set; }
 
     }
 }

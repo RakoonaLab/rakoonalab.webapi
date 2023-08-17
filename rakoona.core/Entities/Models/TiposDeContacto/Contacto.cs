@@ -8,6 +8,6 @@ namespace rakoona.core.Entities.Models.TiposDeContacto
         public string Valor { get; set; }
 
         public int PersonaRef { get; set; }
-        public PersonaBase Persona { get; set; }
+        public Persona Persona { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace rakoona.core.Entities.Mappers
                 ClinicaId = clinicaId
             };
 
-            PersonaBase persona = new PersonaBase
+            Persona persona = new Persona
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 Nombres = request.Nombres,

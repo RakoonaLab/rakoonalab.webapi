@@ -2,7 +2,7 @@
 
 namespace rakoona.core.Entities.Models.Personas
 {
-    public class Cliente : PersonaBase
+    public class Cliente : Persona
     {
         public List<Mascota> Mascotas { get; set; }
         public List<ClienteClinica> ClienteClinicas { get; set; }
