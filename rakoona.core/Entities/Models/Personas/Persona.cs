@@ -37,6 +37,7 @@ namespace rakoona.core.Entities.Models.Personas
             builder.Property(c => c.Nombres).HasColumnName("Nombres");
             builder.Property(c => c.Apellidos).HasColumnName("Apellidos");
             builder.Property(c => c.FechaDeNacimiento).HasColumnName("FechaDeNacimiento");
+            builder.Property(c => c.UsuarioRef).HasColumnName("UsuarioRef").IsRequired(false);
 
 
             builder.HasOne(a => a.User)
