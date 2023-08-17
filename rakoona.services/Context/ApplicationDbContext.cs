@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using rakoona.core.Context.Configs;
+using rakoona.core.Context.Seeds;
+using rakoona.core.Entities.Models.Pacientes;
 using rakoona.services.Entities.Maps;
 using rakoona.services.Entities.Maps.Consultas;
 using rakoona.services.Entities.Maps.Consultas.Mediciones;
 using rakoona.services.Entities.Maps.Pacientes;
 using rakoona.services.Entities.Maps.Personas;
-using rakoona.services.Entities.Maps.Seguridad;
 using rakoona.services.Entities.Maps.TiposDeContacto;
 using rakoona.services.Entities.Models;
 using rakoona.services.Entities.Models.Consultas;
@@ -28,22 +29,8 @@ namespace rakoona.services.Context
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<IdentityRole>(entity =>
-            {
-            });
-            builder.Entity<IdentityUserLogin<string>>(entity =>
-            {
-            });
-            builder.Entity<IdentityUserRole<string>>(entity =>
-            {
+            IdentityModelCreating.Config(builder);
 
-            });
-            builder.Entity<IdentityUserToken<string>>(entity =>
-            {
-
-            });
-
-            builder.ApplyConfiguration(new UserMap());
             builder.ApplyConfiguration(new ClinicaMap());
             builder.ApplyConfiguration(new ClinicaMedicoMap());
             builder.ApplyConfiguration(new ClienteClinicaMap());
@@ -55,7 +42,7 @@ namespace rakoona.services.Context
             builder.ApplyConfiguration(new VacunacionMap());
             builder.ApplyConfiguration(new ContactoMap());
             builder.ApplyConfiguration(new DomicilioMap());
-            builder.ApplyConfiguration(new ColorPorMascotaMap());
+            builder.ApplyConfiguration(new ColorMap());
             builder.ApplyConfiguration(new ImagenPorMascotaMap());
             builder.ApplyConfiguration(new MedicionDeFrecuenciaRespiratoriaMap());
             builder.ApplyConfiguration(new MedicionDePesoMap());
@@ -66,6 +53,20 @@ namespace rakoona.services.Context
             builder.ApplyConfiguration(new UsuarioOrganizacionMap());
             builder.ApplyConfiguration(new OrganizacionMap());
             builder.ApplyConfiguration(new CartillaMap());
+            builder.ApplyConfiguration(new ClaseDeAnimalesMap());
+            builder.ApplyConfiguration(new EspecieMap());
+            builder.ApplyConfiguration(new FamiliaMap());
+            builder.ApplyConfiguration(new GeneroAnimalMap());
+            builder.ApplyConfiguration(new OrdenAnimalMap());
+            builder.ApplyConfiguration(new RazaAnimalMap());
+            builder.ApplyConfiguration(new DescripcionFisicaDeMascotaMap());
+
+            OrdenAnimalDBInitializer.Seed(builder);
+            ClaseAnimalDBInitializer.Seed(builder);
+            FamiliaDBInitializer.Seed(builder);
+            GeneroDBInitializer.Seed(builder);
+            EspecieDBInitializer.Seed(builder);
+            RazaAnimalDBInitializer.Seed(builder);
         }
 
         internal DbSet<User>? Usuarios { get; set; }
@@ -79,10 +80,10 @@ namespace rakoona.services.Context
         internal DbSet<Receta>? Recetas { get; set; }
         internal DbSet<ClinicaMedico>? ClinicasMedicos { get; set; }
         internal DbSet<ClienteClinica>? ClientesClinicas { get; set; }
-        internal DbSet<Vacunacion>? Vacunas { get; set; }
+        internal DbSet<PlanDeVacunacion>? Vacunas { get; set; }
         internal DbSet<Contacto>? InformacionDeContacto { get; set; }
         internal DbSet<Domicilio>? Domicilios { get; set; }
-        internal DbSet<ColorPorMascota>? ColoresPorMascotas { get; set; }
+        internal DbSet<Color>? ColoresPorMascotas { get; set; }
         internal DbSet<ImagenPorMascota>? ImagenesPorMascotas { get; set; }
         internal DbSet<MedicionDeFrecuenciaRespiratoria>? MedicionDeFrecuenciaRespiratoria { get; set; }
         internal DbSet<MedicionDePeso>? MedicionDePeso { get; set; }
@@ -93,5 +94,12 @@ namespace rakoona.services.Context
         internal DbSet<Organizacion>? Organizacion { get; set; }
         internal DbSet<UsuarioOrganizacion>? UsuarioOrganizacion { get; set; }
         internal DbSet<Cartilla>? Cartilla { get; set; }
+        internal DbSet<ClaseDeAnimales>? ClaseAnimal { get; set; }
+        internal DbSet<Especie>? Especie { get; set; }
+        internal DbSet<Familia>? Familia { get; set; }
+        internal DbSet<GeneroAnimal>? GeneroAnimal { get; set; }
+        internal DbSet<OrdenAnimal>? OrdenAnimal { get; set; }
+        internal DbSet<RazaAnimal>? RazaAnimal { get; set; }
+        internal DbSet<DescripcionFisicaDeMascota>? DescripcionFisicaDeMascota { get; set; }
     }
 }

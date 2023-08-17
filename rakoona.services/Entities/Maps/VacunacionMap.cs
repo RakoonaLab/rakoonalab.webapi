@@ -4,9 +4,9 @@ using rakoona.services.Entities.Models;
 
 namespace rakoona.services.Entities.Maps
 {
-    public class VacunacionMap : IEntityTypeConfiguration<Vacunacion>
+    public class VacunacionMap : IEntityTypeConfiguration<PlanDeVacunacion>
     {
-        public void Configure(EntityTypeBuilder<Vacunacion> builder)
+        public void Configure(EntityTypeBuilder<PlanDeVacunacion> builder)
         {
             builder.ToTable(name: "Vacunaciones");
 
@@ -27,7 +27,7 @@ namespace rakoona.services.Entities.Maps
             #endregion
 
             builder.HasOne(a => a.Cartilla)
-                    .WithMany(b => b.Vacunas)
+                    .WithMany(b => b.PlanesDeVacunacion)
                     .HasForeignKey(b => b.CartillaRef)
                     .OnDelete(DeleteBehavior.Restrict);
 

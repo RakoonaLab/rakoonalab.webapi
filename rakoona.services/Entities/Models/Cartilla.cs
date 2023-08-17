@@ -1,6 +1,5 @@
 ﻿using rakoona.services.Entities.Models.Consultas;
 using rakoona.services.Entities.Models.Pacientes;
-using rakoona.services.Entities.Models.Personas;
 
 namespace rakoona.services.Entities.Models
 {
@@ -10,7 +9,7 @@ namespace rakoona.services.Entities.Models
         public virtual Mascota? Mascota { get; set; }
 
         public virtual List<Consulta>? Consultas { get; set; }
-        public virtual List<Vacunacion>? Vacunas { get; set; }
+        public virtual List<PlanDeVacunacion>? PlanesDeVacunacion { get; set; }
 
     }
 }

@@ -41,7 +41,6 @@ namespace rakoona.services.Services.Implementacion
 
             var mascota = await _context.Mascotas.Where(x => x.ExternalId == mascotaId)
                 .Include(x => x.Duenio)
-                .Include(x => x.Colores)
                 .Include(x => x.Cartilla)
                     .ThenInclude(x => x.Consultas)
                 .FirstOrDefaultAsync();
@@ -123,14 +122,14 @@ namespace rakoona.services.Services.Implementacion
 
             if (!string.IsNullOrEmpty(parameters.Especie))
             {
-                var nombres = parameters.Especie;
-                query = query.Where(x => !string.IsNullOrEmpty(x.Especie) && x.Especie.Contains(nombres));
+                //var nombres = parameters.Especie;
+                //query = query.Where(x => !string.IsNullOrEmpty(x.Especie) && x.Especie.Contains(nombres));
             }
 
             if (!string.IsNullOrEmpty(parameters.Raza))
             {
-                var nombres = parameters.Raza;
-                query = query.Where(x => !string.IsNullOrEmpty(x.Raza) && x.Raza.Contains(nombres));
+                //var nombres = parameters.Raza;
+                //query = query.Where(x => !string.IsNullOrEmpty(x.Raza) && x.Raza.Contains(nombres));
             }
 
             var mascotas = query.ToList();

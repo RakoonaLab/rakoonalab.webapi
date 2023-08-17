@@ -25,7 +25,7 @@ namespace rakoona.services.Services.Implementacion
             if (_context.Medicos == null)
                 throw new Exception("Validar _context.Medicos, es null");
 
-            var mascota = await _context.Mascotas.Include(x=> x.Cartilla).SingleAsync(x => x.ExternalId == mascotaId);
+            var mascota = await _context.Mascotas.Include(x => x.Cartilla).SingleAsync(x => x.ExternalId == mascotaId);
 
             var medico = await _context.Medicos.SingleAsync(x => x.ExternalId == request.MedicoId);
 
@@ -135,9 +135,9 @@ namespace rakoona.services.Services.Implementacion
             var clienteClinica = await _context.ClientesClinicas
                 .Where(x => x.ClinicaId == clinica.Id)
                 .Include(c => c.Cliente)
-                    .ThenInclude(c=> c.Mascotas)
-                        .ThenInclude(c=> c.Cartilla)
-                            .ThenInclude(c=> c.Consultas)
+                    .ThenInclude(c => c.Mascotas)
+                        .ThenInclude(c => c.Cartilla)
+                            .ThenInclude(c => c.Consultas)
                 .Include(c => c.Cliente.Mascotas).ThenInclude(m => m.Duenio)
                 .ToListAsync();
 

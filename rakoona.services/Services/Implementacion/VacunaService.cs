@@ -70,15 +70,15 @@ namespace rakoona.services.Services.Implementacion
                 .FirstOrDefaultAsync();
 
             var mascotas = await _context.Mascotas
-                .Where(x=> x.DuenioRef ==cliente.Id)
+                .Where(x => x.DuenioRef == cliente.Id)
                 .Include(m => m.Duenio)
-                .Include(x=> x.Cartilla)
-                    .ThenInclude(x=> x.Vacunas)
+                .Include(x => x.Cartilla)
+                    .ThenInclude(x => x.PlanesDeVacunacion)
                         .ThenInclude(m => m.Medico)
                             .ThenInclude(x => x.PersonaInfo)
                 .ToListAsync();
 
-            var vacunas = mascotas.SelectMany(x => x.Cartilla.Vacunas);
+            var vacunas = mascotas.SelectMany(x => x.Cartilla.PlanesDeVacunacion);
 
             return vacunas.Select(x => x.MapToResponse()).ToList();
         }
@@ -98,11 +98,11 @@ namespace rakoona.services.Services.Implementacion
                 .Include(c => c.Cliente)
                     .ThenInclude(c => c.Mascotas)
                         .ThenInclude(c => c.Cartilla)
-                            .ThenInclude(c => c.Vacunas)
+                            .ThenInclude(c => c.PlanesDeVacunacion)
                 .Include(c => c.Cliente.Mascotas).ThenInclude(m => m.Duenio)
                 .ToListAsync();
 
-            var consultas = clienteClinica.SelectMany(x => x.Cliente.Mascotas.SelectMany(m => m.Cartilla.Vacunas)).ToList();
+            var consultas = clienteClinica.SelectMany(x => x.Cliente.Mascotas.SelectMany(m => m.Cartilla.PlanesDeVacunacion)).ToList();
 
             return consultas.Select(x => x.MapToResponse()).ToList();
         }

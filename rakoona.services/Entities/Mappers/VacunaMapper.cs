@@ -7,7 +7,7 @@ namespace rakoona.services.Entities.Mappers
 {
     internal static class VacunaMapper
     {
-        internal static Vacunacion CreateFromRequest(this CreateVacunaRequest request, int cartillaId, int medicoId)
+        internal static PlanDeVacunacion CreateFromRequest(this CreateVacunaRequest request, int cartillaId, int medicoId)
         {
             if (request == null)
                 throw new Exception("");
@@ -15,7 +15,7 @@ namespace rakoona.services.Entities.Mappers
             var creacion = DateTime.Now;
             var aplicacion = DateTime.Parse(request.Fecha);
 
-            Vacunacion vacuna = new()
+            PlanDeVacunacion vacuna = new()
             {
                 ExternalId = Guid.NewGuid().ToString(),
                 FechaDeCreacion = creacion,
@@ -33,7 +33,7 @@ namespace rakoona.services.Entities.Mappers
             return vacuna;
         }
 
-        internal static VacunaResponse MapToResponse(this Vacunacion entity)
+        internal static VacunaResponse MapToResponse(this PlanDeVacunacion entity)
         {
             var today = DateTime.Today;
             StringBuilder sb = new StringBuilder();

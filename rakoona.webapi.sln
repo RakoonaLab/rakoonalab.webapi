@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rakoona.webapi", "rakoona.webapiapplication\rakoona.webapi.csproj", "{A4F5B650-52AA-4175-B250-797104B32C89}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rakoona.services", "rakoona.services\rakoona.services.csproj", "{4602FE6D-B55A-47B7-A0AD-13438F942B1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rakoona.core", "rakoona.services\rakoona.core.csproj", "{4602FE6D-B55A-47B7-A0AD-13438F942B1F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rakoona.models.dtos", "rakoona.models.dtos\rakoona.models.dtos.csproj", "{82C48733-952A-40D1-8CB0-FC89A4C57C2E}"
 EndProject

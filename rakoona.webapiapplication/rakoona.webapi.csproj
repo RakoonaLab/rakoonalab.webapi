@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\rakoona.services\rakoona.services.csproj" />
+    <ProjectReference Include="..\rakoona.services\rakoona.core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,8 @@
-﻿using rakoona.services.Entities.Models.Pacientes;
-using rakoona.services.Entities.Models.Personas;
+﻿using rakoona.services.Entities.Models.Personas;
 
 namespace rakoona.services.Entities.Models
 {
-    public class Vacunacion : AplicacionBase
+    public class PlanDeVacunacion : AplicacionBase
     {
         public string Nombre { get; set; }
         public string? Lote { get; set; }

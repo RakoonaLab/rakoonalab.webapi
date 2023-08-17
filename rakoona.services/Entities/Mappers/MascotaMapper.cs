@@ -17,8 +17,6 @@ namespace rakoona.services.Entities.Mappers
             {
                 Nombre = request.Nombre,
                 Genero = request.Genero,
-                Especie = request.Especie,
-                Raza = request.Raza,
                 ExternalId = Guid.NewGuid().ToString(),
                 DiaNacimiento = string.IsNullOrEmpty(request.DiaNacimiento) ? 0 : Int32.Parse(request.DiaNacimiento),
                 MesNacimiento = string.IsNullOrEmpty(request.MesNacimiento) ? 0 : Int32.Parse(request.MesNacimiento),
@@ -28,10 +26,9 @@ namespace rakoona.services.Entities.Mappers
             if (!request.Colores.IsNullOrEmpty() && request.Colores != null)
             {
                 string[] colores = request.Colores.Split(",");
-                mascota.Colores = new List<ColorPorMascota>();
                 foreach (var color in colores)
                 {
-                    mascota.Colores.Add(new ColorPorMascota { ExternalId = Guid.NewGuid().ToString(), Nombre = color, FechaDeCreacion = now });
+                    //mascota.Colores.Add(new Color { ExternalId = Guid.NewGuid().ToString(), Nombre = color, FechaDeCreacion = now });
                 }
             }
 
@@ -47,8 +44,6 @@ namespace rakoona.services.Entities.Mappers
                 Id = mascota.ExternalId,
                 Nombre = mascota.Nombre,
                 Genero = mascota.Genero,
-                Especie = mascota.Especie,
-                Raza = mascota.Raza,
                 Edad = GetEdad(mascota.AnioNacimiento),
                 FechaDeNacimiento = GetFecha(mascota.DiaNacimiento, mascota.MesNacimiento, mascota.AnioNacimiento),
                 DuenioNombre = mascota.Duenio?.GetNombreCompleto(),
@@ -68,10 +63,10 @@ namespace rakoona.services.Entities.Mappers
                 response.Peso = $"{peso.Valor}Kg, ({GetFecha(peso.FechaAplicacion.Date.Day, peso.FechaAplicacion.Date.Month, peso.FechaAplicacion.Date.Year)})";
             }
 
-            if (mascota.Colores != null)
-            {
-                response.Colores = String.Join(", ", mascota.Colores.Select(x => x.Nombre).ToList().ToArray());
-            }
+            //if (mascota.Colores != null)
+            //{
+            //    response.Colores = String.Join(", ", mascota.Colores.Select(x => x.Nombre).ToList().ToArray());
+            //}
 
             return response;
         }
