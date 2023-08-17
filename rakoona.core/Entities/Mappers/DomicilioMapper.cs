@@ -1,5 +1,5 @@
-﻿using rakoona.models.dtos.Request.Domicilio;
-using rakoona.models.dtos.Response;
+﻿using rakoona.dtos.Request.Domicilio;
+using rakoona.dtos.Response;
 using rakoona.core.Entities.Models;
 
 namespace rakoona.core.Entities.Mappers

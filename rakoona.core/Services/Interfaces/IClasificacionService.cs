@@ -1,4 +1,4 @@
-﻿using rakoona.models.dtos.Response;
+﻿using rakoona.dtos.Response;
 
 namespace rakoona.core.Services.Interfaces
 {

@@ -1,4 +1,4 @@
-﻿using rakoona.models.dtos.Response;
+﻿using rakoona.dtos.Response;
 using rakoona.core.Entities.Models.Pacientes;
 
 namespace rakoona.core.Entities.Mappers

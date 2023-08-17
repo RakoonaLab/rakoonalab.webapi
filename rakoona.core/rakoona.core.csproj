@@ -18,11 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\rakoona.models.dtos\rakoona.models.dtos.csproj" />
+    <Folder Include="SQL\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SQL\" />
+    <ProjectReference Include="..\rakoona.dtos\rakoona.dtos.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rakoona.webapi", "rakoona.webapiapplication\rakoona.webapi.csproj", "{A4F5B650-52AA-4175-B250-797104B32C89}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rakoona.models.dtos", "rakoona.models.dtos\rakoona.models.dtos.csproj", "{82C48733-952A-40D1-8CB0-FC89A4C57C2E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{EA806965-0A93-42EC-B904-B6CD3E0A77E0}"
 	ProjectSection(SolutionItems) = preProject
 		bitbucket-pipelines.yml = bitbucket-pipelines.yml
@@ -15,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rakoona.core", "rakoona.core\rakoona.core.csproj", "{B5E62845-1DAE-4CCB-9E80-B649A53709EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rakoona.dtos", "rakoona.dtos\rakoona.dtos.csproj", "{A255B908-917A-424E-BA1E-D84380F27AE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,14 +26,14 @@ Global
 		{A4F5B650-52AA-4175-B250-797104B32C89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4F5B650-52AA-4175-B250-797104B32C89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4F5B650-52AA-4175-B250-797104B32C89}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82C48733-952A-40D1-8CB0-FC89A4C57C2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82C48733-952A-40D1-8CB0-FC89A4C57C2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82C48733-952A-40D1-8CB0-FC89A4C57C2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82C48733-952A-40D1-8CB0-FC89A4C57C2E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B5E62845-1DAE-4CCB-9E80-B649A53709EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B5E62845-1DAE-4CCB-9E80-B649A53709EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5E62845-1DAE-4CCB-9E80-B649A53709EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5E62845-1DAE-4CCB-9E80-B649A53709EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A255B908-917A-424E-BA1E-D84380F27AE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A255B908-917A-424E-BA1E-D84380F27AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A255B908-917A-424E-BA1E-D84380F27AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A255B908-917A-424E-BA1E-D84380F27AE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

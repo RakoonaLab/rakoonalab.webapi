@@ -1,5 +1,5 @@
-﻿using rakoona.models.dtos.Request.InformacionDeContacto;
-using rakoona.models.dtos.Response;
+﻿using rakoona.dtos.Request.InformacionDeContacto;
+using rakoona.dtos.Response;
 using rakoona.core.Entities.Models.TiposDeContacto;
 
 namespace rakoona.core.Entities.Mappers

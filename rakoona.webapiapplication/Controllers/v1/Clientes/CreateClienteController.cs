@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using rakoona.models.dtos.Request.Clientes;
-using rakoona.models.dtos.Response;
+using rakoona.dtos.Request.Clientes;
+using rakoona.dtos.Response;
 using rakoona.core.Services.Interfaces;
 using rakoona.webapi.Services;
 using Swashbuckle.AspNetCore.Annotations;

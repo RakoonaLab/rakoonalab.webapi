@@ -1,6 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using rakoona.models.dtos.Request;
-using rakoona.models.dtos.Response;
+using rakoona.dtos.Request;
+using rakoona.dtos.Response;
 using rakoona.core.Entities.Models.Pacientes;
 using System.Globalization;
 using System.Text;

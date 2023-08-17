@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using rakoona.models.dtos.Request.InformacionDeContacto;
-using rakoona.models.dtos.Response;
+using rakoona.dtos.Request.InformacionDeContacto;
+using rakoona.dtos.Response;
 using rakoona.core.Context;
 using rakoona.core.Entities.Mappers;
 using rakoona.core.Services.Interfaces;

@@ -1,5 +1,5 @@
-﻿using rakoona.models.dtos.Request.Domicilio;
-using rakoona.models.dtos.Response;
+﻿using rakoona.dtos.Request.Domicilio;
+using rakoona.dtos.Response;
 
 namespace rakoona.core.Services.Interfaces
 {

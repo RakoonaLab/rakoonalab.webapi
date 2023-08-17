@@ -1,5 +1,5 @@
-﻿using rakoona.models.dtos.Request;
-using rakoona.models.dtos.Response;
+﻿using rakoona.dtos.Request;
+using rakoona.dtos.Response;
 using rakoona.core.Services.Interfaces;
 
 namespace rakoona.core.Services.Implementacion

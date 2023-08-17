@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol;
-using rakoona.models.dtos.Request;
-using rakoona.models.dtos.Response;
+using rakoona.dtos.Request;
+using rakoona.dtos.Response;
 using rakoona.core.Entities.Models;
 using rakoona.core.Entities.Models.Seguridad;
 using Swashbuckle.AspNetCore.Annotations;

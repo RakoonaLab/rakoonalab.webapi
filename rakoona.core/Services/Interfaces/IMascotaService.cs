@@ -1,6 +1,6 @@
-﻿using rakoona.models.dtos.Parameters;
-using rakoona.models.dtos.Request;
-using rakoona.models.dtos.Response;
+﻿using rakoona.dtos.Parameters;
+using rakoona.dtos.Request;
+using rakoona.dtos.Response;
 
 namespace rakoona.core.Services.Interfaces
 {

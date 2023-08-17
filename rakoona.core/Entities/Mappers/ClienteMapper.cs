@@ -1,5 +1,5 @@
-﻿using rakoona.models.dtos.Request.Clientes;
-using rakoona.models.dtos.Response;
+﻿using rakoona.dtos.Request.Clientes;
+using rakoona.dtos.Response;
 using rakoona.core.Entities.Models;
 using rakoona.core.Entities.Models.Personas;
 using rakoona.core.Entities.Models.TiposDeContacto;

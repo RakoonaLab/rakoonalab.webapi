@@ -1,5 +1,5 @@
-﻿using rakoona.models.dtos.Request.Consultas;
-using rakoona.models.dtos.Response;
+﻿using rakoona.dtos.Request.Consultas;
+using rakoona.dtos.Response;
 
 namespace rakoona.core.Services.Interfaces
 {
