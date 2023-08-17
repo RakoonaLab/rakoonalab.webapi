@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using rakoona.core.Entities.Models.Pacientes;
 using rakoona.core.Entities.Models.Consultas;
 using rakoona.core.Entities.Models.Consultas.Mediciones;
 using rakoona.core.Entities.Models.Personas;

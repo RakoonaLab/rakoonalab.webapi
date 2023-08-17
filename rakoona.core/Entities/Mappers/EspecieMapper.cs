@@ -1,11 +1,11 @@
-﻿using rakoona.dtos.Response;
-using rakoona.core.Entities.Models.Pacientes;
+﻿using rakoona.core.Entities.Models.Pacientes;
+using rakoona.dtos.Response;
 
 namespace rakoona.core.Entities.Mappers
 {
     internal static class EspecieMapper
     {
-        
+
         internal static EspecieResponse MapToResponse(this Especie entity)
         {
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using rakoona.core.Entities.Models.Pacientes;
 using rakoona.dtos.Request;
 using rakoona.dtos.Response;
-using rakoona.core.Entities.Models.Pacientes;
 using System.Globalization;
 using System.Text;
 

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using rakoona.core.Entities.Models.Seguridad;
 using rakoona.dtos.Request;
 using rakoona.dtos.Response;
-using rakoona.core.Entities.Models.Seguridad;
 using rakoona.webapi.Services;
 using Swashbuckle.AspNetCore.Annotations;
 using System.IdentityModel.Tokens.Jwt;

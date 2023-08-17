@@ -1,8 +1,8 @@
-﻿using rakoona.dtos.Request.Clientes;
-using rakoona.dtos.Response;
-using rakoona.core.Entities.Models;
+﻿using rakoona.core.Entities.Models;
 using rakoona.core.Entities.Models.Personas;
 using rakoona.core.Entities.Models.TiposDeContacto;
+using rakoona.dtos.Request.Clientes;
+using rakoona.dtos.Response;
 
 namespace rakoona.core.Entities.Mappers
 {

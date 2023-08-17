@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using rakoona.dtos.Request.Consultas;
-using rakoona.dtos.Response;
 using rakoona.core.Context;
 using rakoona.core.Entities.Mappers;
 using rakoona.core.Services.Interfaces;
+using rakoona.dtos.Request.Consultas;
+using rakoona.dtos.Response;
 
 namespace rakoona.core.Services.Implementacion
 {

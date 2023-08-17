@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using rakoona.core.Services.Interfaces;
-using rakoona.dtos.Response;
 using rakoona.core.Context;
 using rakoona.core.Entities.Mappers;
+using rakoona.core.Services.Interfaces;
+using rakoona.dtos.Response;
 
 namespace rakoona.core.Services.Implementacion
 {
-    public class ClasificacionService :IClasificacionService
+    public class ClasificacionService : IClasificacionService
     {
         private readonly ApplicationDbContext _context;
 
@@ -19,7 +19,7 @@ namespace rakoona.core.Services.Implementacion
         {
             if (_context.Familia == null)
                 throw new Exception("Validar _context.Familia, es null");
-            
+
 
             var familias = await _context.Familia.ToListAsync();
 
@@ -44,9 +44,9 @@ namespace rakoona.core.Services.Implementacion
                 throw new Exception("Validar _context.GeneroAnimal, es null");
 
 
-            var familia = await _context.Familia.FirstAsync(x=> x.ExternalId == familiaId);
+            var familia = await _context.Familia.FirstAsync(x => x.ExternalId == familiaId);
 
-            var generos = await _context.GeneroAnimal.Where(x=> x.FamiliaRef == familia.Id).ToListAsync();
+            var generos = await _context.GeneroAnimal.Where(x => x.FamiliaRef == familia.Id).ToListAsync();
 
             return generos.Select(x => x.MapToResponse()).ToList();
         }

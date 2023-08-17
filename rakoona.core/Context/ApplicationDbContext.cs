@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using rakoona.core.Context.Configs;
 using rakoona.core.Context.Seeds;
-using rakoona.core.Entities.Models.Pacientes;
 using rakoona.core.Entities.Maps;
 using rakoona.core.Entities.Maps.Consultas;
 using rakoona.core.Entities.Maps.Consultas.Mediciones;

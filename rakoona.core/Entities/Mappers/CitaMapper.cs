@@ -1,6 +1,6 @@
-﻿using rakoona.dtos.Request;
+﻿using rakoona.core.Entities.Models.Consultas;
+using rakoona.dtos.Request;
 using rakoona.dtos.Response;
-using rakoona.core.Entities.Models.Consultas;
 using System.Text;
 
 namespace rakoona.core.Entities.Mappers

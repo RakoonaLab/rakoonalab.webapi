@@ -1,7 +1,5 @@
 ﻿using rakoona.core.Services.Implementacion;
 using rakoona.core.Services.Interfaces;
-using rakoona.core.Services.Implementacion;
-using rakoona.core.Services.Interfaces;
 using rakoona.webapi.Services;
 
 namespace rakoona.webapi.Configuration
