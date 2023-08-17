@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using rakoona.core.Entities.Maps.Seguridad;
+using rakoona.core.Entities.Models.Seguridad;
 
 namespace rakoona.core.Context.Configs
 {
