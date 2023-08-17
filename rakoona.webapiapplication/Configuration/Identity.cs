@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using rakoona.services.Context;
-using rakoona.services.Entities.Models.Seguridad;
+using rakoona.core.Context;
+using rakoona.core.Entities.Models.Seguridad;
 
 namespace rakoona.webapi.Configuration
 {

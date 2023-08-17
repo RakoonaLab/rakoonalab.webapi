@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using rakoona.services.Entities.Models.Seguridad;
+using rakoona.core.Entities.Models.Seguridad;
 
 namespace rakoona.webapi.Configuration.Helpers
 {

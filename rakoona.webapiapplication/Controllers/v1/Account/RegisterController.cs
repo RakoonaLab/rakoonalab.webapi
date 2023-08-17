@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol;
 using rakoona.models.dtos.Request;
 using rakoona.models.dtos.Response;
-using rakoona.services.Entities.Models;
-using rakoona.services.Entities.Models.Seguridad;
+using rakoona.core.Entities.Models;
+using rakoona.core.Entities.Models.Seguridad;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Account

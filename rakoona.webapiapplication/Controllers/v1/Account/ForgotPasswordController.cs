@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
-using rakoona.services.Entities.Models.Seguridad;
+using rakoona.core.Entities.Models.Seguridad;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Text;
 using System.Text.Encodings.Web;

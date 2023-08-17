@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using rakoona.models.dtos.Request.Consultas;
 using rakoona.models.dtos.Response;
-using rakoona.services.Services.Interfaces;
+using rakoona.core.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace rakoona.webapi.Controllers.v1.Consultas
