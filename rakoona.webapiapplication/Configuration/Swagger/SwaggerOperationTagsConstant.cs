@@ -10,5 +10,6 @@
         internal const string Vacunas = "Vacunas";
         internal const string Peso = "Peso";
         internal const string Cartilla = "Cartilla";
+        internal const string Clasificacion = "Clasificaciones";
     }
 }

@@ -1,4 +1,6 @@
-﻿using rakoona.services.Services.Implementacion;
+﻿using rakoona.core.Services.Implementacion;
+using rakoona.core.Services.Interfaces;
+using rakoona.services.Services.Implementacion;
 using rakoona.services.Services.Interfaces;
 using rakoona.webapi.Services;
 
@@ -18,6 +20,7 @@ namespace rakoona.webapi.Configuration
             builder.Services.AddTransient<IMedicoService, MedicoService>();
             builder.Services.AddTransient<IVacunaService, VacunaService>();
             builder.Services.AddTransient<ICitaService, CitaService>();
+            builder.Services.AddTransient<IClasificacionService, ClasificacionService>();
 
 
             builder.Services.AddTransient<IUserInfoService, UserInfoService>();
