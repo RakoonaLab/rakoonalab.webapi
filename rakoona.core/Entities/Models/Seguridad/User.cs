@@ -5,7 +5,7 @@ namespace rakoona.core.Entities.Models.Seguridad
 {
     public class User : IdentityUser
     {
-        public virtual UsuarioOrganizacion UsuarioOrganizacion { get; set; }
         public virtual PersonaBase Persona { get; set; }
+        public virtual Organizacion Organizacion { get; set; }
     }
 }

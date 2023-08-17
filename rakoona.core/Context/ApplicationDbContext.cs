@@ -49,7 +49,6 @@ namespace rakoona.core.Context
             builder.ApplyConfiguration(new MedicionDeRitmoCardiacoMap());
             builder.ApplyConfiguration(new MedicionDeTemperaturaMap());
             builder.ApplyConfiguration(new CitaMap());
-            builder.ApplyConfiguration(new UsuarioOrganizacionMap());
             builder.ApplyConfiguration(new OrganizacionMap());
             builder.ApplyConfiguration(new CartillaMap());
             builder.ApplyConfiguration(new ClaseDeAnimalesMap());
@@ -91,7 +90,6 @@ namespace rakoona.core.Context
         internal DbSet<MedicionDeTemperatura>? MedicionesDeTemperatura { get; set; }
         internal DbSet<Cita>? Citas { get; set; }
         internal DbSet<Organizacion>? Organizacion { get; set; }
-        internal DbSet<UsuarioOrganizacion>? UsuarioOrganizacion { get; set; }
         internal DbSet<Cartilla>? Cartilla { get; set; }
         internal DbSet<ClaseDeAnimales>? ClaseAnimal { get; set; }
         internal DbSet<Especie>? Especie { get; set; }
