@@ -14,13 +14,6 @@ namespace rakoona.core.Services.Implementacion
             _context = context;
         }
 
-        public async Task<PlanResponse> GetFreePlan()
-        {
-            var plan = await _context.Planes
-                .Include(x => x.Precios)
-                .Where(x => x.Nombre == "Free").SingleAsync();
-
-            return plan.MapToResponse();
-        }
+        
     }
 }
