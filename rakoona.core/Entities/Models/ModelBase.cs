@@ -16,7 +16,7 @@ namespace rakoona.core.Entities.Models
         {
             get
             {
-                if (_id == "" || _id == string.Empty)
+                if (String.IsNullOrEmpty(_id))
                 {
                     _id = Guid.NewGuid().ToString();
                 }
