@@ -9,6 +9,7 @@ namespace rakoona.core.Entities.Models.Seguridad
     {
         public virtual Persona Persona { get; set; }
         public virtual Organizacion Organizacion { get; set; }
+        public virtual IEnumerable<Subscripcion> Subscripciones { get; set; }
     }
 
     public class UserMap : IEntityTypeConfiguration<User>

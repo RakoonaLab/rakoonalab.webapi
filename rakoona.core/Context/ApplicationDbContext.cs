@@ -5,7 +5,6 @@ using rakoona.core.Context.Seeds;
 using rakoona.core.Entities.Maps;
 using rakoona.core.Entities.Maps.Consultas;
 using rakoona.core.Entities.Maps.Consultas.Mediciones;
-using rakoona.core.Entities.Maps.Pacientes;
 using rakoona.core.Entities.Maps.TiposDeContacto;
 using rakoona.core.Entities.Models;
 using rakoona.core.Entities.Models.Consultas;
@@ -57,6 +56,9 @@ namespace rakoona.core.Context
             builder.ApplyConfiguration(new OrdenAnimalMap());
             builder.ApplyConfiguration(new RazaAnimalMap());
             builder.ApplyConfiguration(new DescripcionFisicaDeMascotaMap());
+            builder.ApplyConfiguration(new PlanMap());
+            builder.ApplyConfiguration(new PrecioMap());
+            builder.ApplyConfiguration(new SubscripcionMap());
 
             OrdenAnimalDBInitializer.Seed(builder);
             ClaseAnimalDBInitializer.Seed(builder);
@@ -64,6 +66,9 @@ namespace rakoona.core.Context
             GeneroDBInitializer.Seed(builder);
             EspecieDBInitializer.Seed(builder);
             RazaAnimalDBInitializer.Seed(builder);
+
+            PlanesDBInitializer.Seed(builder);
+            PreciosDBInitializer.Seed(builder);
         }
 
         internal DbSet<User>? Usuarios { get; set; }
@@ -97,5 +102,9 @@ namespace rakoona.core.Context
         internal DbSet<OrdenAnimal>? OrdenAnimal { get; set; }
         internal DbSet<RazaAnimal>? RazaAnimal { get; set; }
         internal DbSet<DescripcionFisicaDeMascota>? DescripcionFisicaDeMascota { get; set; }
+
+        internal DbSet<Plan>? Planes { get; set; }
+        internal DbSet<Precio>? Precios { get; set; }
+        internal DbSet<Subscripcion>? Subscripciones { get; set; }
     }
 }
