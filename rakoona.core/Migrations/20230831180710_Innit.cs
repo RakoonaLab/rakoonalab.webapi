@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace rakoona.coreMigrations
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace rakoona.core.Migrations
 {
     /// <inheritdoc />
     public partial class Innit : Migration
@@ -50,17 +53,63 @@ namespace rakoona.coreMigrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Organizaciones",
+                name: "ClasesDeAnimales",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Organizaciones", x => x.Id);
+                    table.PrimaryKey("PK_ClasesDeAnimales", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Familia",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Familia", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrdenAnimal",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrdenAnimal", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Planes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Planes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -185,6 +234,26 @@ namespace rakoona.coreMigrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Organizaciones",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserRef = table.Column<string>(type: "nvarchar(250)", nullable: true),
+                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Organizaciones", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Organizaciones_AspNetUsers_UserRef",
+                        column: x => x.UserRef,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Personas",
                 columns: table => new
                 {
@@ -209,51 +278,48 @@ namespace rakoona.coreMigrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Clinicas",
+                name: "GeneroAnimal",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrganizacionRef = table.Column<int>(type: "int", nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FamiliaRef = table.Column<int>(type: "int", nullable: false),
                     ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clinicas", x => x.Id);
+                    table.PrimaryKey("PK_GeneroAnimal", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Clinicas_Organizaciones_OrganizacionRef",
-                        column: x => x.OrganizacionRef,
-                        principalTable: "Organizaciones",
+                        name: "FK_GeneroAnimal_Familia_FamiliaRef",
+                        column: x => x.FamiliaRef,
+                        principalTable: "Familia",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UsuarioOrganizacion",
+                name: "Precios",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserRef = table.Column<string>(type: "nvarchar(250)", nullable: false),
-                    OrganizacionRef = table.Column<int>(type: "int", nullable: false),
+                    PlanRef = table.Column<int>(type: "int", nullable: false),
+                    Tipo = table.Column<int>(type: "int", nullable: false),
+                    ValidoDesde = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ValidoHasta = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UsuarioOrganizacion", x => x.Id);
+                    table.PrimaryKey("PK_Precios", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UsuarioOrganizacion_AspNetUsers_UserRef",
-                        column: x => x.UserRef,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UsuarioOrganizacion_Organizaciones_OrganizacionRef",
-                        column: x => x.OrganizacionRef,
-                        principalTable: "Organizaciones",
+                        name: "FK_Precios_Planes_PlanRef",
+                        column: x => x.PlanRef,
+                        principalTable: "Planes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -276,6 +342,28 @@ namespace rakoona.coreMigrations
                         name: "FK_Dosis_Recetas_RecetaRef",
                         column: x => x.RecetaRef,
                         principalTable: "Recetas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Clinicas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrganizacionRef = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clinicas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Clinicas_Organizaciones_OrganizacionRef",
+                        column: x => x.OrganizacionRef,
+                        principalTable: "Organizaciones",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -342,8 +430,6 @@ namespace rakoona.coreMigrations
                     MesNacimiento = table.Column<int>(type: "int", nullable: true),
                     AnioNacimiento = table.Column<int>(type: "int", nullable: true),
                     DuenioRef = table.Column<int>(type: "int", nullable: false),
-                    Especie = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Raza = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -380,6 +466,73 @@ namespace rakoona.coreMigrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Especies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NombreCientifico = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NombreCorto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GeneroRef = table.Column<int>(type: "int", nullable: false),
+                    OrdenAnimalRef = table.Column<int>(type: "int", nullable: false),
+                    ClaseAnimalRef = table.Column<int>(type: "int", nullable: false),
+                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Especies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Especies_ClasesDeAnimales_ClaseAnimalRef",
+                        column: x => x.ClaseAnimalRef,
+                        principalTable: "ClasesDeAnimales",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Especies_GeneroAnimal_GeneroRef",
+                        column: x => x.GeneroRef,
+                        principalTable: "GeneroAnimal",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Especies_OrdenAnimal_OrdenAnimalRef",
+                        column: x => x.OrdenAnimalRef,
+                        principalTable: "OrdenAnimal",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Subscripciones",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserRef = table.Column<string>(type: "nvarchar(250)", nullable: false),
+                    PrecioRef = table.Column<int>(type: "int", nullable: false),
+                    Inicio = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Fin = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subscripciones", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subscripciones_AspNetUsers_UserRef",
+                        column: x => x.UserRef,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Subscripciones_Precios_PrecioRef",
+                        column: x => x.PrecioRef,
+                        principalTable: "Precios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ClienteClinica",
                 columns: table => new
                 {
@@ -406,6 +559,27 @@ namespace rakoona.coreMigrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cartillas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MascotaRef = table.Column<int>(type: "int", nullable: false),
+                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cartillas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cartillas_Macotas_MascotaRef",
+                        column: x => x.MascotaRef,
+                        principalTable: "Macotas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Citas",
                 columns: table => new
                 {
@@ -425,28 +599,6 @@ namespace rakoona.coreMigrations
                         column: x => x.MascotaRef,
                         principalTable: "Macotas",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ColoresPorMascota",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MascotaRef = table.Column<int>(type: "int", nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ColoresPorMascota", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ColoresPorMascota_Macotas_MascotaRef",
-                        column: x => x.MascotaRef,
-                        principalTable: "Macotas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -499,6 +651,29 @@ namespace rakoona.coreMigrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Razas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NombreCientifico = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NombreColoquial = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EspecieRef = table.Column<int>(type: "int", nullable: false),
+                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Razas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Razas_Especies_EspecieRef",
+                        column: x => x.EspecieRef,
+                        principalTable: "Especies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Consultas",
                 columns: table => new
                 {
@@ -508,7 +683,7 @@ namespace rakoona.coreMigrations
                     Motivo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Diagnostico = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MedicoRef = table.Column<int>(type: "int", nullable: false),
-                    MascotaRef = table.Column<int>(type: "int", nullable: false),
+                    CartillaRef = table.Column<int>(type: "int", nullable: false),
                     ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaAplicacion = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -517,9 +692,9 @@ namespace rakoona.coreMigrations
                 {
                     table.PrimaryKey("PK_Consultas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Consultas_Macotas_MascotaRef",
-                        column: x => x.MascotaRef,
-                        principalTable: "Macotas",
+                        name: "FK_Consultas_Cartillas_CartillaRef",
+                        column: x => x.CartillaRef,
+                        principalTable: "Cartillas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -540,7 +715,7 @@ namespace rakoona.coreMigrations
                     Laboratorio = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Caducidad = table.Column<DateTime>(type: "datetime2", nullable: true),
                     MedicoRef = table.Column<int>(type: "int", nullable: false),
-                    MascotaRef = table.Column<int>(type: "int", nullable: false),
+                    CartillaRef = table.Column<int>(type: "int", nullable: false),
                     ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaAplicacion = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -549,9 +724,9 @@ namespace rakoona.coreMigrations
                 {
                     table.PrimaryKey("PK_Vacunaciones", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Vacunaciones_Macotas_MascotaRef",
-                        column: x => x.MascotaRef,
-                        principalTable: "Macotas",
+                        name: "FK_Vacunaciones_Cartillas_CartillaRef",
+                        column: x => x.CartillaRef,
+                        principalTable: "Cartillas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -559,6 +734,34 @@ namespace rakoona.coreMigrations
                         column: x => x.MedicoRef,
                         principalTable: "Medicos",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DescripcionesFisicasDeMascotas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RazaRef = table.Column<int>(type: "int", nullable: false),
+                    MascotaRef = table.Column<int>(type: "int", nullable: false),
+                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DescripcionesFisicasDeMascotas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DescripcionesFisicasDeMascotas_Macotas_MascotaRef",
+                        column: x => x.MascotaRef,
+                        principalTable: "Macotas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DescripcionesFisicasDeMascotas_Razas_RazaRef",
+                        column: x => x.RazaRef,
+                        principalTable: "Razas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -707,6 +910,91 @@ namespace rakoona.coreMigrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ColoresPorMascota",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DescripcionRef = table.Column<int>(type: "int", nullable: false),
+                    ExternalId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ColoresPorMascota", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ColoresPorMascota_DescripcionesFisicasDeMascotas_DescripcionRef",
+                        column: x => x.DescripcionRef,
+                        principalTable: "DescripcionesFisicasDeMascotas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "ClasesDeAnimales",
+                columns: new[] { "Id", "ExternalId", "FechaDeCreacion", "Nombre" },
+                values: new object[] { 1, "6cc0b3ea-ce29-41ae-bcd4-52005bb5f009", new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(513), "Mamiforo" });
+
+            migrationBuilder.InsertData(
+                table: "Familia",
+                columns: new[] { "Id", "ExternalId", "FechaDeCreacion", "Nombre" },
+                values: new object[,]
+                {
+                    { 1, "54ecb00c-03e9-4900-aa2c-dafc9a89f0ac", new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(537), "Canidos" },
+                    { 2, "5314f937-e525-4355-a431-5b8d7c39ba77", new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(541), "Félidos" },
+                    { 3, "3f7dc2aa-0bc7-4b57-95b1-4f7c7a0b05e6", new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(544), "Mustélidos" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "OrdenAnimal",
+                columns: new[] { "Id", "ExternalId", "FechaDeCreacion", "Nombre" },
+                values: new object[] { 1, "c8627a08-0cbb-4bf8-9e7d-70004c7ee466", new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(273), "Carnívoro" });
+
+            migrationBuilder.InsertData(
+                table: "Planes",
+                columns: new[] { "Id", "ExternalId", "FechaDeCreacion", "Nombre" },
+                values: new object[,]
+                {
+                    { 1, "3b45fc68-f97e-4392-bd54-e0aea44041f4", new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(822), "Free" },
+                    { 2, "f4739456-f95b-4758-bd38-76146a0f477c", new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(826), "Basico" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "GeneroAnimal",
+                columns: new[] { "Id", "ExternalId", "FamiliaRef", "FechaDeCreacion", "Nombre" },
+                values: new object[,]
+                {
+                    { 1, "373e7269-2d29-4b16-90a7-9cd563f8f946", 1, new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(561), "Canis" },
+                    { 2, "338e688f-c8c7-464c-a593-0c085430269f", 2, new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(578), "Felis" },
+                    { 3, "e0684701-0e90-40fe-b5a2-935ae81abb98", 3, new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(585), "Mustela" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Precios",
+                columns: new[] { "Id", "ExternalId", "FechaDeCreacion", "PlanRef", "Tipo", "ValidoDesde", "ValidoHasta", "Valor" },
+                values: new object[] { 1, "c6f75d1c-3166-4318-9008-b9097dc4b7cd", new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(843), 1, 0, new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(855), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0m });
+
+            migrationBuilder.InsertData(
+                table: "Especies",
+                columns: new[] { "Id", "ClaseAnimalRef", "ExternalId", "FechaDeCreacion", "GeneroRef", "NombreCientifico", "NombreCorto", "OrdenAnimalRef" },
+                values: new object[,]
+                {
+                    { 1, 1, "ce8770dc-f4d2-4101-9bd2-be359d86bc2b", new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(605), 2, null, "Gato", 1 },
+                    { 2, 1, "42d33ca1-d474-407e-9d3a-e39f4fd78651", new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(624), 1, null, "Perro", 1 },
+                    { 3, 1, "8df48dfd-129b-4437-a8c2-d0b43e47946c", new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(638), 3, null, "Hurón", 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Razas",
+                columns: new[] { "Id", "EspecieRef", "ExternalId", "FechaDeCreacion", "NombreCientifico", "NombreColoquial" },
+                values: new object[,]
+                {
+                    { 1, 2, "91b2fb5c-1c2a-4d7e-8b8a-18c86e1f3cf8", new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(750), null, "Affenpinscher" },
+                    { 2, 2, "d549ffb6-88ae-4f51-8854-ebbe7bbcae04", new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(771), null, "Afgano" },
+                    { 3, 2, "0823912f-c6c6-48f2-ab87-46534d3057a3", new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(786), null, "Akita" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -747,6 +1035,12 @@ namespace rakoona.coreMigrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cartillas_MascotaRef",
+                table: "Cartillas",
+                column: "MascotaRef",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Citas_MascotaRef",
                 table: "Citas",
                 column: "MascotaRef");
@@ -777,19 +1071,30 @@ namespace rakoona.coreMigrations
                 column: "OrganizacionRef");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ColoresPorMascota_MascotaRef",
+                name: "IX_ColoresPorMascota_DescripcionRef",
                 table: "ColoresPorMascota",
-                column: "MascotaRef");
+                column: "DescripcionRef");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Consultas_MascotaRef",
+                name: "IX_Consultas_CartillaRef",
                 table: "Consultas",
-                column: "MascotaRef");
+                column: "CartillaRef");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Consultas_MedicoRef",
                 table: "Consultas",
                 column: "MedicoRef");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DescripcionesFisicasDeMascotas_MascotaRef",
+                table: "DescripcionesFisicasDeMascotas",
+                column: "MascotaRef",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DescripcionesFisicasDeMascotas_RazaRef",
+                table: "DescripcionesFisicasDeMascotas",
+                column: "RazaRef");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Domicilios_PersonaRef",
@@ -800,6 +1105,26 @@ namespace rakoona.coreMigrations
                 name: "IX_Dosis_RecetaRef",
                 table: "Dosis",
                 column: "RecetaRef");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Especies_ClaseAnimalRef",
+                table: "Especies",
+                column: "ClaseAnimalRef");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Especies_GeneroRef",
+                table: "Especies",
+                column: "GeneroRef");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Especies_OrdenAnimalRef",
+                table: "Especies",
+                column: "OrdenAnimalRef");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GeneroAnimal_FamiliaRef",
+                table: "GeneroAnimal",
+                column: "FamiliaRef");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ImagenesPorMascota_MascotaRef",
@@ -873,6 +1198,13 @@ namespace rakoona.coreMigrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Organizaciones_UserRef",
+                table: "Organizaciones",
+                column: "UserRef",
+                unique: true,
+                filter: "[UserRef] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Personas_UsuarioRef",
                 table: "Personas",
                 column: "UsuarioRef",
@@ -880,21 +1212,29 @@ namespace rakoona.coreMigrations
                 filter: "[UsuarioRef] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UsuarioOrganizacion_OrganizacionRef",
-                table: "UsuarioOrganizacion",
-                column: "OrganizacionRef",
-                unique: true);
+                name: "IX_Precios_PlanRef",
+                table: "Precios",
+                column: "PlanRef");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UsuarioOrganizacion_UserRef",
-                table: "UsuarioOrganizacion",
-                column: "UserRef",
-                unique: true);
+                name: "IX_Razas_EspecieRef",
+                table: "Razas",
+                column: "EspecieRef");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Vacunaciones_MascotaRef",
+                name: "IX_Subscripciones_PrecioRef",
+                table: "Subscripciones",
+                column: "PrecioRef");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subscripciones_UserRef",
+                table: "Subscripciones",
+                column: "UserRef");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vacunaciones_CartillaRef",
                 table: "Vacunaciones",
-                column: "MascotaRef");
+                column: "CartillaRef");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vacunaciones_MedicoRef",
@@ -960,7 +1300,7 @@ namespace rakoona.coreMigrations
                 name: "MedicionesDeTemperatura");
 
             migrationBuilder.DropTable(
-                name: "UsuarioOrganizacion");
+                name: "Subscripciones");
 
             migrationBuilder.DropTable(
                 name: "Vacunaciones");
@@ -972,22 +1312,52 @@ namespace rakoona.coreMigrations
                 name: "Clinicas");
 
             migrationBuilder.DropTable(
+                name: "DescripcionesFisicasDeMascotas");
+
+            migrationBuilder.DropTable(
                 name: "Recetas");
 
             migrationBuilder.DropTable(
                 name: "Consultas");
 
             migrationBuilder.DropTable(
+                name: "Precios");
+
+            migrationBuilder.DropTable(
                 name: "Organizaciones");
 
             migrationBuilder.DropTable(
-                name: "Macotas");
+                name: "Razas");
+
+            migrationBuilder.DropTable(
+                name: "Cartillas");
 
             migrationBuilder.DropTable(
                 name: "Medicos");
 
             migrationBuilder.DropTable(
+                name: "Planes");
+
+            migrationBuilder.DropTable(
+                name: "Especies");
+
+            migrationBuilder.DropTable(
+                name: "Macotas");
+
+            migrationBuilder.DropTable(
+                name: "ClasesDeAnimales");
+
+            migrationBuilder.DropTable(
+                name: "GeneroAnimal");
+
+            migrationBuilder.DropTable(
+                name: "OrdenAnimal");
+
+            migrationBuilder.DropTable(
                 name: "Personas");
+
+            migrationBuilder.DropTable(
+                name: "Familia");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

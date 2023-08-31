@@ -9,11 +9,11 @@ using rakoona.core.Context;
 
 #nullable disable
 
-namespace rakoona.coreMigrations
+namespace rakoona.core.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230815200208_Cartilla")]
-    partial class Cartilla
+    [Migration("20230831180710_Innit")]
+    partial class Innit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -178,7 +178,8 @@ namespace rakoona.coreMigrations
                         .HasColumnName("FechaDeCreacion");
 
                     b.Property<int>("MascotaRef")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("MascotaRef");
 
                     b.HasKey("Id");
 
@@ -702,12 +703,87 @@ namespace rakoona.coreMigrations
                         .HasColumnType("datetime2")
                         .HasColumnName("FechaDeCreacion");
 
+                    b.Property<string>("UserRef")
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("UserRef");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserRef")
+                        .IsUnique()
+                        .HasFilter("[UserRef] IS NOT NULL");
 
                     b.ToTable("Organizaciones", (string)null);
                 });
 
-            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.ColorPorMascota", b =>
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.ClaseDeAnimales", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Nombre");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ClasesDeAnimales", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ExternalId = "6cc0b3ea-ce29-41ae-bcd4-52005bb5f009",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(513),
+                            Nombre = "Mamiforo"
+                        });
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.Color", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DescripcionRef")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DescripcionRef");
+
+                    b.ToTable("ColoresPorMascota", (string)null);
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.DescripcionFisicaDeMascota", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -727,8 +803,121 @@ namespace rakoona.coreMigrations
                         .HasColumnName("FechaDeCreacion");
 
                     b.Property<int>("MascotaRef")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RazaRef")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MascotaRef")
+                        .IsUnique();
+
+                    b.HasIndex("RazaRef");
+
+                    b.ToTable("DescripcionesFisicasDeMascotas", (string)null);
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.Especie", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("MascotaRef");
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClaseAnimalRef")
+                        .HasColumnType("int")
+                        .HasColumnName("ClaseAnimalRef");
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<int>("GeneroRef")
+                        .HasColumnType("int")
+                        .HasColumnName("GeneroRef");
+
+                    b.Property<string>("NombreCientifico")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("NombreCientifico");
+
+                    b.Property<string>("NombreCorto")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("NombreCorto");
+
+                    b.Property<int>("OrdenAnimalRef")
+                        .HasColumnType("int")
+                        .HasColumnName("OrdenAnimalRef");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClaseAnimalRef");
+
+                    b.HasIndex("GeneroRef");
+
+                    b.HasIndex("OrdenAnimalRef");
+
+                    b.ToTable("Especies", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClaseAnimalRef = 1,
+                            ExternalId = "ce8770dc-f4d2-4101-9bd2-be359d86bc2b",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(605),
+                            GeneroRef = 2,
+                            NombreCorto = "Gato",
+                            OrdenAnimalRef = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClaseAnimalRef = 1,
+                            ExternalId = "42d33ca1-d474-407e-9d3a-e39f4fd78651",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(624),
+                            GeneroRef = 1,
+                            NombreCorto = "Perro",
+                            OrdenAnimalRef = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClaseAnimalRef = 1,
+                            ExternalId = "8df48dfd-129b-4437-a8c2-d0b43e47946c",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(638),
+                            GeneroRef = 3,
+                            NombreCorto = "Hurón",
+                            OrdenAnimalRef = 1
+                        });
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.Familia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -737,9 +926,90 @@ namespace rakoona.coreMigrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MascotaRef");
+                    b.ToTable("Familia", (string)null);
 
-                    b.ToTable("ColoresPorMascota", (string)null);
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ExternalId = "54ecb00c-03e9-4900-aa2c-dafc9a89f0ac",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(537),
+                            Nombre = "Canidos"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ExternalId = "5314f937-e525-4355-a431-5b8d7c39ba77",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(541),
+                            Nombre = "Félidos"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ExternalId = "3f7dc2aa-0bc7-4b57-95b1-4f7c7a0b05e6",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(544),
+                            Nombre = "Mustélidos"
+                        });
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.GeneroAnimal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<int>("FamiliaRef")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Nombre");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FamiliaRef");
+
+                    b.ToTable("GeneroAnimal", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ExternalId = "373e7269-2d29-4b16-90a7-9cd563f8f946",
+                            FamiliaRef = 1,
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(561),
+                            Nombre = "Canis"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ExternalId = "338e688f-c8c7-464c-a593-0c085430269f",
+                            FamiliaRef = 2,
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(578),
+                            Nombre = "Felis"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ExternalId = "e0684701-0e90-40fe-b5a2-935ae81abb98",
+                            FamiliaRef = 3,
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(585),
+                            Nombre = "Mustela"
+                        });
                 });
 
             modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.ImagenPorMascota", b =>
@@ -811,10 +1081,6 @@ namespace rakoona.coreMigrations
                         .HasColumnType("int")
                         .HasColumnName("DuenioRef");
 
-                    b.Property<string>("Especie")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Especie");
-
                     b.Property<string>("ExternalId")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -838,15 +1104,114 @@ namespace rakoona.coreMigrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Nombre");
 
-                    b.Property<string>("Raza")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Raza");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DuenioRef");
 
                     b.ToTable("Macotas", (string)null);
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.OrdenAnimal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Nombre");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrdenAnimal", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ExternalId = "c8627a08-0cbb-4bf8-9e7d-70004c7ee466",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(273),
+                            Nombre = "Carnívoro"
+                        });
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.RazaAnimal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EspecieRef")
+                        .HasColumnType("int")
+                        .HasColumnName("EspecieRef");
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<string>("NombreCientifico")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("NombreCientifico");
+
+                    b.Property<string>("NombreColoquial")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("NombreColoquial");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EspecieRef");
+
+                    b.ToTable("Razas", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EspecieRef = 2,
+                            ExternalId = "91b2fb5c-1c2a-4d7e-8b8a-18c86e1f3cf8",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(750),
+                            NombreColoquial = "Affenpinscher"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            EspecieRef = 2,
+                            ExternalId = "d549ffb6-88ae-4f51-8854-ebbe7bbcae04",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(771),
+                            NombreColoquial = "Afgano"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            EspecieRef = 2,
+                            ExternalId = "0823912f-c6c6-48f2-ab87-46534d3057a3",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(786),
+                            NombreColoquial = "Akita"
+                        });
                 });
 
             modelBuilder.Entity("rakoona.core.Entities.Models.Personas.Medico", b =>
@@ -878,7 +1243,7 @@ namespace rakoona.coreMigrations
                     b.ToTable("Medicos");
                 });
 
-            modelBuilder.Entity("rakoona.core.Entities.Models.Personas.PersonaBase", b =>
+            modelBuilder.Entity("rakoona.core.Entities.Models.Personas.Persona", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -914,7 +1279,8 @@ namespace rakoona.coreMigrations
                         .HasColumnName("Nombres");
 
                     b.Property<string>("UsuarioRef")
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("UsuarioRef");
 
                     b.HasKey("Id");
 
@@ -924,9 +1290,66 @@ namespace rakoona.coreMigrations
 
                     b.ToTable("Personas", (string)null);
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("PersonaBase");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Persona");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.PlanDeVacunacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("Caducidad")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Caducidad");
+
+                    b.Property<int>("CartillaRef")
+                        .HasColumnType("int")
+                        .HasColumnName("CartillaRef");
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaAplicacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaAplicacion");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<string>("Laboratorio")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Laboratorio");
+
+                    b.Property<string>("Lote")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Lote");
+
+                    b.Property<int>("MedicoRef")
+                        .HasColumnType("int")
+                        .HasColumnName("MedicoRef");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Nombre");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartillaRef");
+
+                    b.HasIndex("MedicoRef");
+
+                    b.ToTable("Vacunaciones", (string)null);
                 });
 
             modelBuilder.Entity("rakoona.core.Entities.Models.Receta", b =>
@@ -954,6 +1377,154 @@ namespace rakoona.coreMigrations
                     b.HasKey("Id");
 
                     b.ToTable("Recetas", (string)null);
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Seguridad.Plan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Nombre");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Planes", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ExternalId = "3b45fc68-f97e-4392-bd54-e0aea44041f4",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(822),
+                            Nombre = "Free"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ExternalId = "f4739456-f95b-4758-bd38-76146a0f477c",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(826),
+                            Nombre = "Basico"
+                        });
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Seguridad.Precio", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<int>("PlanRef")
+                        .HasColumnType("int")
+                        .HasColumnName("PlanRef");
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("int")
+                        .HasColumnName("Tipo");
+
+                    b.Property<DateTime>("ValidoDesde")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ValidoDesde");
+
+                    b.Property<DateTime>("ValidoHasta")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ValidoHasta");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlanRef");
+
+                    b.ToTable("Precios", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ExternalId = "c6f75d1c-3166-4318-9008-b9097dc4b7cd",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(843),
+                            PlanRef = 1,
+                            Tipo = 0,
+                            ValidoDesde = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(855),
+                            ValidoHasta = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Valor = 0.0m
+                        });
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Seguridad.Subscripcion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ExternalId");
+
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("FechaDeCreacion");
+
+                    b.Property<DateTime?>("Fin")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Fin");
+
+                    b.Property<DateTime>("Inicio")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Inicio");
+
+                    b.Property<int>("PrecioRef")
+                        .HasColumnType("int")
+                        .HasColumnName("PrecioRef");
+
+                    b.Property<string>("UserRef")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("UserRef");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PrecioRef");
+
+                    b.HasIndex("UserRef");
+
+                    b.ToTable("Subscripciones", (string)null);
                 });
 
             modelBuilder.Entity("rakoona.core.Entities.Models.Seguridad.User", b =>
@@ -1085,103 +1656,9 @@ namespace rakoona.coreMigrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("rakoona.core.Entities.Models.UsuarioOrganizacion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ExternalId")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)")
-                        .HasColumnName("ExternalId");
-
-                    b.Property<DateTime>("FechaDeCreacion")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("FechaDeCreacion");
-
-                    b.Property<int>("OrganizacionRef")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserRef")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(250)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganizacionRef")
-                        .IsUnique();
-
-                    b.HasIndex("UserRef")
-                        .IsUnique();
-
-                    b.ToTable("UsuarioOrganizacion", (string)null);
-                });
-
-            modelBuilder.Entity("rakoona.core.Entities.Models.Vacunacion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("Caducidad")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Caducidad");
-
-                    b.Property<int>("CartillaRef")
-                        .HasColumnType("int")
-                        .HasColumnName("CartillaRef");
-
-                    b.Property<string>("ExternalId")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)")
-                        .HasColumnName("ExternalId");
-
-                    b.Property<DateTime>("FechaAplicacion")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("FechaAplicacion");
-
-                    b.Property<DateTime>("FechaDeCreacion")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("FechaDeCreacion");
-
-                    b.Property<string>("Laboratorio")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Laboratorio");
-
-                    b.Property<string>("Lote")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Lote");
-
-                    b.Property<int>("MedicoRef")
-                        .HasColumnType("int")
-                        .HasColumnName("MedicoRef");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Nombre");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartillaRef");
-
-                    b.HasIndex("MedicoRef");
-
-                    b.ToTable("Vacunaciones", (string)null);
-                });
-
             modelBuilder.Entity("rakoona.core.Entities.Models.Personas.Cliente", b =>
                 {
-                    b.HasBaseType("rakoona.core.Entities.Models.Personas.PersonaBase");
+                    b.HasBaseType("rakoona.core.Entities.Models.Personas.Persona");
 
                     b.HasDiscriminator().HasValue("Cliente");
                 });
@@ -1428,7 +1905,7 @@ namespace rakoona.coreMigrations
 
             modelBuilder.Entity("rakoona.core.Entities.Models.Domicilio", b =>
                 {
-                    b.HasOne("rakoona.core.Entities.Models.Personas.PersonaBase", "Persona")
+                    b.HasOne("rakoona.core.Entities.Models.Personas.Persona", "Persona")
                         .WithMany("Domicilios")
                         .HasForeignKey("PersonaRef")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1448,15 +1925,82 @@ namespace rakoona.coreMigrations
                     b.Navigation("Receta");
                 });
 
-            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.ColorPorMascota", b =>
+            modelBuilder.Entity("rakoona.core.Entities.Models.Organizacion", b =>
+                {
+                    b.HasOne("rakoona.core.Entities.Models.Seguridad.User", "Usuario")
+                        .WithOne("Organizacion")
+                        .HasForeignKey("rakoona.core.Entities.Models.Organizacion", "UserRef")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.Color", b =>
+                {
+                    b.HasOne("rakoona.core.Entities.Models.Pacientes.DescripcionFisicaDeMascota", "Descripcion")
+                        .WithMany("Colores")
+                        .HasForeignKey("DescripcionRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Descripcion");
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.DescripcionFisicaDeMascota", b =>
                 {
                     b.HasOne("rakoona.core.Entities.Models.Pacientes.Mascota", "Mascota")
-                        .WithMany("Colores")
-                        .HasForeignKey("MascotaRef")
+                        .WithOne("Descripcion")
+                        .HasForeignKey("rakoona.core.Entities.Models.Pacientes.DescripcionFisicaDeMascota", "MascotaRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("rakoona.core.Entities.Models.Pacientes.RazaAnimal", "Raza")
+                        .WithMany("DescipcionesFisicasDeMascota")
+                        .HasForeignKey("RazaRef")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Mascota");
+
+                    b.Navigation("Raza");
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.Especie", b =>
+                {
+                    b.HasOne("rakoona.core.Entities.Models.Pacientes.ClaseDeAnimales", "ClaseAnimal")
+                        .WithMany("Especies")
+                        .HasForeignKey("ClaseAnimalRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("rakoona.core.Entities.Models.Pacientes.GeneroAnimal", "Genero")
+                        .WithMany("Especies")
+                        .HasForeignKey("GeneroRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("rakoona.core.Entities.Models.Pacientes.OrdenAnimal", "Orden")
+                        .WithMany("Especies")
+                        .HasForeignKey("OrdenAnimalRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ClaseAnimal");
+
+                    b.Navigation("Genero");
+
+                    b.Navigation("Orden");
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.GeneroAnimal", b =>
+                {
+                    b.HasOne("rakoona.core.Entities.Models.Pacientes.Familia", "Familia")
+                        .WithMany("Generos")
+                        .HasForeignKey("FamiliaRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Familia");
                 });
 
             modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.ImagenPorMascota", b =>
@@ -1481,9 +2025,20 @@ namespace rakoona.coreMigrations
                     b.Navigation("Duenio");
                 });
 
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.RazaAnimal", b =>
+                {
+                    b.HasOne("rakoona.core.Entities.Models.Pacientes.Especie", "Especie")
+                        .WithMany("Razas")
+                        .HasForeignKey("EspecieRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Especie");
+                });
+
             modelBuilder.Entity("rakoona.core.Entities.Models.Personas.Medico", b =>
                 {
-                    b.HasOne("rakoona.core.Entities.Models.Personas.PersonaBase", "PersonaInfo")
+                    b.HasOne("rakoona.core.Entities.Models.Personas.Persona", "PersonaInfo")
                         .WithOne("MedicoInfo")
                         .HasForeignKey("rakoona.core.Entities.Models.Personas.Medico", "PersonaRef")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1492,49 +2047,19 @@ namespace rakoona.coreMigrations
                     b.Navigation("PersonaInfo");
                 });
 
-            modelBuilder.Entity("rakoona.core.Entities.Models.Personas.PersonaBase", b =>
+            modelBuilder.Entity("rakoona.core.Entities.Models.Personas.Persona", b =>
                 {
                     b.HasOne("rakoona.core.Entities.Models.Seguridad.User", "User")
                         .WithOne("Persona")
-                        .HasForeignKey("rakoona.core.Entities.Models.Personas.PersonaBase", "UsuarioRef");
+                        .HasForeignKey("rakoona.core.Entities.Models.Personas.Persona", "UsuarioRef");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("rakoona.core.Entities.Models.TiposDeContacto.Contacto", b =>
-                {
-                    b.HasOne("rakoona.core.Entities.Models.Personas.PersonaBase", "Persona")
-                        .WithMany("InformacionDeContacto")
-                        .HasForeignKey("PersonaRef")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Persona");
-                });
-
-            modelBuilder.Entity("rakoona.core.Entities.Models.UsuarioOrganizacion", b =>
-                {
-                    b.HasOne("rakoona.core.Entities.Models.Organizacion", "Organizacion")
-                        .WithOne("UsuarioOrganizacion")
-                        .HasForeignKey("rakoona.core.Entities.Models.UsuarioOrganizacion", "OrganizacionRef")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("rakoona.core.Entities.Models.Seguridad.User", "Usuario")
-                        .WithOne("UsuarioOrganizacion")
-                        .HasForeignKey("rakoona.core.Entities.Models.UsuarioOrganizacion", "UserRef")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Organizacion");
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("rakoona.core.Entities.Models.Vacunacion", b =>
+            modelBuilder.Entity("rakoona.core.Entities.Models.PlanDeVacunacion", b =>
                 {
                     b.HasOne("rakoona.core.Entities.Models.Cartilla", "Cartilla")
-                        .WithMany("Vacunas")
+                        .WithMany("PlanesDeVacunacion")
                         .HasForeignKey("CartillaRef")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1550,11 +2075,52 @@ namespace rakoona.coreMigrations
                     b.Navigation("Medico");
                 });
 
+            modelBuilder.Entity("rakoona.core.Entities.Models.Seguridad.Precio", b =>
+                {
+                    b.HasOne("rakoona.core.Entities.Models.Seguridad.Plan", "Plan")
+                        .WithMany("Precios")
+                        .HasForeignKey("PlanRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Plan");
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Seguridad.Subscripcion", b =>
+                {
+                    b.HasOne("rakoona.core.Entities.Models.Seguridad.Precio", "Precio")
+                        .WithMany("Subscripciones")
+                        .HasForeignKey("PrecioRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("rakoona.core.Entities.Models.Seguridad.User", "Usuario")
+                        .WithMany("Subscripciones")
+                        .HasForeignKey("UserRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Precio");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.TiposDeContacto.Contacto", b =>
+                {
+                    b.HasOne("rakoona.core.Entities.Models.Personas.Persona", "Persona")
+                        .WithMany("InformacionDeContacto")
+                        .HasForeignKey("PersonaRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Persona");
+                });
+
             modelBuilder.Entity("rakoona.core.Entities.Models.Cartilla", b =>
                 {
                     b.Navigation("Consultas");
 
-                    b.Navigation("Vacunas");
+                    b.Navigation("PlanesDeVacunacion");
                 });
 
             modelBuilder.Entity("rakoona.core.Entities.Models.Clinica", b =>
@@ -1567,9 +2133,31 @@ namespace rakoona.coreMigrations
             modelBuilder.Entity("rakoona.core.Entities.Models.Organizacion", b =>
                 {
                     b.Navigation("Clinicas");
+                });
 
-                    b.Navigation("UsuarioOrganizacion")
-                        .IsRequired();
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.ClaseDeAnimales", b =>
+                {
+                    b.Navigation("Especies");
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.DescripcionFisicaDeMascota", b =>
+                {
+                    b.Navigation("Colores");
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.Especie", b =>
+                {
+                    b.Navigation("Razas");
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.Familia", b =>
+                {
+                    b.Navigation("Generos");
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.GeneroAnimal", b =>
+                {
+                    b.Navigation("Especies");
                 });
 
             modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.Mascota", b =>
@@ -1579,7 +2167,8 @@ namespace rakoona.coreMigrations
 
                     b.Navigation("Citas");
 
-                    b.Navigation("Colores");
+                    b.Navigation("Descripcion")
+                        .IsRequired();
 
                     b.Navigation("Imagenes");
 
@@ -1594,6 +2183,16 @@ namespace rakoona.coreMigrations
                     b.Navigation("MedicionesDeTemperatura");
                 });
 
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.OrdenAnimal", b =>
+                {
+                    b.Navigation("Especies");
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Pacientes.RazaAnimal", b =>
+                {
+                    b.Navigation("DescipcionesFisicasDeMascota");
+                });
+
             modelBuilder.Entity("rakoona.core.Entities.Models.Personas.Medico", b =>
                 {
                     b.Navigation("ClinicaMedicos");
@@ -1603,7 +2202,7 @@ namespace rakoona.coreMigrations
                     b.Navigation("Vacunas");
                 });
 
-            modelBuilder.Entity("rakoona.core.Entities.Models.Personas.PersonaBase", b =>
+            modelBuilder.Entity("rakoona.core.Entities.Models.Personas.Persona", b =>
                 {
                     b.Navigation("Domicilios");
 
@@ -1617,13 +2216,25 @@ namespace rakoona.coreMigrations
                     b.Navigation("Dosis");
                 });
 
+            modelBuilder.Entity("rakoona.core.Entities.Models.Seguridad.Plan", b =>
+                {
+                    b.Navigation("Precios");
+                });
+
+            modelBuilder.Entity("rakoona.core.Entities.Models.Seguridad.Precio", b =>
+                {
+                    b.Navigation("Subscripciones");
+                });
+
             modelBuilder.Entity("rakoona.core.Entities.Models.Seguridad.User", b =>
                 {
+                    b.Navigation("Organizacion")
+                        .IsRequired();
+
                     b.Navigation("Persona")
                         .IsRequired();
 
-                    b.Navigation("UsuarioOrganizacion")
-                        .IsRequired();
+                    b.Navigation("Subscripciones");
                 });
 
             modelBuilder.Entity("rakoona.core.Entities.Models.Personas.Cliente", b =>

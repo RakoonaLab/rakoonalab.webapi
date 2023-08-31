@@ -8,7 +8,7 @@ using rakoona.core.Context;
 
 #nullable disable
 
-namespace rakoona.coreMigrations
+namespace rakoona.core.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -745,8 +745,8 @@ namespace rakoona.coreMigrations
                         new
                         {
                             Id = 1,
-                            ExternalId = "dc9b119e-a965-4ac7-81fc-13c4784abede",
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(6237),
+                            ExternalId = "6cc0b3ea-ce29-41ae-bcd4-52005bb5f009",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(513),
                             Nombre = "Mamiforo"
                         });
                 });
@@ -869,8 +869,8 @@ namespace rakoona.coreMigrations
                         {
                             Id = 1,
                             ClaseAnimalRef = 1,
-                            ExternalId = "56e258c6-e09a-487c-bc80-87b137ef14a7",
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(7343),
+                            ExternalId = "ce8770dc-f4d2-4101-9bd2-be359d86bc2b",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(605),
                             GeneroRef = 2,
                             NombreCorto = "Gato",
                             OrdenAnimalRef = 1
@@ -879,8 +879,8 @@ namespace rakoona.coreMigrations
                         {
                             Id = 2,
                             ClaseAnimalRef = 1,
-                            ExternalId = "468732be-a4b6-427b-bf22-cd9fcea85df7",
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(7438),
+                            ExternalId = "42d33ca1-d474-407e-9d3a-e39f4fd78651",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(624),
                             GeneroRef = 1,
                             NombreCorto = "Perro",
                             OrdenAnimalRef = 1
@@ -889,8 +889,8 @@ namespace rakoona.coreMigrations
                         {
                             Id = 3,
                             ClaseAnimalRef = 1,
-                            ExternalId = "aeeb80c3-042a-4f26-8b62-fbcce5f1561e",
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(7508),
+                            ExternalId = "8df48dfd-129b-4437-a8c2-d0b43e47946c",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(638),
                             GeneroRef = 3,
                             NombreCorto = "Hurón",
                             OrdenAnimalRef = 1
@@ -929,22 +929,22 @@ namespace rakoona.coreMigrations
                         new
                         {
                             Id = 1,
-                            ExternalId = "7baa4c87-483e-49c6-943f-11ee8f60df85",
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(6351),
+                            ExternalId = "54ecb00c-03e9-4900-aa2c-dafc9a89f0ac",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(537),
                             Nombre = "Canidos"
                         },
                         new
                         {
                             Id = 2,
-                            ExternalId = "ac43eb11-9045-458f-949c-ec1f04be7cd4",
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(6946),
+                            ExternalId = "5314f937-e525-4355-a431-5b8d7c39ba77",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(541),
                             Nombre = "Félidos"
                         },
                         new
                         {
                             Id = 3,
-                            ExternalId = "f9b2e4a0-cb67-432b-b708-89a6bc2ffd17",
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(7019),
+                            ExternalId = "3f7dc2aa-0bc7-4b57-95b1-4f7c7a0b05e6",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(544),
                             Nombre = "Mustélidos"
                         });
                 });
@@ -986,25 +986,25 @@ namespace rakoona.coreMigrations
                         new
                         {
                             Id = 1,
-                            ExternalId = "7daac0d4-226c-463b-8496-8165a2fa0057",
+                            ExternalId = "373e7269-2d29-4b16-90a7-9cd563f8f946",
                             FamiliaRef = 1,
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(7138),
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(561),
                             Nombre = "Canis"
                         },
                         new
                         {
                             Id = 2,
-                            ExternalId = "af92c571-6b2c-4a23-8dfd-7d5c3263eb39",
+                            ExternalId = "338e688f-c8c7-464c-a593-0c085430269f",
                             FamiliaRef = 2,
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(7208),
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(578),
                             Nombre = "Felis"
                         },
                         new
                         {
                             Id = 3,
-                            ExternalId = "ee13382e-b7ed-4283-8696-534bcf306626",
+                            ExternalId = "e0684701-0e90-40fe-b5a2-935ae81abb98",
                             FamiliaRef = 3,
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(7243),
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(585),
                             Nombre = "Mustela"
                         });
                 });
@@ -1140,8 +1140,8 @@ namespace rakoona.coreMigrations
                         new
                         {
                             Id = 1,
-                            ExternalId = "0d8ea7df-7a8b-428d-b3ad-6e16465a8c2e",
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(5357),
+                            ExternalId = "c8627a08-0cbb-4bf8-9e7d-70004c7ee466",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(273),
                             Nombre = "Carnívoro"
                         });
                 });
@@ -1189,24 +1189,24 @@ namespace rakoona.coreMigrations
                         {
                             Id = 1,
                             EspecieRef = 2,
-                            ExternalId = "e34675ad-98ea-4c21-b03f-83c0f4877b79",
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(7906),
+                            ExternalId = "91b2fb5c-1c2a-4d7e-8b8a-18c86e1f3cf8",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(750),
                             NombreColoquial = "Affenpinscher"
                         },
                         new
                         {
                             Id = 2,
                             EspecieRef = 2,
-                            ExternalId = "f7b182fa-182b-45d9-b0de-91d3c2ad03bc",
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(8110),
+                            ExternalId = "d549ffb6-88ae-4f51-8854-ebbe7bbcae04",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(771),
                             NombreColoquial = "Afgano"
                         },
                         new
                         {
                             Id = 3,
                             EspecieRef = 2,
-                            ExternalId = "7f4a1cdd-e8c2-486c-a8c4-ae0d304a2d42",
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(8187),
+                            ExternalId = "0823912f-c6c6-48f2-ab87-46534d3057a3",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(786),
                             NombreColoquial = "Akita"
                         });
                 });
@@ -1408,15 +1408,15 @@ namespace rakoona.coreMigrations
                         new
                         {
                             Id = 1,
-                            ExternalId = "0916aac0-e3ac-4524-93e0-f58909bac73d",
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(8358),
+                            ExternalId = "3b45fc68-f97e-4392-bd54-e0aea44041f4",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(822),
                             Nombre = "Free"
                         },
                         new
                         {
                             Id = 2,
-                            ExternalId = "65982ce5-5999-4629-ab80-e37651745f86",
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(8380),
+                            ExternalId = "f4739456-f95b-4758-bd38-76146a0f477c",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(826),
                             Nombre = "Basico"
                         });
                 });
@@ -1469,11 +1469,11 @@ namespace rakoona.coreMigrations
                         new
                         {
                             Id = 1,
-                            ExternalId = "a88efb7e-1eb9-4c27-b780-df1feb7dc8f3",
-                            FechaDeCreacion = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(8449),
+                            ExternalId = "c6f75d1c-3166-4318-9008-b9097dc4b7cd",
+                            FechaDeCreacion = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(843),
                             PlanRef = 1,
                             Tipo = 0,
-                            ValidoDesde = new DateTime(2023, 8, 30, 21, 49, 6, 61, DateTimeKind.Local).AddTicks(8503),
+                            ValidoDesde = new DateTime(2023, 8, 31, 12, 7, 9, 791, DateTimeKind.Local).AddTicks(855),
                             ValidoHasta = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Valor = 0.0m
                         });
