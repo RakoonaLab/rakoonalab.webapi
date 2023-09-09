@@ -11,5 +11,6 @@
         internal const string Peso = "Peso";
         internal const string Cartilla = "Cartilla";
         internal const string Clasificacion = "Clasificaciones";
+        internal const string Subscripcion = "Subscripciones";
     }
 }
