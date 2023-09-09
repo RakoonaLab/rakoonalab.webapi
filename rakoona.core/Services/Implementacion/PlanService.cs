@@ -17,7 +17,7 @@ namespace rakoona.core.Services.Implementacion
 
         public async Task<IEnumerable<PlanResponse>> GetPlanes()
         {
-            var planes = await _context.Planes.ToListAsync();
+            var planes = await _context.Planes.Include(x=>x.Precios).ToListAsync();
 
             return planes.Select(x => x.MapToResponse());
         }
