@@ -8,18 +8,21 @@ namespace rakoona.core.Entities.Mappers
     {
         internal static PlanResponse MapToResponse(this Plan entity)
         {
-            var today = DateTime.Today;
-            StringBuilder sb = new StringBuilder();
-
-
             PlanResponse response = new PlanResponse
             {
                 Id = entity.ExternalId,
                 FechaDeCreacion = entity.FechaDeCreacion,
                 Nombre = entity.Nombre,
-                Valor = entity.Precios.FirstOrDefault().Valor,
-                PrecioRef = entity.Precios.FirstOrDefault().ExternalId
+                
             };
+
+            if (entity.Precios.Count() > 0)
+            {
+                var precio = entity.Precios.FirstOrDefault();
+
+                response.Valor = precio != null ? precio.Valor : 0;
+                response.PrecioRef = precio != null ? precio.ExternalId : "";
+            }
 
             return response;
         }
