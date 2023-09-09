@@ -1,4 +1,4 @@
-﻿using Microsoft.OpenApi.Models;
+﻿ using Microsoft.OpenApi.Models;
 
 namespace rakoona.webapi.Configuration.Swagger
 {
@@ -13,17 +13,17 @@ namespace rakoona.webapi.Configuration.Swagger
                     Version = "v1",
                     Title = "Rakoona-APIs",
                     Description = "Rakoona-APIs.",
-                    TermsOfService = new Uri("https://example.com/terms"),
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Example Contact",
-                        Url = new Uri("https://example.com/contact")
-                    },
-                    License = new OpenApiLicense
-                    {
-                        Name = "Example License",
-                        Url = new Uri("https://example.com/license")
-                    }
+                    //TermsOfService = new Uri("https://example.com/terms"),
+                    //Contact = new OpenApiContact
+                    //{
+                    //    Name = "Example Contact",
+                    //    Url = new Uri("https://example.com/contact")
+                    //},
+                    //License = new OpenApiLicense
+                    //{
+                    //    Name = "Example License",
+                    //    Url = new Uri("https://example.com/license")
+                    //}
                 });
                 options.EnableAnnotations();
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
