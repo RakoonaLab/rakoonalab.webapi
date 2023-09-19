@@ -19,12 +19,15 @@ namespace rakoona.core.Services.Implementacion
         private ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
         private readonly UserManager<User> _userManager;
+        private readonly IPlanService _planService;
 
         public AccountService(ApplicationDbContext context,
             IConfiguration configuration,
+            IPlanService planService,
             UserManager<User> userManager)
         {
             _context = context;
+            _planService = planService;
             _configuration = configuration;
             _userManager = userManager;
         }
@@ -47,6 +50,8 @@ namespace rakoona.core.Services.Implementacion
         public async Task<TokenResponse?> Login(AuthenticateRequest model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
+
+            var plan = await _planService.GetPlanPorUsuario(user.Id);
 
             var passwordIsValid = await _userManager.CheckPasswordAsync(user, model.Password);
 
@@ -78,7 +83,8 @@ namespace rakoona.core.Services.Implementacion
                 return new TokenResponse
                 {
                     Token = new JwtSecurityTokenHandler().WriteToken(token),
-                    Expiration = token.ValidTo
+                    Expiration = token.ValidTo,
+                    Plan = plan
                 };
             }
             return null;
