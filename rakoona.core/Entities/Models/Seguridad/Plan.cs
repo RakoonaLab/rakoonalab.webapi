@@ -6,6 +6,8 @@ namespace rakoona.core.Entities.Models.Seguridad
     public class Plan : ModelBase
     {
         public String Nombre { get; set; }
+        public int NumeroDeClinicas { get; set; }
+        public int NumeroDeMedicos { get; set; }
         public virtual IEnumerable<Precio> Precios { get; set; }
     }
 
@@ -20,6 +22,8 @@ namespace rakoona.core.Entities.Models.Seguridad
             builder.Property(c => c.ExternalId).HasColumnName("ExternalId").HasMaxLength(250);
             builder.Property(c => c.FechaDeCreacion).HasColumnName("FechaDeCreacion");
             builder.Property(c => c.Nombre).HasColumnName("Nombre");
+            builder.Property(c => c.NumeroDeClinicas).HasColumnName("NumeroDeClinicas");
+            builder.Property(c => c.NumeroDeMedicos).HasColumnName("NumeroDeMedicos");
         }
     }
 }
