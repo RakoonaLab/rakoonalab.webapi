@@ -21,5 +21,20 @@ namespace rakoona.core.Services.Implementacion
 
             return planes.Select(x => x.MapToResponse());
         }
+
+        public async Task<PlanResponse> GetPlanPorUsuario(string userId)
+        {
+            var usuario = await _context.Usuarios
+                .Include(x=> x.Subscripciones)
+                .ThenInclude(x=> x.Precio)
+                .ThenInclude(x=> x.Plan)
+                .FirstOrDefaultAsync(x=>x.Id == userId);
+
+            var subscripcion = usuario.Subscripciones.OrderByDescending(x=> x.FechaDeCreacion).FirstOrDefault();
+
+            var plan = subscripcion.Precio.Plan;
+
+            return plan.MapToResponse();
+        }
     }
 }
