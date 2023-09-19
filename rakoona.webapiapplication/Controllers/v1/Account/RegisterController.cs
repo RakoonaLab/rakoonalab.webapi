@@ -10,12 +10,12 @@ namespace rakoona.webapi.Controllers.v1.Account
     [ApiController]
     public class RegisterController : ControllerBase
     {
-        private readonly IRegisterService _registerService;
+        private readonly IAccountService _accountService;
 
         public RegisterController(
-            IRegisterService registerService)
+            IAccountService accountService)
         {
-            _registerService = registerService;
+            _accountService = accountService;
         }
 
         [SwaggerOperation(Tags = new[] { "Account" })]
@@ -25,10 +25,13 @@ namespace rakoona.webapi.Controllers.v1.Account
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Register([FromBody] RegisterRequest model)
         {
-            if (await _registerService.ValidateIfUserExist(model.Email))
+            if (string.IsNullOrEmpty( model.Email))
+                return BadRequest(ModelState);
+            
+            if (await _accountService.ValidateIfUserExist(model.Email))
                 return BadRequest("El email ya esta dado de alta.");
             
-            var response = await _registerService.Register(model);
+            var response = await _accountService.Register(model);
 
             if (response.Status == "Error")
                 return BadRequest(response.Errors.Select(x => x).ToJson());
