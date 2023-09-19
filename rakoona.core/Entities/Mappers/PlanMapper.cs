@@ -13,7 +13,8 @@ namespace rakoona.core.Entities.Mappers
                 Id = entity.ExternalId,
                 FechaDeCreacion = entity.FechaDeCreacion,
                 Nombre = entity.Nombre,
-                
+                NumeroDeClinicas = entity.NumeroDeClinicas,
+                NumeroDeMedicos = entity.NumeroDeMedicos
             };
 
             if (entity.Precios.Count() > 0)
