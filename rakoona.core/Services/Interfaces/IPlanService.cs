@@ -5,5 +5,6 @@ namespace rakoona.core.Services.Interfaces
     public interface IPlanService
     {
         Task<IEnumerable<PlanResponse>> GetPlanes();
+        Task<PlanResponse> GetPlanPorUsuario(string userId);
     }
 }
